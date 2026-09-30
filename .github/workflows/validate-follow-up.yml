@@ -1,0 +1,48 @@
+name: Validate PR follow-up
+on:
+  push:
+    branches: [validation/pr-follow-up-20260930]
+permissions:
+  contents: read
+jobs:
+  registration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DEEPFACE_BACKEND_ENGINE: pytorch
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: b396f65340023360b4c1abc8fab6308c4c56d8eb
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -r requirements_base.txt pytest qdrant-client==1.19.1 'opencv-python<5'
+      - run: python -m pytest tests/unit/test_register_connection_cleanup.py tests/integration/test_register_qdrant_cleanup.py tests/unit/test_datastore_normalized_metric.py tests/unit/test_angular_distance.py -q
+  top-k:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: Afloat16/recommenders
+          ref: 4d741723322b9f59cddaa6ee9d90b1d93dd57cef
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install 'numpy==1.26.4' 'pandas>=2,<3' 'scipy<2' 'scikit-learn<2' pytest pytest-mock
+      - run: python -m pytest tests/unit/recommenders/utils/test_zero_top_k.py tests/unit/recommenders/utils/test_python_utils.py -q
+  k-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: Afloat16/recommenders
+          ref: c5720b562653e63edf2ebb395705d31baa0b6fee
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install 'numpy==1.26.4' 'pandas>=2,<3' 'scipy<2' 'scikit-learn<2' pytest pytest-mock
+      - run: python -m pytest tests/unit/recommenders/datasets/test_kcore_columns.py tests/unit/recommenders/datasets/test_python_splitter.py -q
