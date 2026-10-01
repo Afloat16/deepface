@@ -90,7 +90,7 @@ jobs:
           find = next(node for node in api_ast.body if isinstance(node, ast.FunctionDef) and node.name == "find")
           docstring = ast.get_docstring(find)
           examples = [
-              block for block in re.findall(r"```python[^\\n]*\\n(.*?)```", docstring, re.S)
+              block for block in re.findall(r"```python[^\n]*\n(.*?)```", docstring, re.S)
               if "def custom_euclidean(" in block
           ]
           assert len(examples) == 1
