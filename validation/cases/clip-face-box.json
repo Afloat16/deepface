@@ -1,6 +1,6 @@
 {
   "slug": "clip-face-box",
-  "head": "9e013dda87ff110ad813475739dac83c0cc8f0a8",
+  "head": "6fa7a20fe129f36751ac4da10d3bd91671a5d5c8",
   "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
   "production_files": [
     "deepface/modules/detection.py"

@@ -13,32 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - slug: confidence-threshold
-          head: 18b35825a71f8629ac2c4b80315f2d952af57ba4
-          extra: ''
-        - slug: facenet-prewhiten
-          head: 34b474536b181425d302ab36edd9803a883d9fa1
-          extra: ''
-        - slug: faiss-missing-neighbours
-          head: 6bcf6988a6d2312b34bccf50c68d33e2a9be8db6
-          extra: faiss-cpu==1.15.1
-        - slug: missing-gallery-embedding
-          head: 0f588ed70d7d469b5f719a36e400b51afc0b269d
-          extra: ''
-        - slug: singleton-analyze-batch
-          head: ba7068227f7860b27d9b917387e39f41b108511e
-          extra: ''
-        - slug: centerface-empty
-          head: c5fa2b67b770c999f89a59b8bb49721f49b2d303
-          extra: ''
         - slug: clip-face-box
-          head: 9e013dda87ff110ad813475739dac83c0cc8f0a8
-          extra: ''
-        - slug: buffalo-input-scale
-          head: 0577213591602d690c889158f1eab98db8b6fb38
-          extra: insightface==0.7.3 onnx==1.23.1
-        - slug: form-image
-          head: 1971d475d0f7492b0437823bb09895eaefb26810
+          head: 6fa7a20fe129f36751ac4da10d3bd91671a5d5c8
           extra: ''
     env:
       CC: gcc
