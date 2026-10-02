@@ -1,0 +1,35 @@
+name: DeepFace Milvus gallery regression
+on:
+  push:
+    branches: [validation/oct3-milvus-gallery]
+permissions:
+  contents: read
+jobs:
+  native-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: validation
+      - uses: actions/checkout@v4
+        with:
+          repository: Afloat16/deepface
+          ref: eca43d4edcef69fa75e4cd0037b1664d1edfbdd8
+          fetch-depth: 0
+          path: candidate
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install native runtime and real Milvus Lite
+        run: |
+          python -m pip install -r candidate/requirements_base.txt -r candidate/requirements-dev.txt onnxruntime==1.30.0 pymilvus==2.6.9 milvus-lite==2.5.1 'setuptools<81' numpy==2.3.5 pandas==2.2.3 opencv-python==5.0.0.93
+      - name: Candidate passes and original production fails the same suite
+        run: python validation/validation/validate_candidate.py validation/validation/milvus-case.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: milvus-gallery-regression
+          path: |
+            candidate/*-results.xml
+            candidate/*-tests.log
