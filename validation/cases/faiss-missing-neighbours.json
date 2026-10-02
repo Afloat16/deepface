@@ -1,0 +1,13 @@
+{
+  "slug": "faiss-missing-neighbours",
+  "head": "6bcf6988a6d2312b34bccf50c68d33e2a9be8db6",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/datastore.py"
+  ],
+  "tests": [
+    "tests/unit/test_faiss_missing_neighbours.py",
+    "tests/unit/test_datastore_normalized_metric.py",
+    "tests/unit/test_angular_distance.py"
+  ]
+}

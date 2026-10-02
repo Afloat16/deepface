@@ -1,0 +1,12 @@
+{
+  "slug": "buffalo-input-scale",
+  "head": "0577213591602d690c889158f1eab98db8b6fb38",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/models/facial_recognition/onnx/Buffalo_L.py"
+  ],
+  "tests": [
+    "tests/unit/test_buffalo_preprocessing.py"
+  ],
+  "sdk_script": "validate_buffalo_sdk.py"
+}

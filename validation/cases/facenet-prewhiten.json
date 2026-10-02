@@ -1,0 +1,11 @@
+{
+  "slug": "facenet-prewhiten",
+  "head": "34b474536b181425d302ab36edd9803a883d9fa1",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/preprocessing.py"
+  ],
+  "tests": [
+    "tests/unit/test_facenet_prewhitening.py"
+  ]
+}

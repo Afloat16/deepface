@@ -1,0 +1,13 @@
+{
+  "slug": "milvus-complete-gallery",
+  "head": "eca43d4edcef69fa75e4cd0037b1664d1edfbdd8",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/database/milvus.py"
+  ],
+  "tests": [
+    "tests/unit/test_milvus_complete_gallery.py",
+    "tests/integration/test_milvus_complete_gallery_lite.py",
+    "tests/unit/test_milvus_distance.py"
+  ]
+}

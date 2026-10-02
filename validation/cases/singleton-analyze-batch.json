@@ -1,0 +1,11 @@
+{
+  "slug": "singleton-analyze-batch",
+  "head": "ba7068227f7860b27d9b917387e39f41b108511e",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/demography.py"
+  ],
+  "tests": [
+    "tests/unit/test_analyze_numpy_batch.py"
+  ]
+}

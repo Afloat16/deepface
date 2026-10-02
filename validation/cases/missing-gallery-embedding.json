@@ -1,0 +1,13 @@
+{
+  "slug": "missing-gallery-embedding",
+  "head": "0f588ed70d7d469b5f719a36e400b51afc0b269d",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/recognition.py"
+  ],
+  "tests": [
+    "tests/unit/test_find_missing_embeddings.py",
+    "tests/unit/test_find_color_consistency.py",
+    "tests/unit/test_angular_distance.py"
+  ]
+}

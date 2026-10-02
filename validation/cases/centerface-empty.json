@@ -1,0 +1,12 @@
+{
+  "slug": "centerface-empty",
+  "head": "c5fa2b67b770c999f89a59b8bb49721f49b2d303",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/models/face_detection/CenterFace.py"
+  ],
+  "tests": [
+    "tests/unit/test_centerface_empty.py",
+    "tests/unit/test_landmark_sanitization.py"
+  ]
+}

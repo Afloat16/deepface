@@ -1,0 +1,74 @@
+name: DeepFace minimal correctness regressions
+'on':
+  push:
+    branches:
+    - validation/oct3-minimal-correctness
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - slug: confidence-threshold
+          head: 18b35825a71f8629ac2c4b80315f2d952af57ba4
+          extra: ''
+        - slug: facenet-prewhiten
+          head: 34b474536b181425d302ab36edd9803a883d9fa1
+          extra: ''
+        - slug: faiss-missing-neighbours
+          head: 6bcf6988a6d2312b34bccf50c68d33e2a9be8db6
+          extra: faiss-cpu==1.15.1
+        - slug: missing-gallery-embedding
+          head: 0f588ed70d7d469b5f719a36e400b51afc0b269d
+          extra: ''
+        - slug: singleton-analyze-batch
+          head: ba7068227f7860b27d9b917387e39f41b108511e
+          extra: ''
+        - slug: centerface-empty
+          head: c5fa2b67b770c999f89a59b8bb49721f49b2d303
+          extra: ''
+        - slug: clip-face-box
+          head: 9e013dda87ff110ad813475739dac83c0cc8f0a8
+          extra: ''
+        - slug: buffalo-input-scale
+          head: 0577213591602d690c889158f1eab98db8b6fb38
+          extra: insightface==0.7.3 onnx==1.23.1
+        - slug: form-image
+          head: 1971d475d0f7492b0437823bb09895eaefb26810
+          extra: ''
+    env:
+      CC: gcc
+      CXX: g++
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: validation
+    - uses: actions/checkout@v4
+      with:
+        repository: Afloat16/deepface
+        ref: ${{ matrix.head }}
+        fetch-depth: 0
+        path: candidate
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install native runtime and required SDK
+      run: python -m pip install -r candidate/requirements_base.txt -r candidate/requirements-dev.txt
+        onnxruntime==1.30.0 numpy==2.3.5 pandas==2.2.3 opencv-python==5.0.0.93 ${{
+        matrix.extra }}
+    - name: Verify exact candidate and original production
+      run: python validation/validation/validate_candidate.py validation/validation/cases/${{
+        matrix.slug }}.json
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: ${{ matrix.slug }}-regression
+        path: 'candidate/*-results.xml
+
+          candidate/*-tests.log
+
+          candidate/*-sdk.log'

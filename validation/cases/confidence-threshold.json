@@ -1,0 +1,13 @@
+{
+  "slug": "confidence-threshold",
+  "head": "18b35825a71f8629ac2c4b80315f2d952af57ba4",
+  "base": "0dfdf504639e2271e11031afbba2f58409303f0c",
+  "production_files": [
+    "deepface/modules/verification.py",
+    "deepface/modules/recognition.py"
+  ],
+  "tests": [
+    "tests/unit/test_zero_threshold.py",
+    "tests/unit/test_angular_distance.py"
+  ]
+}
