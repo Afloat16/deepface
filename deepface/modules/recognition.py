@@ -69,10 +69,11 @@ def find(
             'cosine', 'euclidean', 'euclidean_l2', 'angular' (default is cosine).
             With batched=False, a custom callable receives two 1D NumPy arrays and
             returns a scalar distance. With batched=True, it receives gallery embeddings
-            of shape (N, D) first and query embeddings of shape (M, D) second, and must
-            return a distance matrix of shape (M, N). Rows correspond to query faces;
-            columns correspond to gallery entries. Scalar-only callables require
-            batched=False. An explicit threshold is required for custom callables.
+            of shape (N_valid, D) first and query embeddings of shape (M, D) second, and must
+            return a distance matrix of shape (M, N_valid). Rows correspond to query faces;
+            columns correspond to gallery entries with embeddings. Entries without embeddings
+            retain infinite distance and are not passed to the callable. Scalar-only callables
+            require batched=False. An explicit threshold is required for custom callables.
 
         enforce_detection (boolean): If no face is detected in an image, raise an exception.
             Default is True. Set to False to avoid the exception for low-resolution images.
@@ -574,10 +575,11 @@ def find_batched(
 
         distance_metric (string or callable): Metric for measuring similarity. Options:
             'cosine', 'euclidean', 'euclidean_l2', 'angular'. A custom callable receives
-            gallery embeddings of shape (N, D) first and query embeddings of shape (M, D)
-            second. It must return a distance matrix of shape (M, N), with one row per
-            query face and one column per gallery entry. The callable is invoked once
-            with both complete matrices, not once per embedding pair.
+            gallery embeddings of shape (N_valid, D) first and query embeddings of shape (M, D)
+            second. It must return a distance matrix of shape (M, N_valid), with one row per
+            query face and one column per gallery entry with an embedding. The callable is
+            invoked once when both matrices are nonempty, not once per embedding pair.
+            Entries without embeddings retain infinite distance and are not passed to the callable.
 
         enforce_detection (boolean): If no face is detected in an image, raise an exception.
             Default is True. Set to False to avoid the exception for low-resolution images.
@@ -613,19 +615,23 @@ def find_batched(
             contains a list of dictionaries with matching faces.
     """
 
-    representations = [item for item in representations if item.get("embedding") is not None]
     embeddings_list = []
+    valid_mask_lst = []
     metadata: Set[str] = set()
 
     for item in representations:
-        embeddings_list.append(item["embedding"])
+        embedding = item.get("embedding")
+        valid_mask_lst.append(embedding is not None)
+        if embedding is not None:
+            embeddings_list.append(embedding)
         metadata.update(item.keys())
 
     # remove embedding key from other keys
     metadata.discard("embedding")
     metadata_lst = list(metadata)
 
-    embeddings = np.array(embeddings_list)  # (N, D)
+    embeddings = np.array(embeddings_list)  # (N_valid, D)
+    valid_mask = np.array(valid_mask_lst, dtype=bool)  # (N,)
 
     data = {
         key: np.array([item.get(key, None) for item in representations]) for key in metadata_lst
@@ -636,6 +642,8 @@ def find_batched(
     target_thresholds = []
 
     target_threshold = threshold if similarity_search is False else np.inf
+    if target_threshold is None:
+        target_threshold = verification.find_threshold(model_name, distance_metric)
 
     for source_obj in source_objs:
         if anti_spoofing and not source_obj.get("is_real", True):
@@ -660,9 +668,6 @@ def find_batched(
         source_regions.append(source_region)
         target_thresholds.append(target_threshold)
 
-    if not embeddings_list:
-        return [[] for _ in source_objs]
-
     target_embeddings_np = np.array(target_embeddings)  # (M, D)
     target_thresholds_np = np.array(target_thresholds)  # (M,)
     source_regions_arr = {
@@ -672,17 +677,20 @@ def find_batched(
         "source_h": np.array([region["h"] for region in source_regions]),
     }
 
-    distances: NDArray[Any] = cast(
-        NDArray[Any],
-        verification.find_distance(embeddings, target_embeddings_np, distance_metric),
-    )  # (M, N)
+    # Keep faceless gallery entries at infinite distance without passing dummy vectors
+    # to the metric. This also handles a gallery with no valid embeddings.
+    distances: NDArray[Any] = np.full((len(target_embeddings), len(representations)), np.inf)
+    if embeddings_list and target_embeddings:
+        distances[:, valid_mask] = verification.find_distance(
+            embeddings, target_embeddings_np, distance_metric
+        )
 
     resp_obj = []
     for i in range(len(target_embeddings_np)):
         target_distances = distances[i]  # (N,)
         target_threshold = target_thresholds_np[i]
 
-        N = embeddings.shape[0]
+        N = len(representations)
         result_data = dict(data)
         result_data.update(
             {

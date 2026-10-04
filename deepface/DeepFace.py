@@ -347,10 +347,11 @@ def find(
             'cosine', 'euclidean', 'euclidean_l2', 'angular' (default is cosine).
             With batched=False, a custom callable receives two 1D NumPy arrays and
             returns a scalar distance. With batched=True, it receives gallery embeddings
-            of shape (N, D) first and query embeddings of shape (M, D) second, and must
-            return a distance matrix of shape (M, N). Rows correspond to query faces;
-            columns correspond to gallery entries. Scalar-only callables such as
-            scipy.spatial.distance.euclidean require batched=False. An explicit threshold
+            of shape (N_valid, D) first and query embeddings of shape (M, D) second, and must
+            return a distance matrix of shape (M, N_valid). Rows correspond to query faces;
+            columns correspond to gallery entries with embeddings. Entries without embeddings
+            retain infinite distance and are not passed to the callable. Scalar-only callables
+            such as scipy.spatial.distance.euclidean require batched=False. An explicit threshold
             is required for custom callables, as they have no pre-tuned threshold.
 
         enforce_detection (boolean): If no face is detected in an image, raise an exception.
