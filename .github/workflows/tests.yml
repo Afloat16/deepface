@@ -25,7 +25,7 @@ on:
 
 jobs:
   linting:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: [3.9]
@@ -46,7 +46,7 @@ jobs:
         pylint --fail-under=10 deepface/
   type-check:
     needs: linting
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: [3.8]
@@ -66,7 +66,7 @@ jobs:
         mypy deepface/
   unit-tests:
     needs: type-check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: [3.9]
