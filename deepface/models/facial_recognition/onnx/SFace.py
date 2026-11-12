@@ -15,6 +15,9 @@ logger = Logger()
 # pylint: disable=line-too-long, too-few-public-methods
 WEIGHTS_URL = "https://github.com/opencv/opencv_zoo/raw/main/models/face_recognition_sface/face_recognition_sface_2021dec.onnx"
 
+# Bound activation memory while amortizing session and operator overhead over faces.
+MAX_BATCH_SIZE = 16
+
 
 class SFaceClient(OnnxFacialRecognition):
     """
@@ -47,11 +50,13 @@ class SFaceClient(OnnxFacialRecognition):
         input_blob = (img * 255).astype(np.uint8)[..., ::-1].transpose(0, 3, 1, 2)
         input_blob = np.ascontiguousarray(input_blob, dtype=np.float32)
 
-        # the graph is exported with a batch size of 1
+        # The graph supports batches once its exported batch-size constraint is removed.
         input_name = self.model.get_inputs()[0].name
+        # Small requests do not consistently benefit from batching on CPU.
+        batch_size = MAX_BATCH_SIZE if input_blob.shape[0] >= MAX_BATCH_SIZE else 1
         embeddings = [
-            self.model.run(None, {input_name: input_blob[i : i + 1]})[0]
-            for i in range(input_blob.shape[0])
+            self.model.run(None, {input_name: input_blob[i : i + batch_size]})[0]
+            for i in range(0, input_blob.shape[0], batch_size)
         ]
         return cast(NDArray[Any], np.concatenate(embeddings, axis=0))
 
@@ -62,4 +67,6 @@ def load_model(url: str = WEIGHTS_URL) -> Any:
     Returns:
         model (onnxruntime.InferenceSession)
     """
-    return build_session(file_name="face_recognition_sface_2021dec.onnx", source_url=url)
+    return build_session(
+        file_name="face_recognition_sface_2021dec.onnx", source_url=url, dynamic_shapes=True
+    )
