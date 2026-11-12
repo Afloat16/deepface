@@ -11,6 +11,7 @@ from torch import nn, Tensor
 from deepface.models.Demography import Demography
 from deepface.models.facial_recognition.pytorch.VGGFace import VggFaceBaseModel
 from deepface.commons.logger import Logger
+from deepface.commons.torch_utils import to_numpy
 
 logger = Logger()
 
@@ -52,7 +53,7 @@ class TorchDemography(Demography):
         tensor = tensor.permute(0, 3, 1, 2).to(self.device)
 
         with torch.no_grad():
-            predictions = self.model(tensor).cpu().numpy()
+            predictions = to_numpy(self.model(tensor))
 
         if img_batch.shape[0] == 1:  # Single image
             return cast(NDArray[Any], predictions[0, :])

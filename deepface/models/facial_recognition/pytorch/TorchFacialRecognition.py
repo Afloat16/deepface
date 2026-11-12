@@ -10,6 +10,7 @@ from torch import nn
 # project dependencies
 from deepface.models.FacialRecognition import FacialRecognition
 from deepface.commons.logger import Logger
+from deepface.commons.torch_utils import to_numpy
 
 logger = Logger()
 
@@ -42,7 +43,9 @@ class TorchFacialRecognition(FacialRecognition):
             img = np.expand_dims(img, axis=0)
 
         if img.ndim != 4 or img.shape[0] < 1:
-            raise ValueError(f"Input image must be (n, X, X, 3) shaped but it is {img.shape}")
+            raise ValueError(
+                f"Input image must be (n, X, X, 3) shaped but it is {img.shape}"
+            )
 
         tensor = torch.from_numpy(np.ascontiguousarray(img, dtype=np.float32))
         return cast(torch.Tensor, tensor.permute(0, 3, 1, 2).to(self.device))
@@ -56,7 +59,7 @@ class TorchFacialRecognition(FacialRecognition):
             embeddings (np.ndarray): (n, output_shape) shaped representations
         """
         with torch.no_grad():
-            embeddings = self.model(self.to_tensor(img)).cpu().numpy()
+            embeddings = to_numpy(self.model(self.to_tensor(img)))
         return cast(NDArray[Any], embeddings)
 
     def forward(self, img: NDArray[Any]) -> Union[List[float], List[List[float]]]:
