@@ -53,7 +53,18 @@ def crop(
     out_h: int,
 ) -> Any:
     src_h, src_w, _ = np.shape(org_img)
-    left_top_x, left_top_y, right_bottom_x, right_bottom_y = _get_new_box(src_w, src_h, bbox, scale)
+    left_top_x, left_top_y, right_bottom_x, right_bottom_y = _get_new_box(
+        src_w, src_h, bbox, scale
+    )
     img = org_img[left_top_y : right_bottom_y + 1, left_top_x : right_bottom_x + 1]
+    # The anti-spoofing models expect [0, 255], while extract_faces also accepts
+    # normalized floating-point images. Check the full image, since a dark crop
+    # of an unnormalized image may itself contain only values below one.
+    if (
+        np.issubdtype(org_img.dtype, np.floating)
+        and org_img.max() <= 1
+        and org_img.min() >= 0
+    ):
+        img = img * 255
     dst_img = cv2.resize(img, (out_w, out_h))
     return dst_img
