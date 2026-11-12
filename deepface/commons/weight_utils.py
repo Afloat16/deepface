@@ -145,6 +145,7 @@ WEIGHT_SOURCES = [
     ("facial_recognition", "ArcFace", ["WEIGHTS_URL"]),
     ("facial_recognition", "DeepID", ["WEIGHTS_URL"]),
     ("facial_recognition", "SFace", ["WEIGHTS_URL"]),
+    ("facial_recognition", "Buffalo_L", ["WEIGHTS_URL"]),
     ("facial_recognition", "GhostFaceNet", ["WEIGHTS_URL"]),
     ("facial_recognition", "Dlib", ["WEIGHT_URL"]),
     # demography
@@ -180,6 +181,10 @@ WEIGHT_FILE_NAMES = {
     ("facial_recognition", "GhostFaceNet"): {
         "tensorflow": "ghostfacenet_v1.h5",
     },
+    # Available on every engine; its download URL does not contain the cache filename.
+    ("facial_recognition", "Buffalo_L"): {
+        "any": os.path.join("buffalo_l", "webface_r50.onnx"),
+    },
 }
 
 
@@ -206,7 +211,8 @@ def download_all_models_in_one_shot() -> None:
             continue
 
         module = importlib.import_module(model_class.__module__)
-        file_name = WEIGHT_FILE_NAMES.get((task, model_name), {}).get(backend)
+        file_names = WEIGHT_FILE_NAMES.get((task, model_name), {})
+        file_name = file_names.get(backend) or file_names.get(modeling.ANY)
 
         for attribute in attributes:
             source: Any = module
@@ -242,6 +248,10 @@ def download_all_models_in_one_shot() -> None:
         logger.info(
             f"Downloading {url} to ~/.deepface/weights/{filename} with {compress_type} compression"
         )
+        # Some models keep their weights in a subdirectory. Prepare the same path that
+        # their loader uses, including when bulk download is the first DeepFace call.
+        target_file = os.path.join(folder_utils.get_deepface_home(), ".deepface", "weights", filename)
+        os.makedirs(os.path.dirname(target_file), exist_ok=True)
         download_weights_if_necessary(
             file_name=filename, source_url=url, compress_type=compress_type
         )
