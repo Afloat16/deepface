@@ -582,18 +582,20 @@ def project_facial_area(
     angle = angle * np.pi / 180
 
     height, weight = size
+    # Match the integer pixel center used by align_img_wrt_eyes.
+    center_x, center_y = weight // 2, height // 2
 
     # Translate the facial area to the center of the image
-    x = (facial_area[0] + facial_area[2]) / 2 - weight / 2
-    y = (facial_area[1] + facial_area[3]) / 2 - height / 2
+    x = (facial_area[0] + facial_area[2]) / 2 - center_x
+    y = (facial_area[1] + facial_area[3]) / 2 - center_y
 
     # Rotate the facial area
     x_new = x * np.cos(angle) + y * direction * np.sin(angle)
     y_new = -x * direction * np.sin(angle) + y * np.cos(angle)
 
     # Translate the facial area back to the original position
-    x_new = x_new + weight / 2
-    y_new = y_new + height / 2
+    x_new = x_new + center_x
+    y_new = y_new + center_y
 
     # Calculate projected coordinates after alignment
     x1 = x_new - (facial_area[2] - facial_area[0]) / 2
