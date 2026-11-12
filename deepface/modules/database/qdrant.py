@@ -69,6 +69,7 @@ class QdrantClient(Database):
     def insert_embeddings(
         self, embeddings: List[Dict[str, Any]], batch_size: int = 100
     ) -> int:
+        """Insert new face/embedding pairs without replacing previously registered identities."""
         if not embeddings:
             raise ValueError("No embeddings to insert.")
         if batch_size <= 0:
@@ -89,8 +90,9 @@ class QdrantClient(Database):
             first["l2_normalized"],
         )
 
+        inserted = 0
         for i in range(0, len(embeddings), batch_size):
-            points = []
+            points: Dict[str, Any] = {}
             for e in embeddings[i : i + batch_size]:
                 face_json = json.dumps(e["face"].tolist())
                 face_hash = hashlib.sha256(face_json.encode()).hexdigest()
@@ -103,18 +105,35 @@ class QdrantClient(Database):
                     uuid.uuid5(uuid.NAMESPACE_OID, f"{face_hash}:{embedding_hash}")
                 )
 
-                points.append(
-                    self.models.PointStruct(
-                        id=point_id,
-                        vector=e["embedding"],
-                        payload={"img_name": e["img_name"]},
-                    )
+                if point_id in points:
+                    continue
+                points[point_id] = self.models.PointStruct(
+                    id=point_id,
+                    vector=e["embedding"],
+                    payload={"img_name": e["img_name"]},
                 )
+            existing_ids = {
+                record.id
+                for record in self._client.retrieve(
+                    collection_name=collection_name,
+                    ids=list(points),
+                    with_vectors=False,
+                    with_payload=False,
+                )
+            }
+            new_points = [
+                point
+                for point_id, point in points.items()
+                if point_id not in existing_ids
+            ]
+            if not new_points:
+                continue
             self._client.upsert(
-                collection_name=collection_name, points=points, wait=True
+                collection_name=collection_name, points=new_points, wait=True
             )
+            inserted += len(new_points)
 
-        return len(embeddings)
+        return inserted
 
     def search_by_vector(
         self,
