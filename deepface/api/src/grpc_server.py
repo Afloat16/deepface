@@ -80,7 +80,7 @@ def value_or(request: Any, field: str, default: Any) -> Any:
 
 
 def to_struct(obj: Dict[str, Any]) -> Struct:
-    """Converts a json serializable dictionary into protobuf struct"""
+    """Convert a JSON dictionary to Struct, preserving large integers as decimal strings."""
 
     def default(value: Any) -> Any:
         if isinstance(value, np.generic):
@@ -89,8 +89,14 @@ def to_struct(obj: Dict[str, Any]) -> Struct:
             return value.tolist()
         return str(value)
 
+    def preserve_integer(value: str) -> Union[int, str]:
+        # Struct stores every numeric value as a double. Database IDs outside the
+        # safe integer range must remain strings to avoid silently changing identities.
+        number = int(value)
+        return number if -(2**53 - 1) <= number <= 2**53 - 1 else value
+
     struct = Struct()
-    struct.update(json.loads(json.dumps(obj, default=default)))
+    struct.update(json.loads(json.dumps(obj, default=default), parse_int=preserve_integer))
     return struct
 
 

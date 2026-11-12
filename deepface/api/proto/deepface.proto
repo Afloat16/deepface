@@ -94,6 +94,8 @@ message BuildIndexRequest {
 }
 
 // result has the same structure as the json body returned by the REST API
+// Integers outside [-9007199254740991, 9007199254740991] are decimal strings,
+// because Struct's double-valued numbers cannot preserve large database IDs.
 message DeepFaceResponse {
   google.protobuf.Struct result = 1;
 }
