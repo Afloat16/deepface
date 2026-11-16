@@ -363,8 +363,8 @@
   "batch13": {
     "status": "validation_running",
     "validationBranch": "validation/20261116-pinecone-client-lifetime",
-    "validationSha": "f233ea69d203459701cd4f14dd0d68fbd09e2f1c",
-    "validationTree": "cb00756237932932ddf3a1486c459ab6cf71d323",
+    "validationSha": "8f5edd7753096b407225445d3b7ae6913a6097c2",
+    "validationTree": "641fab2be8ff478c4d2e104242ee1ba36a3a8692",
     "scope": "Pinecone data and control-plane explicit connection cleanup",
     "run": 43862674618
   },
@@ -403,10 +403,11 @@
     "batch16": "pgvector Python0.5 Vector decoder objects not iterable; confirmed realDB TypeError and official changelog"
   },
   "batch15": {
-    "validationSha": "cc0d709fb2a20dc4a375ebd9ed1c4f9f8d26ca09",
-    "validationTree": "ee2b010a61148876e550f3e43379455795d92a59",
+    "validationSha": "c3234273b0cfdb1ead86a0272066f61690203d2d",
+    "validationTree": "fee1ca856e5fb2cd4fd36c0aacd139b5915e1005",
     "validationBranch": "validation/20261116-pinecone-listing-pages",
-    "run": 43862761729
+    "run": 43862761729,
+    "status": "validation_running"
   },
   "batch16": {
     "title": "Decode embeddings returned by pgvector Python 0.5",
