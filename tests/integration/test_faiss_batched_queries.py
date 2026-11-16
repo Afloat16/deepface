@@ -112,18 +112,19 @@ def test_batched_ann_matches_individual_faces(
         assert actual[0] == []
 
 
-def test_empty_face_batch_does_not_query_faiss(gallery, monkeypatch):
+@pytest.mark.parametrize("nested", [False, True])
+def test_empty_face_batch_does_not_query_faiss(gallery, monkeypatch, nested):
     connection, client = gallery
     configure_gallery(client, normalized=False)
-    monkeypatch.setattr(datastore, "represent", lambda **kwargs: [])
+    monkeypatch.setattr(datastore, "represent", lambda **kwargs: [[]] if nested else [])
 
     def unexpected_search(*args, **kwargs):
         raise AssertionError("an empty face batch must not query FAISS")
 
     monkeypatch.setattr(faiss.IndexIDMap, "search", unexpected_search)
 
-    assert (
-        datastore.search(
+    def search():
+        return datastore.search(
             img=[],
             model_name="Facenet512",
             detector_backend="skip",
@@ -132,8 +133,12 @@ def test_empty_face_batch_does_not_query_faiss(gallery, monkeypatch):
             connection=connection,
             return_type="dict",
         )
-        == []
-    )
+
+    if nested:
+        assert search() == []
+    else:
+        with pytest.raises(ValueError, match="No embeddings were detected"):
+            search()
 
 
 def test_real_hnsw_batch_search_measurement(gallery):

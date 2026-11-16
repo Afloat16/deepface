@@ -57,7 +57,7 @@ jobs:
               report = ET.parse("baseline.xml").getroot()
               assert result.returncode == 1, result.returncode
               assert len(report.findall(".//failure")) == 12
-              assert len(report.findall(".//testcase")) == 26
+              assert len(report.findall(".//testcase")) == 27
               assert not report.findall(".//error")
               assert not report.findall(".//skipped")
           finally:
