@@ -492,13 +492,16 @@ def __search(
 
             instances = __sort_by_distance(instances=instances, k=k)
 
-            # we should query DB to get img_name for each id
-            id_mappings = db_client.search_by_id(ids=[instance["id"] for instance in instances])
-            img_names = {mapping["id"]: mapping["img_name"] for mapping in id_mappings}
-            for instance in instances:
-                instance["img_name"] = img_names.get(instance["id"])
-
             search_results.append(instances)
+
+        # Resolve each gallery identity once across all query faces.
+        ids = list(dict.fromkeys(row["id"] for matches in search_results for row in matches))
+        if ids:
+            id_mappings = db_client.search_by_id(ids=ids)
+            img_names = {mapping["id"]: mapping["img_name"] for mapping in id_mappings}
+            for matches in search_results:
+                for instance in matches:
+                    instance["img_name"] = img_names.get(instance["id"])
 
     elif search_method == "ann" and is_vector_db is True:
         for result in results:

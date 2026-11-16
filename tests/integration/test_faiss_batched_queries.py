@@ -141,7 +141,42 @@ def test_empty_face_batch_does_not_query_faiss(gallery, monkeypatch, nested):
             search()
 
 
-def test_real_hnsw_batch_search_measurement(gallery):
+def test_gallery_names_are_fetched_once_for_all_faces(gallery, monkeypatch):
+    connection, client = gallery
+    vectors = configure_gallery(client, normalized=False)
+    monkeypatch.setattr(
+        datastore,
+        "represent",
+        lambda **kwargs: [{"embedding": vector.tolist()} for vector in vectors[:3]],
+    )
+    calls = []
+    original_lookup = SqliteClient.search_by_id
+
+    def measured_lookup(self, ids):
+        calls.append(list(ids))
+        return original_lookup(self, ids)
+
+    monkeypatch.setattr(SqliteClient, "search_by_id", measured_lookup)
+    matches = datastore.search(
+        img="precomputed-embeddings",
+        model_name="Facenet512",
+        detector_backend="skip",
+        similarity_search=True,
+        k=8,
+        search_method="ann",
+        database_type="sqlite",
+        connection=connection,
+        return_type="dict",
+    )
+    assert len(matches) == 3
+    assert all(len(face) == 4 for face in matches)
+    assert all(row["img_name"] == f"image-{row['id'] - 1}.png" for face in matches for row in face)
+    assert len(calls) == 1
+    assert set(calls[0]) == {1, 2, 3, 4}
+    assert len(calls[0]) == 4
+
+
+def test_real_hnsw_batch_search_measurement(gallery, monkeypatch):
     rng = np.random.default_rng(714)
     vectors = rng.standard_normal((10000, 128)).astype("float32")
     queries = rng.standard_normal((128, 128)).astype("float32")
@@ -168,6 +203,57 @@ def test_real_hnsw_batch_search_measurement(gallery):
             operation()
             durations.append(1000 * (time.perf_counter() - start))
         measurements[name] = statistics.median(durations)
+    connection, client = gallery
+    criteria = dict(
+        model_name="Facenet512", detector_backend="skip", aligned=True, l2_normalized=False
+    )
+    client.insert_embeddings(
+        [
+            dict(
+                img_name=f"image-{i}.png",
+                face=np.zeros((1, 1, 3), dtype=np.uint8),
+                embedding=vector.tolist(),
+                **criteria,
+            )
+            for i, vector in enumerate(vectors)
+        ]
+    )
+    # SQLite identities start at one.
+    stored_index = faiss.IndexIDMap(faiss.IndexHNSWFlat(128, 32))
+    faiss.downcast_index(stored_index.index).hnsw.efSearch = 64
+    stored_index.add_with_ids(vectors, np.arange(1, 10001, dtype="int64"))
+    client.upsert_embeddings_index(
+        **criteria, index_data=faiss.serialize_index(stored_index).tobytes()
+    )
+    monkeypatch.setattr(
+        datastore,
+        "represent",
+        lambda **kwargs: [{"embedding": vector.tolist()} for vector in queries],
+    )
+
+    def search():
+        return datastore.search(
+            img="precomputed-embeddings",
+            model_name="Facenet512",
+            detector_backend="skip",
+            similarity_search=True,
+            k=20,
+            search_method="ann",
+            database_type="sqlite",
+            connection=connection,
+            return_type="dict",
+        )
+
+    reference = search()
+    assert len(reference) == 128
+    assert all(len(matches) == 20 for matches in reference)
+    durations = []
+    for _ in range(7):
+        start = time.perf_counter()
+        actual = search()
+        durations.append(1000 * (time.perf_counter() - start))
+        assert actual == reference
+
     print(
         json.dumps(
             dict(
@@ -178,6 +264,7 @@ def test_real_hnsw_batch_search_measurement(gallery):
                 queries=128,
                 k=20,
                 search_median_ms=measurements,
+                datastore_median_ms=statistics.median(durations),
             )
         )
     )
