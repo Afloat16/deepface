@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:35:15.050Z",
+  "updated": "2026-11-16T13:44:11.381Z",
   "repositories": [
     {
       "repository": "serengil/deepface",
@@ -374,12 +374,15 @@
         {
           "number": 1756,
           "url": "https://github.com/serengil/deepface/pull/1756",
-          "title": "Serialize concurrent requests to shared MediaPipe graphs",
+          "title": "Serialize concurrent calls to shared native face detectors",
           "state": "open",
           "merged": false,
-          "head": "dbcac59110b2a885a9e6afaab4e929b927e0ee8a",
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43869361080",
-          "official_ci": [
+          "head": "1a2e94574abf26d1027b486cb956ca96f2aa7a1e",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43878055300",
+          "official_ci": [],
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "previous_official_ci": [
             {
               "id": 43869973653,
               "url": "https://github.com/serengil/deepface/actions/runs/43869973653",
@@ -389,8 +392,7 @@
               "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "maintainer_can_modify": false,
-          "merged_at": null
+          "metadata_update_pending": true
         },
         {
           "number": 1757,
@@ -428,7 +430,16 @@
           "head": "3298d5b638470b52818537674d40fa7132df49af",
           "head_ref": "fix/gallery-detection-policy-20261116",
           "created_at": "2026-11-16T13:34:34Z",
-          "official_ci": [],
+          "official_ci": [
+            {
+              "id": 43877097781,
+              "url": "https://github.com/serengil/deepface/actions/runs/43877097781",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+            }
+          ],
           "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43876255050",
           "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
           "maintainer_can_modify": false
