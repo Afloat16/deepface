@@ -3,7 +3,7 @@
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 13,
+    "published_count": 14,
     "merged_count": 5,
     "prs": [
       {
@@ -255,12 +255,24 @@
         "merged_at": null,
         "maintainer_feedback": "it shouldn't be created, that's intentional",
         "feedback_url": "https://github.com/serengil/deepface/pull/1751#issuecomment-6915942358"
+      },
+      {
+        "number": 1752,
+        "url": "https://github.com/serengil/deepface/pull/1752",
+        "title": "Decode embeddings returned by pgvector Python 0.5",
+        "state": "open",
+        "merged": false,
+        "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862864470",
+        "official_ci": [],
+        "maintainer_can_modify": false,
+        "merged_at": null
       }
     ],
     "target": 20,
-    "currently_open_count": 1,
+    "currently_open_count": 2,
     "closed_unmerged_count": 7,
-    "submitted_count": 13
+    "submitted_count": 14
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -418,7 +430,7 @@
     "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
     "validationSha": "c2ac361ebd8e328a4d32db859992af055d87d61f",
     "validationRun": 43862864470,
-    "status": "ready_browser_temporarily_unavailable",
+    "status": "published",
     "body": "## Tickets\nSelf-contained pgvector driver compatibility fix.\n\n## What has been done\npgvector Python 0.5 changed Psycopg's decoded `vector` value from a NumPy array to a `Vector` object. That object is not iterable, so the existing `list(value)` calls raise `TypeError: 'Vector' object is not iterable`. This breaks single-identity reads, full-gallery reads, exact searches, and identification with the current driver.\n\nUse the driver's `to_list()` method when available and retain the existing conversion for older array-returning drivers. The production change is two return-value conversions.\n\nThe driver change is recorded in [pgvector Python's 0.5.0 changelog](https://github.com/pgvector/pgvector-python/blob/master/CHANGELOG.md).\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43862864470), using real PostgreSQL 16.16, pgvector extension 0.8.7, and Psycopg 3.3.9:\n- Python 3.12 / pgvector Python 0.5.1: original source has 8 failures and 3 passing controls; patched source plus adjacent regressions has 50 passes.\n- Python 3.10 / pgvector Python 0.4.2: all 11 new cases already pass on the original source, and all 50 selected cases pass after the change.\n- Repository-pinned Pylint: 10.00/10; MyPy: 145 source files passed; test formatting passed.\n\nThe tests read actual database values through both decoder generations, verify single-row and streamed batch results, exercise public exact search and identification, and preserve missing-identity, empty-gallery, and native ANN-search behavior. Recognition is replaced at the embedding boundary; database reads, decoded values, and distance calculations are real.\n",
     "evidence": {
       "jobs": [
@@ -443,6 +455,10 @@
     "dedupe": "All historical pgvector PRs and94 old fork diffs reviewed; prior1694 changes schema cache and transactions only. No decoding compatibility proposal.",
     "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
     "tree": "5336a52063be9d42a7de46e2c7914072b560a141",
-    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pgvector-vector-decoder-20261116?expand=1&title=Decode%20embeddings%20returned%20by%20pgvector%20Python%200.5&body=%23%23%20Tickets%0ASelf-contained%20pgvector%20driver%20compatibility%20fix.%0A%0A%23%23%20What%20has%20been%20done%0Apgvector%20Python%200.5%20changed%20Psycopg's%20decoded%20%60vector%60%20value%20from%20a%20NumPy%20array%20to%20a%20%60Vector%60%20object.%20That%20object%20is%20not%20iterable%2C%20so%20the%20existing%20%60list(value)%60%20calls%20raise%20%60TypeError%3A%20'Vector'%20object%20is%20not%20iterable%60.%20This%20breaks%20single-identity%20reads%2C%20full-gallery%20reads%2C%20exact%20searches%2C%20and%20identification%20with%20the%20current%20driver.%0A%0AUse%20the%20driver's%20%60to_list()%60%20method%20when%20available%20and%20retain%20the%20existing%20conversion%20for%20older%20array-returning%20drivers.%20The%20production%20change%20is%20two%20return-value%20conversions.%0A%0AThe%20driver%20change%20is%20recorded%20in%20%5Bpgvector%20Python's%200.5.0%20changelog%5D(https%3A%2F%2Fgithub.com%2Fpgvector%2Fpgvector-python%2Fblob%2Fmaster%2FCHANGELOG.md).%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43862864470)%2C%20using%20real%20PostgreSQL%2016.16%2C%20pgvector%20extension%200.8.7%2C%20and%20Psycopg%203.3.9%3A%0A-%20Python%203.12%20%2F%20pgvector%20Python%200.5.1%3A%20original%20source%20has%208%20failures%20and%203%20passing%20controls%3B%20patched%20source%20plus%20adjacent%20regressions%20has%2050%20passes.%0A-%20Python%203.10%20%2F%20pgvector%20Python%200.4.2%3A%20all%2011%20new%20cases%20already%20pass%20on%20the%20original%20source%2C%20and%20all%2050%20selected%20cases%20pass%20after%20the%20change.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20test%20formatting%20passed.%0A%0AThe%20tests%20read%20actual%20database%20values%20through%20both%20decoder%20generations%2C%20verify%20single-row%20and%20streamed%20batch%20results%2C%20exercise%20public%20exact%20search%20and%20identification%2C%20and%20preserve%20missing-identity%2C%20empty-gallery%2C%20and%20native%20ANN-search%20behavior.%20Recognition%20is%20replaced%20at%20the%20embedding%20boundary%3B%20database%20reads%2C%20decoded%20values%2C%20and%20distance%20calculations%20are%20real.%0A"
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pgvector-vector-decoder-20261116?expand=1&title=Decode%20embeddings%20returned%20by%20pgvector%20Python%200.5&body=%23%23%20Tickets%0ASelf-contained%20pgvector%20driver%20compatibility%20fix.%0A%0A%23%23%20What%20has%20been%20done%0Apgvector%20Python%200.5%20changed%20Psycopg's%20decoded%20%60vector%60%20value%20from%20a%20NumPy%20array%20to%20a%20%60Vector%60%20object.%20That%20object%20is%20not%20iterable%2C%20so%20the%20existing%20%60list(value)%60%20calls%20raise%20%60TypeError%3A%20'Vector'%20object%20is%20not%20iterable%60.%20This%20breaks%20single-identity%20reads%2C%20full-gallery%20reads%2C%20exact%20searches%2C%20and%20identification%20with%20the%20current%20driver.%0A%0AUse%20the%20driver's%20%60to_list()%60%20method%20when%20available%20and%20retain%20the%20existing%20conversion%20for%20older%20array-returning%20drivers.%20The%20production%20change%20is%20two%20return-value%20conversions.%0A%0AThe%20driver%20change%20is%20recorded%20in%20%5Bpgvector%20Python's%200.5.0%20changelog%5D(https%3A%2F%2Fgithub.com%2Fpgvector%2Fpgvector-python%2Fblob%2Fmaster%2FCHANGELOG.md).%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43862864470)%2C%20using%20real%20PostgreSQL%2016.16%2C%20pgvector%20extension%200.8.7%2C%20and%20Psycopg%203.3.9%3A%0A-%20Python%203.12%20%2F%20pgvector%20Python%200.5.1%3A%20original%20source%20has%208%20failures%20and%203%20passing%20controls%3B%20patched%20source%20plus%20adjacent%20regressions%20has%2050%20passes.%0A-%20Python%203.10%20%2F%20pgvector%20Python%200.4.2%3A%20all%2011%20new%20cases%20already%20pass%20on%20the%20original%20source%2C%20and%20all%2050%20selected%20cases%20pass%20after%20the%20change.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20test%20formatting%20passed.%0A%0AThe%20tests%20read%20actual%20database%20values%20through%20both%20decoder%20generations%2C%20verify%20single-row%20and%20streamed%20batch%20results%2C%20exercise%20public%20exact%20search%20and%20identification%2C%20and%20preserve%20missing-identity%2C%20empty-gallery%2C%20and%20native%20ANN-search%20behavior.%20Recognition%20is%20replaced%20at%20the%20embedding%20boundary%3B%20database%20reads%2C%20decoded%20values%2C%20and%20distance%20calculations%20are%20real.%0A",
+    "number": 1752,
+    "url": "https://github.com/serengil/deepface/pull/1752",
+    "state": "open",
+    "merged": false
   }
 }
