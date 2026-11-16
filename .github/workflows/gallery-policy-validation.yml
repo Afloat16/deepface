@@ -1,0 +1,52 @@
+name: Gallery detection policy cache
+on:
+  push:
+    branches: [validation/gallery-detection-policy-20261116]
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install project and validation tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install '.[api]' 'numpy<2' 'opencv-contrib-python-headless<4.12' pytest black==24.8.0 pylint==2.15.10 mypy==1.14.1
+      - name: Demonstrate original cache contamination with native detection and SFace
+        env:
+          PYTHONPATH: .
+          DEEPFACE_BACKEND_ENGINE: onnx
+        run: |
+          cp deepface/modules/recognition.py "$RUNNER_TEMP/recognition-fixed.py"
+          trap 'cp "$RUNNER_TEMP/recognition-fixed.py" deepface/modules/recognition.py' EXIT
+          git show 3478d3320b42afbc9cb59eabb89805c5e22831dd:deepface/modules/recognition.py > deepface/modules/recognition.py
+          set +e
+          python -m pytest -q -s tests/unit/test_gallery_detection_policy.py validation/gallery_policy_native.py > before.log 2>&1
+          BEFORE_EXIT=$?
+          set -e
+          cat before.log
+          test "$BEFORE_EXIT" -eq 1
+          python -c "from pathlib import Path; assert '6 failed, 2 passed' in Path('before.log').read_text()"
+      - name: Verify both cache policies, equivalent policies, and existing gallery controls
+        env:
+          PYTHONPATH: .
+          DEEPFACE_BACKEND_ENGINE: onnx
+        run: |
+          python -m pytest -q -s tests/unit/test_gallery_detection_policy.py validation/gallery_policy_native.py tests/unit/test_find_color_consistency.py tests/unit/test_cached_gallery_query.py
+          python -m black --check --line-length 100 tests/unit/test_gallery_detection_policy.py validation/gallery_policy_native.py
+      - name: Match upstream static gates
+        if: matrix.python-version == '3.10'
+        run: |
+          python -m pylint --fail-under=10 deepface/
+          python -m mypy deepface/
