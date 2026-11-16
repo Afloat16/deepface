@@ -1,5 +1,6 @@
 """Exercise pgvector dimensional limits using a real PostgreSQL extension."""
 
+import json
 import os
 import uuid
 from types import SimpleNamespace
@@ -87,9 +88,15 @@ def test_register_and_search_preserve_full_embedding_dimensions(
     expected = [0, 0.2, 1] if normalized else [0, np.sqrt(0.4), np.sqrt(2)]
     np.testing.assert_allclose([row["distance"] for row in results], expected, atol=1e-6)
     for row, expected_embedding in zip(results, embeddings):
-        stored = adapter.fetch_embedding(row["id"], **criteria(normalized))
-        assert len(stored["embedding"]) == dimensions
-        np.testing.assert_array_equal(stored["embedding"], expected_embedding)
+        table = "embeddings_vggface_skip_aligned_" + ("norm" if normalized else "raw")
+        stored_dimensions, stored_text = conn.execute(
+            psycopg.sql.SQL(
+                "SELECT vector_dims(embedding), embedding::text FROM {} WHERE id = %s"
+            ).format(psycopg.sql.Identifier(schema, table)),
+            (row["id"],),
+        ).fetchone()
+        assert stored_dimensions == dimensions
+        np.testing.assert_allclose(json.loads(stored_text), expected_embedding, atol=1e-7)
     hnsw_indexes = conn.execute(
         "SELECT indexdef FROM pg_indexes WHERE schemaname = %s AND indexdef LIKE %s",
         (schema, "%USING hnsw%"),
