@@ -128,7 +128,7 @@ def endpoint(monkeypatch):
     state["url"] = f"http://127.0.0.1:{server.server_port}"
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
-    client = pinecone.Pinecone(api_key="loopback-test-key", host=state["url"])
+    client = pinecone.Pinecone(api_key=f"loopback-test-key-{server.server_port}", host=state["url"])
     original_factory = client.Index
     original_close = getattr(client, "close", None)
     state["supports_close"] = original_close is not None
