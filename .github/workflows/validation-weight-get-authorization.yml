@@ -29,9 +29,12 @@ jobs:
       - name: Check changed tests and pinned lint gates
         run: |
           python -m black --check --line-length 100 tests/unit/test_weight_get_authorization.py
+          git diff --check
+      - name: Run repository pinned Python 3.10 lint and type gates
+        if: matrix.python == '3.10'
+        run: |
           python -m pylint deepface/ --fail-under=10
           python -m mypy deepface/
-          git diff --check
       - name: Fetch pinned baseline
         run: git fetch --depth=1 origin 835a37376331c46a0a7fcc1a497faa3d2767bacc
       - name: Reproduce original failures with the same real HTTP tests
