@@ -4,7 +4,7 @@
   "progress": {
     "repository": "serengil/deepface",
     "published_count": 12,
-    "merged_count": 3,
+    "merged_count": 5,
     "prs": [
       {
         "number": 1739,
@@ -87,8 +87,8 @@
         "number": 1743,
         "url": "https://github.com/serengil/deepface/pull/1743",
         "title": "Compute similarity-search confidence using the verification threshold",
-        "state": "open",
-        "merged": false,
+        "state": "closed",
+        "merged": true,
         "head": "b32b56e480fcb8ac99a57cba4a67371107bfe3cb",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851346167",
         "official_ci": [
@@ -100,13 +100,13 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": "2026-11-16T11:57:42Z"
       },
       {
         "number": 1744,
         "url": "https://github.com/serengil/deepface/pull/1744",
         "title": "Scope PostgreSQL streaming reads to explicit transactions",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "a440261ed0e45692df80e32ab9a719f1a9e5fee3",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851968687",
@@ -119,13 +119,14 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": null,
+        "maintainer_feedback": "prefer to keep it as is"
       },
       {
         "number": 1745,
         "url": "https://github.com/serengil/deepface/pull/1745",
         "title": "Initialize MongoDB identity counters atomically",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "7410c21eb2c17f2ec5d2eeedea670ee6f504ad4b",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853485801",
@@ -138,14 +139,15 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": null,
+        "maintainer_feedback": "prefer to keep it as is"
       },
       {
         "number": 1746,
         "url": "https://github.com/serengil/deepface/pull/1746",
         "title": "Decode escaped database names in MySQL connection URIs",
-        "state": "open",
-        "merged": false,
+        "state": "closed",
+        "merged": true,
         "head": "00e646f72aee4d18e692a4c91879bb1e923342a3",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853728345",
         "official_ci": [
@@ -157,7 +159,7 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": "2026-11-16T11:59:46Z"
       },
       {
         "number": 1747,
@@ -242,8 +244,8 @@
       }
     ],
     "target": 20,
-    "currently_open_count": 5,
-    "closed_unmerged_count": 4,
+    "currently_open_count": 1,
+    "closed_unmerged_count": 6,
     "submitted_count": 12
   },
   "batch11": {
@@ -349,19 +351,48 @@
   "batch13": {
     "status": "validation_running",
     "validationBranch": "validation/20261116-pinecone-client-lifetime",
-    "validationSha": "1a2d843998bd9ff3aaf32dc3e3f3f19e9441146e",
-    "validationTree": "f653ad92d129f35e8449fe76514efc878436da5e",
-    "scope": "Pinecone data and control-plane explicit connection cleanup"
+    "validationSha": "f233ea69d203459701cd4f14dd0d68fbd09e2f1c",
+    "validationTree": "cb00756237932932ddf3a1486c459ab6cf71d323",
+    "scope": "Pinecone data and control-plane explicit connection cleanup",
+    "run": 43862674618
   },
   "batch14": {
-    "status": "validation_running",
-    "validationBranch": "validation/20261116-pgvector-dimensions",
+    "title": "Keep high-dimensional embeddings usable in pgvector",
+    "branch": "fix/pgvector-dimension-limit-20261116",
+    "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
     "validationSha": "761b0abf6611e8d296f26ea5dbf9dfab30bbe3ea",
-    "validationTree": "f37e56d1d00bfd08e3e3f49f38a458ad32b29fa8",
-    "scope": "Preserve default 4096-dimensional embeddings beyond HNSW dimension limit"
+    "validationRun": 43862495314,
+    "body": "## Tickets\nSelf-contained pgvector registration fix.\n\n## What has been done\nThe default VGG-Face model produces 4,096-dimensional embeddings, but pgvector's HNSW index for the `vector` type supports at most 2,000 dimensions. Initialization currently tries to create that index unconditionally, so registration and even an empty-gallery search fail with `column cannot have more than 2000 dimensions for hnsw index`.\n\nCreate the table with its full embedding dimensions and skip only the unsupported HNSW index above that limit. Log that these galleries use an exact scan. Models at or below 2,000 dimensions keep their existing HNSW indexes and distance operators. The vectors are not truncated or quantized.\n\nThe limit is documented in [pgvector's HNSW support](https://github.com/pgvector/pgvector#hnsw).\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43862495314), Python 3.10 and 3.12, real PostgreSQL 16.16 and pgvector extension 0.8.7:\n- Original production source: 8 failing regression cases and 5 passing controls.\n- Patched source plus existing datastore and connection-ownership regressions: 52 passed in each environment.\n- Pylint 2.15.10: 10.00/10; MyPy 1.14.1: 145 source files passed; test formatting passed.\n\nThe integration tests exercise 128, 2,000, 2,001, and 4,096 dimensions with both distance operators; inspect actual index definitions; check stored vector dimensions and values through SQL; compare returned nearest neighbors and distances; and cover the public registration path, empty galleries, and invalid column dimensions.\n\nRecognition is replaced at the embedding/metadata boundary. PostgreSQL schema creation, storage, index creation, and searches use the actual driver and database. The high-dimensional fallback is exact scanning and can be slower than indexed search on a large gallery.\n",
+    "evidence": {
+      "baseline": "8 failed,5 passed",
+      "after": "52 passed each Python3.10/3.12",
+      "jobs": [
+        133282611170,
+        133282611563
+      ],
+      "pylint": "10.00/10",
+      "mypy": "145 source files",
+      "postgres": "16.16",
+      "pgvectorExtension": "0.8.7",
+      "scope": "real database; deterministic embeddings"
+    },
+    "status": "ready",
+    "dedupe": "474 historical PRs,94 old fork diffs and latest upstreamPR refresh; no equivalent. Old1694 schema-scope proposal does not address dimension limits. Current master compare excludes pgvector.py.",
+    "head": "045a318e5fcb697b3bb0102e8fff42fdbf575562",
+    "tree": "98c19bb24c31332c1d367dc9f8406d7f8184b0ad"
   },
   "prospective": {
     "batch15": "Pinecone SDK10 listing page compatibility; real SDK currently rejects ListItem IDs",
     "batch16": "pgvector Python0.5 Vector decoder objects not iterable; confirmed realDB TypeError and official changelog"
+  },
+  "batch15": {
+    "validationSha": "cc0d709fb2a20dc4a375ebd9ed1c4f9f8d26ca09",
+    "validationTree": "ee2b010a61148876e550f3e43379455795d92a59",
+    "validationBranch": "validation/20261116-pinecone-listing-pages"
+  },
+  "batch16": {
+    "validationSha": "c2ac361ebd8e328a4d32db859992af055d87d61f",
+    "validationTree": "d851528da30b2b1e1d25eae24c75c7cbdb651dbf",
+    "validationBranch": "validation/20261116-pgvector-decoder"
   }
 }
