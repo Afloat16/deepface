@@ -196,13 +196,8 @@ class MongoDbClient(Database):
             face_hash = hashlib.sha256(json.dumps(face.tolist()).encode()).hexdigest()
             embedding_hash = hashlib.sha256(embedding_bytes).hexdigest()
 
-            int_id = self.counters.find_one_and_update(
-                {"_id": "embedding_id"}, {"$inc": {"seq": 1}}, upsert=True, return_document=True
-            )["seq"]
-
             docs.append(
                 {
-                    "sequence": int_id,
                     "img_name": e["img_name"],
                     "face": binary_face_data,
                     "face_shape": face_shape,
@@ -216,6 +211,16 @@ class MongoDbClient(Database):
                     "created_at": datetime.now(timezone.utc),
                 }
             )
+
+        # Reserve all identities in one atomic update instead of one round trip per face.
+        last_id = self.counters.find_one_and_update(
+            {"_id": "embedding_id"},
+            {"$inc": {"seq": len(docs)}},
+            upsert=True,
+            return_document=True,
+        )["seq"]
+        for identity_id, doc in enumerate(docs, start=last_id - len(docs) + 1):
+            doc["sequence"] = identity_id
 
         inserted = 0
         try:
