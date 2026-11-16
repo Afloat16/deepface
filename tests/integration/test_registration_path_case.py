@@ -73,7 +73,9 @@ def test_registration_and_search_preserve_original_path(gallery, tmp_path, exten
 
 
 def test_mixed_case_batch_retains_each_original_filename(gallery, tmp_path):
-    sources = [image_file(tmp_path, extension, i) for i, extension in enumerate(["JPG", "png", "JpEg"])]
+    sources = [
+        image_file(tmp_path, extension, i) for i, extension in enumerate(["JPG", "png", "JpEg"])
+    ]
     assert register(gallery, sources) == {"inserted": 3}
     names = [row[0] for row in gallery.execute("SELECT img_name FROM embeddings ORDER BY id")]
     assert names == sources
@@ -81,7 +83,9 @@ def test_mixed_case_batch_retains_each_original_filename(gallery, tmp_path):
 
 @pytest.mark.parametrize("extension", ["jpg", "JPG"])
 def test_explicit_name_still_overrides_path(gallery, tmp_path, extension):
-    assert register(gallery, image_file(tmp_path, extension), img_name="chosen-name") == {"inserted": 1}
+    assert register(gallery, image_file(tmp_path, extension), img_name="chosen-name") == {
+        "inserted": 1
+    }
     assert gallery.execute("SELECT img_name FROM embeddings").fetchone()[0] == "chosen-name"
 
 
