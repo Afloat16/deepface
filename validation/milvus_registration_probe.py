@@ -40,5 +40,14 @@ with tempfile.TemporaryDirectory() as directory:
                 collection_name=collection, data=[[1.0, 0.0]], limit=10,
                 output_fields=["img_name"]
             ), flush=True)
+        collection = "within_batch"
+        client.create_collection(collection_name=collection, dimension=2, auto_id=False)
+        data = [{"id": 7, "vector": [1.0, 0.0], "img_name": name}
+                for name in ("first.jpg", "latest.jpg")]
+        print("within_batch", client.upsert(collection, data), flush=True)
+        client.flush(collection)
+        print("within_batch count", client.query(
+            collection, filter="", output_fields=["count(*)"]
+        ), flush=True)
     finally:
         client.close()
