@@ -21,7 +21,7 @@ INDEX_NAME = "embeddings-facenet-skip-aligned-raw"
 
 @pytest.fixture
 def endpoint(monkeypatch):
-    state = {"failure": None, "missing": False, "requests": [], "active": set()}
+    state = {"failure": None, "missing": False, "empty": False, "requests": [], "active": set()}
     lock = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
@@ -95,7 +95,13 @@ def endpoint(monkeypatch):
                     }
                 )
             elif path == "/vectors/list":
-                self.reply({"vectors": [{"id": "known"}], "pagination": {}, "namespace": ""})
+                self.reply(
+                    {
+                        "vectors": [] if state["empty"] else [{"id": "known"}],
+                        "pagination": {},
+                        "namespace": "",
+                    }
+                )
             elif path == "/vectors/fetch":
                 ids = parse_qs(parsed.query).get("ids", [])
                 self.reply(
@@ -191,6 +197,8 @@ def operation(adapter, name):
 @pytest.mark.parametrize("fail", [False, True])
 def test_each_data_operation_closes_its_sdk_index(endpoint, name, fail):
     adapter = PineconeClient(connection=endpoint["client"])
+    # An empty listing isolates connection cleanup from SDK listing-shape compatibility.
+    endpoint["empty"] = name == "all"
     if fail:
         endpoint["failure"] = {
             "insert": "/vectors/upsert",
@@ -207,6 +215,8 @@ def test_each_data_operation_closes_its_sdk_index(endpoint, name, fail):
         elif name == "fetch":
             assert result["img_name"] == "known.png"
             assert result["embedding"] == [0.5] * 128
+        elif name == "all":
+            assert result == []
         else:
             assert len(result) == 1
             assert result[0]["img_name"] == "known.png"
