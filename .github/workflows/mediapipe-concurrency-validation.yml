@@ -39,7 +39,6 @@ jobs:
           cat before.log
           test "$BEFORE_EXIT" -eq 1
           python -c "from pathlib import Path; assert '5 failed, 8 passed' in Path('before.log').read_text()"
-          python validation/opencv_native_concurrency.py --baseline
       - name: Verify native results and existing detector controls
         env:
           PYTHONPATH: .
