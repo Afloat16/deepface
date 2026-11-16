@@ -1,0 +1,52 @@
+name: Native Milvus registration idempotence
+on:
+  push:
+    branches: [validation/milvus-registration-idempotence-20261116]
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install project, native database, and validation tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install '.[api]' 'numpy<2' 'opencv-contrib-python-headless<4.12' pymilvus==2.6.9 milvus-lite==2.5.1 'setuptools<81' pytest black==24.8.0 pylint==2.15.10 mypy==1.14.1
+      - name: Demonstrate duplicate entities on the base revision
+        env:
+          PYTHONPATH: .
+          DEEPFACE_BACKEND_ENGINE: onnx
+        run: |
+          cp deepface/modules/database/milvus.py "$RUNNER_TEMP/milvus-fixed.py"
+          trap 'cp "$RUNNER_TEMP/milvus-fixed.py" deepface/modules/database/milvus.py' EXIT
+          git show 3478d3320b42afbc9cb59eabb89805c5e22831dd:deepface/modules/database/milvus.py > deepface/modules/database/milvus.py
+          set +e
+          python -m pytest -q -s tests/integration/test_milvus_registration_lite.py > before.log 2>&1
+          BEFORE_EXIT=$?
+          set -e
+          cat before.log
+          test "$BEFORE_EXIT" -eq 1
+          python -c "from pathlib import Path; assert '5 failed, 2 passed' in Path('before.log').read_text()"
+      - name: Verify registration and existing native Milvus behavior
+        env:
+          PYTHONPATH: .
+          DEEPFACE_BACKEND_ENGINE: onnx
+        run: |
+          python -m pytest -q -s tests/integration/test_milvus_registration_lite.py tests/unit/test_milvus_stable_ids.py tests/unit/test_milvus_distance.py tests/unit/test_milvus_complete_gallery.py tests/integration/test_milvus_distance_lite.py tests/integration/test_milvus_complete_gallery_lite.py
+          python -m black --check --line-length 100 tests/integration/test_milvus_registration_lite.py tests/unit/test_milvus_stable_ids.py
+      - name: Match upstream static gates
+        if: matrix.python-version == '3.10'
+        run: |
+          python -m pylint --fail-under=10 deepface/
+          python -m mypy deepface/
