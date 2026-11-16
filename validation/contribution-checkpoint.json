@@ -3,7 +3,7 @@
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 15,
+    "published_count": 16,
     "merged_count": 5,
     "prs": [
       {
@@ -286,12 +286,24 @@
         "official_ci": [],
         "maintainer_can_modify": false,
         "merged_at": null
+      },
+      {
+        "number": 1754,
+        "url": "https://github.com/serengil/deepface/pull/1754",
+        "title": "Preserve mixed-case image paths during registration",
+        "state": "open",
+        "merged": false,
+        "head": "d9cfd2fae6f2e5b72f18f5335a863f9c70138cc8",
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866203772",
+        "official_ci": [],
+        "maintainer_can_modify": false,
+        "merged_at": null
       }
     ],
     "target": 20,
-    "currently_open_count": 3,
+    "currently_open_count": 4,
     "closed_unmerged_count": 7,
-    "submitted_count": 15
+    "submitted_count": 16
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -394,13 +406,43 @@
     "maintainer_feedback": "prefer to keep it as simple as is"
   },
   "batch13": {
-    "status": "validation_running",
-    "validationBranch": "validation/20261116-pinecone-client-lifetime",
+    "title": "Close Pinecone request clients after database operations",
+    "branch": "fix/pinecone-client-lifetime-20261116",
+    "body": "## Tickets\nSelf-contained Pinecone resource-lifetime fix.\n\n## What has been done\nEach database operation creates a fresh Pinecone index client. These clients are never closed, and the adapter's own `close()` is a no-op. With the current SDK this leaves the independent HTTP connection pools alive after requests finish.\n\nClose the operation-local index clients after insert, search, single-record read, and gallery read, including error and early-return paths. Close the control-plane client when the adapter is closed, while allowing older SDK versions that have no control-plane close method. Public searches continue to leave caller-supplied control-plane clients open.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43866791770):\n- Python 3.12 / Pinecone 10.1.0: original source has 12 failures and 2 passing controls.\n- Python 3.10 / Pinecone 8.0.0: original source has 11 failures and 3 passing controls.\n- Patched source plus existing index-name and registration-ownership tests: 32 passed in each environment.\n- Repository-pinned Pylint: 10.00/10; MyPy: 145 source files passed; Black formatting passed.\n\nThe tests use actual SDK clients and HTTP/1.1 connections against a loopback service. They cover successful calls, service errors, empty/missing results, ownership, and repeated searches. In Pinecone 10.1.0, twenty searches change from zero to twenty native index-close calls and from 21 live HTTP connections to one remaining caller-owned control-plane connection.\n\nPinecone 8's native `Index.close()` closes its worker pool but does not clear its HTTP pool. The legacy checks verify native-close calls and unchanged results; this patch does not claim to fix that SDK-internal socket limitation. The service and recognition boundary are fixtures.\n",
+    "status": "ready",
+    "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
+    "head": "f93ded9b3df91295441a9b8fe617b943fb0e5c29",
+    "tree": "7f28d68a02f5683c92a850b2898c27a780dd96ff",
     "validationSha": "a75531e18a3d8586073e0ed7fd2e8d795a6d3488",
-    "validationTree": "94dfbd5d3436e5c5a8ad20758caa179fe487c519",
-    "scope": "Native SDK close calls; observed SDK8 pool cleanup limitation explicitly retained",
-    "run": 43866240102,
-    "conclusion": null
+    "validationRun": 43866791770,
+    "evidence": {
+      "jobs": [
+        133297284602,
+        133297285092
+      ],
+      "legacy": {
+        "before": "11 failed,3 passed",
+        "after": "32 passed",
+        "httpPoolLimitation": "SDK8 native close does not clear pool;21 connections remain"
+      },
+      "current": {
+        "before": "12 failed,2 passed",
+        "after": "32 passed",
+        "connections": [
+          21,
+          1
+        ],
+        "searches": 20,
+        "closedHandles": [
+          0,
+          20
+        ]
+      },
+      "pylint": "10.00/10",
+      "mypy": 145
+    },
+    "dedupe": "474 historical upstream PRs and94 old fork diffs; latest128branch listing contains only own new work",
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pinecone-client-lifetime-20261116?expand=1&title=Close%20Pinecone%20request%20clients%20after%20database%20operations&body=%23%23%20Tickets%0ASelf-contained%20Pinecone%20resource-lifetime%20fix.%0A%0A%23%23%20What%20has%20been%20done%0AEach%20database%20operation%20creates%20a%20fresh%20Pinecone%20index%20client.%20These%20clients%20are%20never%20closed%2C%20and%20the%20adapter's%20own%20%60close()%60%20is%20a%20no-op.%20With%20the%20current%20SDK%20this%20leaves%20the%20independent%20HTTP%20connection%20pools%20alive%20after%20requests%20finish.%0A%0AClose%20the%20operation-local%20index%20clients%20after%20insert%2C%20search%2C%20single-record%20read%2C%20and%20gallery%20read%2C%20including%20error%20and%20early-return%20paths.%20Close%20the%20control-plane%20client%20when%20the%20adapter%20is%20closed%2C%20while%20allowing%20older%20SDK%20versions%20that%20have%20no%20control-plane%20close%20method.%20Public%20searches%20continue%20to%20leave%20caller-supplied%20control-plane%20clients%20open.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866791770)%3A%0A-%20Python%203.12%20%2F%20Pinecone%2010.1.0%3A%20original%20source%20has%2012%20failures%20and%202%20passing%20controls.%0A-%20Python%203.10%20%2F%20Pinecone%208.0.0%3A%20original%20source%20has%2011%20failures%20and%203%20passing%20controls.%0A-%20Patched%20source%20plus%20existing%20index-name%20and%20registration-ownership%20tests%3A%2032%20passed%20in%20each%20environment.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0AThe%20tests%20use%20actual%20SDK%20clients%20and%20HTTP%2F1.1%20connections%20against%20a%20loopback%20service.%20They%20cover%20successful%20calls%2C%20service%20errors%2C%20empty%2Fmissing%20results%2C%20ownership%2C%20and%20repeated%20searches.%20In%20Pinecone%2010.1.0%2C%20twenty%20searches%20change%20from%20zero%20to%20twenty%20native%20index-close%20calls%20and%20from%2021%20live%20HTTP%20connections%20to%20one%20remaining%20caller-owned%20control-plane%20connection.%0A%0APinecone%208's%20native%20%60Index.close()%60%20closes%20its%20worker%20pool%20but%20does%20not%20clear%20its%20HTTP%20pool.%20The%20legacy%20checks%20verify%20native-close%20calls%20and%20unchanged%20results%3B%20this%20patch%20does%20not%20claim%20to%20fix%20that%20SDK-internal%20socket%20limitation.%20The%20service%20and%20recognition%20boundary%20are%20fixtures.%0A"
   },
   "batch14": {
     "title": "Keep high-dimensional embeddings usable in pgvector",
@@ -515,7 +557,7 @@
     "title": "Preserve mixed-case image paths during registration",
     "branch": "fix/registration-path-case-20261116",
     "body": "## Tickets\nSelf-contained registration identity fix.\n\n## What has been done\nRegistering a valid image such as `Photo.JPG` currently assigns a random UUID as its name, while `Photo.jpg` retains its path. The image loader and gallery discovery already accept these extensions without regard to case, so later searches lose the source path solely because of extension casing.\n\nCompare the extension in lowercase while storing the original path unchanged. Explicit image names and UUID identifiers for arrays, file objects, and base64 data keep their existing behavior.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43866203772), Python 3.10 and 3.12:\n- Original source: 7 failures and 8 passing controls in each environment.\n- Patched source plus existing registration connection tests: 29 passed in each environment.\n- Pylint 2.15.10: 10.00/10; MyPy 1.14.1: 145 source files passed; Black formatting passed.\n\nThe regressions write real JPEG/PNG files, use OpenCV decoding and normal preprocessing, register them in SQLite, and check stored names and public search results. They cover upper/mixed/lowercase extensions, mixed batches, explicit names, and non-path input types. Only the recognition model is replaced with a small deterministic fixture; image loading, database operations, and distance calculations are real.\n",
-    "status": "ready",
+    "status": "published",
     "baseline": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
     "head": "d9cfd2fae6f2e5b72f18f5335a863f9c70138cc8",
     "tree": "d785b03461d0131641dc36f738fe9a24d2edfdae",
@@ -532,6 +574,10 @@
       "mypy": 145
     },
     "dedupe": "474 historical upstream PRs and94 pre-existing fork diffs reviewed; latest upstream PRs refreshed through1752",
-    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/registration-path-case-20261116?expand=1&title=Preserve%20mixed-case%20image%20paths%20during%20registration&body=%23%23%20Tickets%0ASelf-contained%20registration%20identity%20fix.%0A%0A%23%23%20What%20has%20been%20done%0ARegistering%20a%20valid%20image%20such%20as%20%60Photo.JPG%60%20currently%20assigns%20a%20random%20UUID%20as%20its%20name%2C%20while%20%60Photo.jpg%60%20retains%20its%20path.%20The%20image%20loader%20and%20gallery%20discovery%20already%20accept%20these%20extensions%20without%20regard%20to%20case%2C%20so%20later%20searches%20lose%20the%20source%20path%20solely%20because%20of%20extension%20casing.%0A%0ACompare%20the%20extension%20in%20lowercase%20while%20storing%20the%20original%20path%20unchanged.%20Explicit%20image%20names%20and%20UUID%20identifiers%20for%20arrays%2C%20file%20objects%2C%20and%20base64%20data%20keep%20their%20existing%20behavior.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866203772)%2C%20Python%203.10%20and%203.12%3A%0A-%20Original%20source%3A%207%20failures%20and%208%20passing%20controls%20in%20each%20environment.%0A-%20Patched%20source%20plus%20existing%20registration%20connection%20tests%3A%2029%20passed%20in%20each%20environment.%0A-%20Pylint%202.15.10%3A%2010.00%2F10%3B%20MyPy%201.14.1%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0AThe%20regressions%20write%20real%20JPEG%2FPNG%20files%2C%20use%20OpenCV%20decoding%20and%20normal%20preprocessing%2C%20register%20them%20in%20SQLite%2C%20and%20check%20stored%20names%20and%20public%20search%20results.%20They%20cover%20upper%2Fmixed%2Flowercase%20extensions%2C%20mixed%20batches%2C%20explicit%20names%2C%20and%20non-path%20input%20types.%20Only%20the%20recognition%20model%20is%20replaced%20with%20a%20small%20deterministic%20fixture%3B%20image%20loading%2C%20database%20operations%2C%20and%20distance%20calculations%20are%20real.%0A"
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/registration-path-case-20261116?expand=1&title=Preserve%20mixed-case%20image%20paths%20during%20registration&body=%23%23%20Tickets%0ASelf-contained%20registration%20identity%20fix.%0A%0A%23%23%20What%20has%20been%20done%0ARegistering%20a%20valid%20image%20such%20as%20%60Photo.JPG%60%20currently%20assigns%20a%20random%20UUID%20as%20its%20name%2C%20while%20%60Photo.jpg%60%20retains%20its%20path.%20The%20image%20loader%20and%20gallery%20discovery%20already%20accept%20these%20extensions%20without%20regard%20to%20case%2C%20so%20later%20searches%20lose%20the%20source%20path%20solely%20because%20of%20extension%20casing.%0A%0ACompare%20the%20extension%20in%20lowercase%20while%20storing%20the%20original%20path%20unchanged.%20Explicit%20image%20names%20and%20UUID%20identifiers%20for%20arrays%2C%20file%20objects%2C%20and%20base64%20data%20keep%20their%20existing%20behavior.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866203772)%2C%20Python%203.10%20and%203.12%3A%0A-%20Original%20source%3A%207%20failures%20and%208%20passing%20controls%20in%20each%20environment.%0A-%20Patched%20source%20plus%20existing%20registration%20connection%20tests%3A%2029%20passed%20in%20each%20environment.%0A-%20Pylint%202.15.10%3A%2010.00%2F10%3B%20MyPy%201.14.1%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0AThe%20regressions%20write%20real%20JPEG%2FPNG%20files%2C%20use%20OpenCV%20decoding%20and%20normal%20preprocessing%2C%20register%20them%20in%20SQLite%2C%20and%20check%20stored%20names%20and%20public%20search%20results.%20They%20cover%20upper%2Fmixed%2Flowercase%20extensions%2C%20mixed%20batches%2C%20explicit%20names%2C%20and%20non-path%20input%20types.%20Only%20the%20recognition%20model%20is%20replaced%20with%20a%20small%20deterministic%20fixture%3B%20image%20loading%2C%20database%20operations%2C%20and%20distance%20calculations%20are%20real.%0A",
+    "number": 1754,
+    "url": "https://github.com/serengil/deepface/pull/1754",
+    "state": "open",
+    "merged": false
   }
 }
