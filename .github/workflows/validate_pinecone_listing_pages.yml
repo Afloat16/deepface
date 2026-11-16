@@ -1,0 +1,92 @@
+name: Pinecone SDK listing compatibility validation
+
+on:
+  push:
+    branches: [validation/20261116-pinecone-listing-pages]
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.10"
+            pinecone: "8.0.0"
+            expected_failures: 0
+          - python: "3.12"
+            pinecone: "10.1.0"
+            expected_failures: 6
+    env:
+      DEEPFACE_BACKEND_ENGINE: onnx
+      OMP_NUM_THREADS: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install project and actual numerical dependencies
+        run: python -m pip install -e '.[api]' pytest pytest-mock pandas 'pinecone==${{ matrix.pinecone }}' black 'pylint==2.15.10' 'mypy==1.14.1'
+      - name: Check test formatting and diff
+        run: |
+          python -m black --check --line-length 100 tests/integration/test_pinecone_listing_pages.py
+          git diff --check
+      - name: Run repository pinned Python 3.10 lint and type gates
+        if: matrix.python == '3.10'
+        run: |
+          python -m pylint deepface/ --fail-under=10
+          python -m mypy deepface/
+      - name: Fetch pinned baseline
+        run: git fetch --depth=1 origin 835a37376331c46a0a7fcc1a497faa3d2767bacc
+      - name: Reproduce native SDK listing failures
+        shell: python
+        run: |
+          from pathlib import Path
+          import subprocess
+          import sys
+          import xml.etree.ElementTree as ET
+
+          files = ["deepface/modules/database/pinecone.py"]
+          saved = {name: Path(name).read_bytes() for name in files}
+          try:
+              for name in files:
+                  Path(name).write_bytes(subprocess.check_output(["git", "show", f"835a37376331c46a0a7fcc1a497faa3d2767bacc:{name}"]))
+              result = subprocess.run([sys.executable, "-m", "pytest", "-q", "-s",
+                  "tests/integration/test_pinecone_listing_pages.py",
+                  "--junitxml=baseline.xml"])
+              report = ET.parse("baseline.xml").getroot()
+              assert result.returncode == int(${{ matrix.expected_failures }} > 0), result.returncode
+              assert len(report.findall(".//failure")) == ${{ matrix.expected_failures }}
+              assert len(report.findall(".//testcase")) == 8
+              assert not report.findall(".//error")
+              assert not report.findall(".//skipped")
+          finally:
+              for name, contents in saved.items():
+                  Path(name).write_bytes(contents)
+      - name: Run real SDK listing and existing client regressions
+        run: >-
+          python -m pytest -q -s
+          tests/integration/test_pinecone_listing_pages.py
+          tests/unit/test_pinecone_index_names.py
+          tests/unit/test_register_connection_cleanup.py
+          --junitxml=results.xml
+      - name: Record source and dependency identities
+        if: always()
+        run: |
+          git rev-parse HEAD
+          git diff --exit-code
+          python --version
+          python -m pip freeze
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pinecone-listing-pages-${{ matrix.python }}
+          path: |
+            baseline.xml
+            results.xml
