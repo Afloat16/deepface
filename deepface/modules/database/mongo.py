@@ -219,8 +219,9 @@ class MongoDbClient(Database):
             upsert=True,
             return_document=True,
         )["seq"]
-        for identity_id, doc in enumerate(docs, start=last_id - len(docs) + 1):
-            doc["sequence"] = identity_id
+        first_id = last_id - len(docs) + 1
+        for offset, doc in enumerate(docs):
+            doc["sequence"] = first_id + offset
 
         inserted = 0
         try:
