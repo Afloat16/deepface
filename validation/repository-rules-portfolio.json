@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:07:00Z",
+  "updated": "2026-11-16T13:35:15.050Z",
   "repositories": [
     {
       "repository": "serengil/deepface",
@@ -10,25 +10,21 @@
           "title": "Download GET-authorized weights when HEAD is rejected",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:43:05Z",
           "head": "00a1a3135bc078e2a8d563122311b3835ba33e5a",
-          "head_ref": "fix/weight-get-authorization-20261116",
-          "created_at": "2026-11-16T10:15:45Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43846006420",
           "official_ci": [
             {
               "id": 43847254925,
               "url": "https://github.com/serengil/deepface/actions/runs/43847254925",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43846006420",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43846006420"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "Making 2 get requests is not a good pattern."
         },
         {
           "number": 1740,
@@ -36,25 +32,20 @@
           "title": "Release remote gallery connections when file searches fail",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "42233bc8c5a1dff209863fef8d985f50e83bcde1",
-          "head_ref": "fix/gallery-store-lifetime-20261116",
-          "created_at": "2026-11-16T10:19:35Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43847111561",
           "official_ci": [
             {
               "id": 43847832579,
               "url": "https://github.com/serengil/deepface/actions/runs/43847832579",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43847111561",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43847111561"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1741,
@@ -62,25 +53,20 @@
           "title": "Make MySQL index replacement atomic with autocommit connections",
           "state": "closed",
           "merged": true,
-          "merged_at": "2026-11-16T11:54:34Z",
-          "closed_at": "2026-11-16T11:54:34Z",
           "head": "8013b0cb57567e89095924641d19f900475e5c28",
-          "head_ref": "fix/mysql-index-transactions-20261116",
-          "created_at": "2026-11-16T10:39:20Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849280828",
           "official_ci": [
             {
               "id": 43850809298,
               "url": "https://github.com/serengil/deepface/actions/runs/43850809298",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849280828",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43849280828"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": "2026-11-16T11:54:34Z"
         },
         {
           "number": 1742,
@@ -88,25 +74,20 @@
           "title": "Close owned Neo4j drivers after background relationship writes",
           "state": "closed",
           "merged": true,
-          "merged_at": "2026-11-16T11:55:50Z",
-          "closed_at": "2026-11-16T11:55:50Z",
           "head": "5e31d5050a2495a44944fb4906f930c7bcf1adfd",
-          "head_ref": "fix/neo4j-search-lifetime-20261116",
-          "created_at": "2026-11-16T10:41:22Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849822013",
           "official_ci": [
             {
               "id": 43851104271,
               "url": "https://github.com/serengil/deepface/actions/runs/43851104271",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849822013",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43849822013"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": "2026-11-16T11:55:50Z"
         },
         {
           "number": 1743,
@@ -114,25 +95,20 @@
           "title": "Compute similarity-search confidence using the verification threshold",
           "state": "closed",
           "merged": true,
-          "merged_at": "2026-11-16T11:57:42Z",
-          "closed_at": "2026-11-16T11:57:42Z",
           "head": "b32b56e480fcb8ac99a57cba4a67371107bfe3cb",
-          "head_ref": "fix/similarity-search-confidence-20261116",
-          "created_at": "2026-11-16T10:48:01Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851346167",
           "official_ci": [
             {
               "id": 43852073489,
               "url": "https://github.com/serengil/deepface/actions/runs/43852073489",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851346167",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43851346167"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": "2026-11-16T11:57:42Z"
         },
         {
           "number": 1744,
@@ -140,25 +116,21 @@
           "title": "Scope PostgreSQL streaming reads to explicit transactions",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:58:52Z",
           "head": "a440261ed0e45692df80e32ab9a719f1a9e5fee3",
-          "head_ref": "fix/postgres-cursor-transactions-20261116",
-          "created_at": "2026-11-16T10:52:28Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851968687",
           "official_ci": [
             {
               "id": 43852717131,
               "url": "https://github.com/serengil/deepface/actions/runs/43852717131",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851968687",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43851968687"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "prefer to keep it as is"
         },
         {
           "number": 1745,
@@ -166,25 +138,21 @@
           "title": "Initialize MongoDB identity counters atomically",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:59:24Z",
           "head": "7410c21eb2c17f2ec5d2eeedea670ee6f504ad4b",
-          "head_ref": "fix/mongo-counter-initialization-20261116",
-          "created_at": "2026-11-16T11:01:57Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853485801",
           "official_ci": [
             {
               "id": 43854113386,
               "url": "https://github.com/serengil/deepface/actions/runs/43854113386",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853485801",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43853485801"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "prefer to keep it as is"
         },
         {
           "number": 1746,
@@ -192,25 +160,20 @@
           "title": "Decode escaped database names in MySQL connection URIs",
           "state": "closed",
           "merged": true,
-          "merged_at": "2026-11-16T11:59:46Z",
-          "closed_at": "2026-11-16T11:59:46Z",
           "head": "00e646f72aee4d18e692a4c91879bb1e923342a3",
-          "head_ref": "fix/mysql-uri-database-20261116",
-          "created_at": "2026-11-16T11:05:23Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853728345",
           "official_ci": [
             {
               "id": 43854636585,
               "url": "https://github.com/serengil/deepface/actions/runs/43854636585",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853728345",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43853728345"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": "2026-11-16T11:59:46Z"
         },
         {
           "number": 1747,
@@ -218,25 +181,20 @@
           "title": "Index gallery filters and MongoDB identity lookups",
           "state": "closed",
           "merged": true,
-          "merged_at": "2026-11-16T11:51:19Z",
-          "closed_at": "2026-11-16T11:51:19Z",
           "head": "cad3fe3621f66aef6dcbfb9596b34d6823e92d62",
-          "head_ref": "perf/gallery-read-indexes-20261116",
-          "created_at": "2026-11-16T11:16:01Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43855316172",
           "official_ci": [
             {
               "id": 43856239657,
               "url": "https://github.com/serengil/deepface/actions/runs/43856239657",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43855316172",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43855316172"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": "2026-11-16T11:51:19Z"
         },
         {
           "number": 1748,
@@ -244,25 +202,22 @@
           "title": "Reserve MongoDB identity IDs once per registration batch",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:49:23Z",
           "head": "ed69117ed180510b1dcb6850bbd53621e6b27718",
-          "head_ref": "perf/mongo-identity-blocks-20261116",
-          "created_at": "2026-11-16T11:24:07Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43856374871",
           "official_ci": [
             {
               "id": 43857432885,
               "url": "https://github.com/serengil/deepface/actions/runs/43857432885",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43856374871",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43856374871"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "prefer to keep it as simple as is",
+          "feedback_url": "https://github.com/serengil/deepface/pull/1748"
         },
         {
           "number": 1749,
@@ -270,25 +225,21 @@
           "title": "Batch FAISS face queries and resolve shared gallery identities together",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:46:02Z",
           "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
-          "head_ref": "perf/faiss-batched-queries-20261116",
-          "created_at": "2026-11-16T11:35:03Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
           "official_ci": [
             {
               "id": 43859037893,
               "url": "https://github.com/serengil/deepface/actions/runs/43859037893",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43858024543"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "prefer to keep it as simple as is"
         },
         {
           "number": 1750,
@@ -296,25 +247,22 @@
           "title": "Batch detected face embeddings during verification",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T11:47:50Z",
           "head": "d934b37bd54a0c6d8b1b4556e08ce9f6dafb56e8",
-          "head_ref": "perf/verify-face-batching-20261116",
-          "created_at": "2026-11-16T11:45:17Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43859782785",
           "official_ci": [
             {
               "id": 43860530814,
               "url": "https://github.com/serengil/deepface/actions/runs/43860530814",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43859782785",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43859782785"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "prefer to keep it as simple as is",
+          "feedback_url": "https://github.com/serengil/deepface/pull/1750"
         },
         {
           "number": 1751,
@@ -322,25 +270,22 @@
           "title": "Keep high-dimensional embeddings usable in pgvector",
           "state": "closed",
           "merged": false,
-          "merged_at": null,
-          "closed_at": "2026-11-16T12:06:36Z",
           "head": "045a318e5fcb697b3bb0102e8fff42fdbf575562",
-          "head_ref": "fix/pgvector-dimension-limit-20261116",
-          "created_at": "2026-11-16T12:04:10Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862495314",
           "official_ci": [
             {
               "id": 43863248583,
               "url": "https://github.com/serengil/deepface/actions/runs/43863248583",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862495314",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43862495314"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null,
+          "maintainer_feedback": "it shouldn't be created, that's intentional",
+          "feedback_url": "https://github.com/serengil/deepface/pull/1751#issuecomment-6915942358"
         },
         {
           "number": 1752,
@@ -348,25 +293,20 @@
           "title": "Decode embeddings returned by pgvector Python 0.5",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
-          "head_ref": "fix/pgvector-vector-decoder-20261116",
-          "created_at": "2026-11-16T12:20:20Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862864470",
           "official_ci": [
             {
               "id": 43865677103,
               "url": "https://github.com/serengil/deepface/actions/runs/43865677103",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862864470",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43862864470"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1753,
@@ -374,25 +314,20 @@
           "title": "Read gallery IDs from current Pinecone SDK listing pages",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "9f4926f88b536972ecd929d582b6554c6f84b2fd",
-          "head_ref": "fix/pinecone-listing-pages-20261116",
-          "created_at": "2026-11-16T12:28:42Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866246592",
           "official_ci": [
             {
               "id": 43866943360,
               "url": "https://github.com/serengil/deepface/actions/runs/43866943360",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866246592",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43866246592"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1754,
@@ -400,25 +335,20 @@
           "title": "Preserve mixed-case image paths during registration",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "d9cfd2fae6f2e5b72f18f5335a863f9c70138cc8",
-          "head_ref": "fix/registration-path-case-20261116",
-          "created_at": "2026-11-16T12:29:17Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866203772",
           "official_ci": [
             {
               "id": 43867024997,
               "url": "https://github.com/serengil/deepface/actions/runs/43867024997",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866203772",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43866203772"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1755,
@@ -426,25 +356,20 @@
           "title": "Close Pinecone request clients after database operations",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "f93ded9b3df91295441a9b8fe617b943fb0e5c29",
-          "head_ref": "fix/pinecone-client-lifetime-20261116",
-          "created_at": "2026-11-16T12:30:58Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866791770",
           "official_ci": [
             {
               "id": 43867284328,
               "url": "https://github.com/serengil/deepface/actions/runs/43867284328",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866791770",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43866791770"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1756,
@@ -452,25 +377,20 @@
           "title": "Serialize concurrent requests to shared MediaPipe graphs",
           "state": "open",
           "merged": false,
-          "merged_at": null,
-          "closed_at": null,
           "head": "dbcac59110b2a885a9e6afaab4e929b927e0ee8a",
-          "head_ref": "fix/mediapipe-graph-concurrency-20261116",
-          "created_at": "2026-11-16T12:48:49Z",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43869361080",
           "official_ci": [
             {
               "id": 43869973653,
               "url": "https://github.com/serengil/deepface/actions/runs/43869973653",
               "name": "Tests",
               "status": "completed",
-              "conclusion": "success"
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43869361080",
-          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
-          "validation_links": [
-            "https://github.com/Afloat16/deepface/actions/runs/43869361080"
-          ]
+          "maintainer_can_modify": false,
+          "merged_at": null
         },
         {
           "number": 1757,
@@ -496,14 +416,31 @@
           "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43872136361",
           "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
           "maintainer_can_modify": false
+        },
+        {
+          "number": 1758,
+          "url": "https://github.com/serengil/deepface/pull/1758",
+          "title": "Keep gallery caches separate for different detection policies",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "3298d5b638470b52818537674d40fa7132df49af",
+          "head_ref": "fix/gallery-detection-policy-20261116",
+          "created_at": "2026-11-16T13:34:34Z",
+          "official_ci": [],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43876255050",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
+          "maintainer_can_modify": false
         }
       ],
       "counts": {
-        "submitted": 19,
-        "open": 7,
+        "submitted": 20,
+        "open": 8,
         "merged": 5,
         "closed_unmerged": 7,
-        "effective": 12
+        "effective": 13,
+        "target": 20
       }
     },
     {
