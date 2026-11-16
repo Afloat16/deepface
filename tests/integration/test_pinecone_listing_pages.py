@@ -101,8 +101,9 @@ def gallery(monkeypatch):
     client = pinecone.Pinecone(api_key=f"loopback-gallery-{server.server_port}", host=state["url"])
     factory = client.Index
 
-    def open_index(*args, **kwargs):
-        index = factory(*args, **kwargs)
+    def open_index(*_args, **_kwargs):
+        # Isolate SDK 8 name-resolution caching from the listing protocol under test.
+        index = factory(host=state["url"])
         indexes.append(index)
         return index
 
