@@ -74,9 +74,7 @@ def endpoint(monkeypatch):
                         "values": {"type": "dense_vector", "dimension": 128, "metric": "euclidean"}
                     }
                 },
-                "deployment": {
-                    "deployment_type": "managed", "cloud": "aws", "region": "us-east-1"
-                },
+                "deployment": {"deployment_type": "managed", "cloud": "aws", "region": "us-east-1"},
             }
             if path == "/indexes":
                 self.reply({"indexes": [] if state["missing"] else [description]})
