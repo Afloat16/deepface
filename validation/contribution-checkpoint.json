@@ -3,7 +3,7 @@
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 14,
+    "published_count": 15,
     "merged_count": 5,
     "prs": [
       {
@@ -274,12 +274,24 @@
         ],
         "maintainer_can_modify": false,
         "merged_at": null
+      },
+      {
+        "number": 1753,
+        "url": "https://github.com/serengil/deepface/pull/1753",
+        "title": "Read gallery IDs from current Pinecone SDK listing pages",
+        "state": "open",
+        "merged": false,
+        "head": "9f4926f88b536972ecd929d582b6554c6f84b2fd",
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866246592",
+        "official_ci": [],
+        "maintainer_can_modify": false,
+        "merged_at": null
       }
     ],
     "target": 20,
-    "currently_open_count": 2,
+    "currently_open_count": 3,
     "closed_unmerged_count": 7,
-    "submitted_count": 14
+    "submitted_count": 15
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -430,7 +442,7 @@
     "title": "Read gallery IDs from current Pinecone SDK listing pages",
     "branch": "fix/pinecone-listing-pages-20261116",
     "body": "## Tickets\nSelf-contained Pinecone SDK compatibility fix.\n\n## What has been done\nThe current Pinecone SDK yields `ListResponse` pages from `Index.list()`; each page contains vector records whose IDs are in `item.id`. The existing code extends the ID list with those records and passes them to `fetch`, which rejects them. Full-gallery reads and exact searches therefore fail with the current SDK.\n\nExtract IDs from native listing pages and retain support for older SDKs that yield lists of ID strings. Pagination and fetch batch sizes are unchanged.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43866246592):\n- Python 3.12 / Pinecone 10.1.0: original source has 6 failures and 2 passing controls; patched source plus adjacent tests has 26 passes.\n- Python 3.10 / Pinecone 8.0.0: all 8 new tests already pass on the original source, and all 26 selected tests pass after the change.\n- Repository-pinned Pylint: 10.00/10; MyPy: 145 source files passed; Black formatting passed.\n\nTests use actual SDK clients against a loopback HTTP service. They cover multiple listing pages, independent fetch batch sizes, exact record IDs and metadata, empty galleries, propagated service errors, and the public exact-search path. The service and recognition boundary are fixtures; SDK serialization, response decoding, pagination, and distance calculations are real.\n",
-    "status": "ready",
+    "status": "published",
     "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
     "head": "9f4926f88b536972ecd929d582b6554c6f84b2fd",
     "tree": "ee83dd00d0db4547bed7855d104d316bfe2e8baf",
@@ -455,7 +467,11 @@
       "mypy": 145
     },
     "dedupe": "474 historical upstream PRs and94 pre-existing fork diffs reviewed; latest upstream PRs refreshed through1752",
-    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pinecone-listing-pages-20261116?expand=1&title=Read%20gallery%20IDs%20from%20current%20Pinecone%20SDK%20listing%20pages&body=%23%23%20Tickets%0ASelf-contained%20Pinecone%20SDK%20compatibility%20fix.%0A%0A%23%23%20What%20has%20been%20done%0AThe%20current%20Pinecone%20SDK%20yields%20%60ListResponse%60%20pages%20from%20%60Index.list()%60%3B%20each%20page%20contains%20vector%20records%20whose%20IDs%20are%20in%20%60item.id%60.%20The%20existing%20code%20extends%20the%20ID%20list%20with%20those%20records%20and%20passes%20them%20to%20%60fetch%60%2C%20which%20rejects%20them.%20Full-gallery%20reads%20and%20exact%20searches%20therefore%20fail%20with%20the%20current%20SDK.%0A%0AExtract%20IDs%20from%20native%20listing%20pages%20and%20retain%20support%20for%20older%20SDKs%20that%20yield%20lists%20of%20ID%20strings.%20Pagination%20and%20fetch%20batch%20sizes%20are%20unchanged.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866246592)%3A%0A-%20Python%203.12%20%2F%20Pinecone%2010.1.0%3A%20original%20source%20has%206%20failures%20and%202%20passing%20controls%3B%20patched%20source%20plus%20adjacent%20tests%20has%2026%20passes.%0A-%20Python%203.10%20%2F%20Pinecone%208.0.0%3A%20all%208%20new%20tests%20already%20pass%20on%20the%20original%20source%2C%20and%20all%2026%20selected%20tests%20pass%20after%20the%20change.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0ATests%20use%20actual%20SDK%20clients%20against%20a%20loopback%20HTTP%20service.%20They%20cover%20multiple%20listing%20pages%2C%20independent%20fetch%20batch%20sizes%2C%20exact%20record%20IDs%20and%20metadata%2C%20empty%20galleries%2C%20propagated%20service%20errors%2C%20and%20the%20public%20exact-search%20path.%20The%20service%20and%20recognition%20boundary%20are%20fixtures%3B%20SDK%20serialization%2C%20response%20decoding%2C%20pagination%2C%20and%20distance%20calculations%20are%20real.%0A"
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pinecone-listing-pages-20261116?expand=1&title=Read%20gallery%20IDs%20from%20current%20Pinecone%20SDK%20listing%20pages&body=%23%23%20Tickets%0ASelf-contained%20Pinecone%20SDK%20compatibility%20fix.%0A%0A%23%23%20What%20has%20been%20done%0AThe%20current%20Pinecone%20SDK%20yields%20%60ListResponse%60%20pages%20from%20%60Index.list()%60%3B%20each%20page%20contains%20vector%20records%20whose%20IDs%20are%20in%20%60item.id%60.%20The%20existing%20code%20extends%20the%20ID%20list%20with%20those%20records%20and%20passes%20them%20to%20%60fetch%60%2C%20which%20rejects%20them.%20Full-gallery%20reads%20and%20exact%20searches%20therefore%20fail%20with%20the%20current%20SDK.%0A%0AExtract%20IDs%20from%20native%20listing%20pages%20and%20retain%20support%20for%20older%20SDKs%20that%20yield%20lists%20of%20ID%20strings.%20Pagination%20and%20fetch%20batch%20sizes%20are%20unchanged.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866246592)%3A%0A-%20Python%203.12%20%2F%20Pinecone%2010.1.0%3A%20original%20source%20has%206%20failures%20and%202%20passing%20controls%3B%20patched%20source%20plus%20adjacent%20tests%20has%2026%20passes.%0A-%20Python%203.10%20%2F%20Pinecone%208.0.0%3A%20all%208%20new%20tests%20already%20pass%20on%20the%20original%20source%2C%20and%20all%2026%20selected%20tests%20pass%20after%20the%20change.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0ATests%20use%20actual%20SDK%20clients%20against%20a%20loopback%20HTTP%20service.%20They%20cover%20multiple%20listing%20pages%2C%20independent%20fetch%20batch%20sizes%2C%20exact%20record%20IDs%20and%20metadata%2C%20empty%20galleries%2C%20propagated%20service%20errors%2C%20and%20the%20public%20exact-search%20path.%20The%20service%20and%20recognition%20boundary%20are%20fixtures%3B%20SDK%20serialization%2C%20response%20decoding%2C%20pagination%2C%20and%20distance%20calculations%20are%20real.%0A",
+    "number": 1753,
+    "url": "https://github.com/serengil/deepface/pull/1753",
+    "state": "open",
+    "merged": false
   },
   "batch16": {
     "title": "Decode embeddings returned by pgvector Python 0.5",
