@@ -4,7 +4,7 @@
   "progress": {
     "repository": "serengil/deepface",
     "published_count": 12,
-    "merged_count": 0,
+    "merged_count": 3,
     "prs": [
       {
         "number": 1739,
@@ -49,8 +49,8 @@
         "number": 1741,
         "url": "https://github.com/serengil/deepface/pull/1741",
         "title": "Make MySQL index replacement atomic with autocommit connections",
-        "state": "open",
-        "merged": false,
+        "state": "closed",
+        "merged": true,
         "head": "8013b0cb57567e89095924641d19f900475e5c28",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849280828",
         "official_ci": [
@@ -62,14 +62,14 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": "2026-11-16T11:54:34Z"
       },
       {
         "number": 1742,
         "url": "https://github.com/serengil/deepface/pull/1742",
         "title": "Close owned Neo4j drivers after background relationship writes",
-        "state": "open",
-        "merged": false,
+        "state": "closed",
+        "merged": true,
         "head": "5e31d5050a2495a44944fb4906f930c7bcf1adfd",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849822013",
         "official_ci": [
@@ -81,7 +81,7 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": "2026-11-16T11:55:50Z"
       },
       {
         "number": 1743,
@@ -163,8 +163,8 @@
         "number": 1747,
         "url": "https://github.com/serengil/deepface/pull/1747",
         "title": "Index gallery filters and MongoDB identity lookups",
-        "state": "open",
-        "merged": false,
+        "state": "closed",
+        "merged": true,
         "head": "cad3fe3621f66aef6dcbfb9596b34d6823e92d62",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43855316172",
         "official_ci": [
@@ -176,13 +176,13 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": "2026-11-16T11:51:19Z"
       },
       {
         "number": 1748,
         "url": "https://github.com/serengil/deepface/pull/1748",
         "title": "Reserve MongoDB identity IDs once per registration batch",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "ed69117ed180510b1dcb6850bbd53621e6b27718",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43856374871",
@@ -195,7 +195,9 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": null,
+        "maintainer_feedback": "prefer to keep it as simple as is",
+        "feedback_url": "https://github.com/serengil/deepface/pull/1748"
       },
       {
         "number": 1749,
@@ -221,7 +223,7 @@
         "number": 1750,
         "url": "https://github.com/serengil/deepface/pull/1750",
         "title": "Batch detected face embeddings during verification",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "d934b37bd54a0c6d8b1b4556e08ce9f6dafb56e8",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43859782785",
@@ -234,12 +236,14 @@
           }
         ],
         "maintainer_can_modify": false,
-        "merged_at": null
+        "merged_at": null,
+        "maintainer_feedback": "prefer to keep it as simple as is",
+        "feedback_url": "https://github.com/serengil/deepface/pull/1750"
       }
     ],
     "target": 20,
-    "currently_open_count": 10,
-    "closed_unmerged_count": 2,
+    "currently_open_count": 5,
+    "closed_unmerged_count": 4,
     "submitted_count": 12
   },
   "batch11": {
@@ -337,16 +341,27 @@
     },
     "url": "https://github.com/serengil/deepface/pull/1750",
     "number": 1750,
-    "state": "open",
+    "state": "closed",
     "merged": false,
-    "maintainer_can_modify": false
+    "maintainer_can_modify": false,
+    "maintainer_feedback": "prefer to keep it as simple as is"
   },
   "batch13": {
-    "status": "validation_debugging",
+    "status": "validation_running",
     "validationBranch": "validation/20261116-pinecone-client-lifetime",
-    "validationSha": "cb48cc6c872443cbe9de04cd520466873b59f5c0",
-    "validationTree": "f8042620233a71e2460f3d790f041562efeb3340",
-    "run": 43860799774,
+    "validationSha": "1a2d843998bd9ff3aaf32dc3e3f3f19e9441146e",
+    "validationTree": "f653ad92d129f35e8449fe76514efc878436da5e",
     "scope": "Pinecone data and control-plane explicit connection cleanup"
+  },
+  "batch14": {
+    "status": "validation_running",
+    "validationBranch": "validation/20261116-pgvector-dimensions",
+    "validationSha": "761b0abf6611e8d296f26ea5dbf9dfab30bbe3ea",
+    "validationTree": "f37e56d1d00bfd08e3e3f49f38a458ad32b29fa8",
+    "scope": "Preserve default 4096-dimensional embeddings beyond HNSW dimension limit"
+  },
+  "prospective": {
+    "batch15": "Pinecone SDK10 listing page compatibility; real SDK currently rejects ListItem IDs",
+    "batch16": "pgvector Python0.5 Vector decoder objects not iterable; confirmed realDB TypeError and official changelog"
   }
 }
