@@ -61,10 +61,9 @@ def gallery(monkeypatch):
                 value = {
                     "vectors": [{"id": identity} for identity in page_ids],
                     "namespace": "",
-                    "pagination": (
-                        {"next": str(next_offset)} if next_offset < len(state["ids"]) else {}
-                    ),
                 }
+                if next_offset < len(state["ids"]):
+                    value["pagination"] = {"next": str(next_offset)}
             elif path == "/vectors/fetch":
                 ids = query.get("ids", [])
                 state["fetch_requests"].append(ids)
