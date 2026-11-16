@@ -264,7 +264,14 @@
         "merged": false,
         "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862864470",
-        "official_ci": [],
+        "official_ci": [
+          {
+            "id": 43865677103,
+            "status": "completed",
+            "conclusion": "success",
+            "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+          }
+        ],
         "maintainer_can_modify": false,
         "merged_at": null
       }
@@ -375,12 +382,13 @@
     "maintainer_feedback": "prefer to keep it as simple as is"
   },
   "batch13": {
-    "status": "validation_failed_investigating",
+    "status": "validation_running",
     "validationBranch": "validation/20261116-pinecone-client-lifetime",
-    "validationSha": "0bb3998b9a0a6fdf5eb8004865f3e2f5ebdc4db4",
-    "validationTree": "641fab2be8ff478c4d2e104242ee1ba36a3a8692",
-    "scope": "Pinecone data and control-plane explicit connection cleanup",
-    "run": 43864924012
+    "validationSha": "a75531e18a3d8586073e0ed7fd2e8d795a6d3488",
+    "validationTree": "94dfbd5d3436e5c5a8ad20758caa179fe487c519",
+    "scope": "Native SDK close calls; observed SDK8 pool cleanup limitation explicitly retained",
+    "run": 43866240102,
+    "conclusion": null
   },
   "batch14": {
     "title": "Keep high-dimensional embeddings usable in pgvector",
@@ -418,11 +426,36 @@
     "batch16": "pgvector Python0.5 Vector decoder objects not iterable; confirmed realDB TypeError and official changelog"
   },
   "batch15": {
-    "validationSha": "65f415a484c26ad027261140892206fcbfac39eb",
-    "validationTree": "fee1ca856e5fb2cd4fd36c0aacd139b5915e1005",
-    "validationBranch": "validation/20261116-pinecone-listing-pages",
-    "run": 43864931595,
-    "status": "validation_failed_investigating"
+    "n": 15,
+    "title": "Read gallery IDs from current Pinecone SDK listing pages",
+    "branch": "fix/pinecone-listing-pages-20261116",
+    "body": "## Tickets\nSelf-contained Pinecone SDK compatibility fix.\n\n## What has been done\nThe current Pinecone SDK yields `ListResponse` pages from `Index.list()`; each page contains vector records whose IDs are in `item.id`. The existing code extends the ID list with those records and passes them to `fetch`, which rejects them. Full-gallery reads and exact searches therefore fail with the current SDK.\n\nExtract IDs from native listing pages and retain support for older SDKs that yield lists of ID strings. Pagination and fetch batch sizes are unchanged.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43866246592):\n- Python 3.12 / Pinecone 10.1.0: original source has 6 failures and 2 passing controls; patched source plus adjacent tests has 26 passes.\n- Python 3.10 / Pinecone 8.0.0: all 8 new tests already pass on the original source, and all 26 selected tests pass after the change.\n- Repository-pinned Pylint: 10.00/10; MyPy: 145 source files passed; Black formatting passed.\n\nTests use actual SDK clients against a loopback HTTP service. They cover multiple listing pages, independent fetch batch sizes, exact record IDs and metadata, empty galleries, propagated service errors, and the public exact-search path. The service and recognition boundary are fixtures; SDK serialization, response decoding, pagination, and distance calculations are real.\n",
+    "status": "ready",
+    "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
+    "head": "9f4926f88b536972ecd929d582b6554c6f84b2fd",
+    "tree": "ee83dd00d0db4547bed7855d104d316bfe2e8baf",
+    "validationSha": "042646713174bf58e2723eb9b1677f35ea5bf14e",
+    "validationRun": 43866246592,
+    "evidence": {
+      "legacy": {
+        "sdk": "8.0.0",
+        "before": "8 passed",
+        "after": "26 passed"
+      },
+      "current": {
+        "sdk": "10.1.0",
+        "before": "6 failed,2 passed",
+        "after": "26 passed"
+      },
+      "jobs": [
+        133295424038,
+        133295424398
+      ],
+      "pylint": "10.00/10",
+      "mypy": 145
+    },
+    "dedupe": "474 historical upstream PRs and94 pre-existing fork diffs reviewed; latest upstream PRs refreshed through1752",
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/pinecone-listing-pages-20261116?expand=1&title=Read%20gallery%20IDs%20from%20current%20Pinecone%20SDK%20listing%20pages&body=%23%23%20Tickets%0ASelf-contained%20Pinecone%20SDK%20compatibility%20fix.%0A%0A%23%23%20What%20has%20been%20done%0AThe%20current%20Pinecone%20SDK%20yields%20%60ListResponse%60%20pages%20from%20%60Index.list()%60%3B%20each%20page%20contains%20vector%20records%20whose%20IDs%20are%20in%20%60item.id%60.%20The%20existing%20code%20extends%20the%20ID%20list%20with%20those%20records%20and%20passes%20them%20to%20%60fetch%60%2C%20which%20rejects%20them.%20Full-gallery%20reads%20and%20exact%20searches%20therefore%20fail%20with%20the%20current%20SDK.%0A%0AExtract%20IDs%20from%20native%20listing%20pages%20and%20retain%20support%20for%20older%20SDKs%20that%20yield%20lists%20of%20ID%20strings.%20Pagination%20and%20fetch%20batch%20sizes%20are%20unchanged.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866246592)%3A%0A-%20Python%203.12%20%2F%20Pinecone%2010.1.0%3A%20original%20source%20has%206%20failures%20and%202%20passing%20controls%3B%20patched%20source%20plus%20adjacent%20tests%20has%2026%20passes.%0A-%20Python%203.10%20%2F%20Pinecone%208.0.0%3A%20all%208%20new%20tests%20already%20pass%20on%20the%20original%20source%2C%20and%20all%2026%20selected%20tests%20pass%20after%20the%20change.%0A-%20Repository-pinned%20Pylint%3A%2010.00%2F10%3B%20MyPy%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0ATests%20use%20actual%20SDK%20clients%20against%20a%20loopback%20HTTP%20service.%20They%20cover%20multiple%20listing%20pages%2C%20independent%20fetch%20batch%20sizes%2C%20exact%20record%20IDs%20and%20metadata%2C%20empty%20galleries%2C%20propagated%20service%20errors%2C%20and%20the%20public%20exact-search%20path.%20The%20service%20and%20recognition%20boundary%20are%20fixtures%3B%20SDK%20serialization%2C%20response%20decoding%2C%20pagination%2C%20and%20distance%20calculations%20are%20real.%0A"
   },
   "batch16": {
     "title": "Decode embeddings returned by pgvector Python 0.5",
@@ -460,5 +493,29 @@
     "url": "https://github.com/serengil/deepface/pull/1752",
     "state": "open",
     "merged": false
+  },
+  "batch17": {
+    "n": 17,
+    "title": "Preserve mixed-case image paths during registration",
+    "branch": "fix/registration-path-case-20261116",
+    "body": "## Tickets\nSelf-contained registration identity fix.\n\n## What has been done\nRegistering a valid image such as `Photo.JPG` currently assigns a random UUID as its name, while `Photo.jpg` retains its path. The image loader and gallery discovery already accept these extensions without regard to case, so later searches lose the source path solely because of extension casing.\n\nCompare the extension in lowercase while storing the original path unchanged. Explicit image names and UUID identifiers for arrays, file objects, and base64 data keep their existing behavior.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43866203772), Python 3.10 and 3.12:\n- Original source: 7 failures and 8 passing controls in each environment.\n- Patched source plus existing registration connection tests: 29 passed in each environment.\n- Pylint 2.15.10: 10.00/10; MyPy 1.14.1: 145 source files passed; Black formatting passed.\n\nThe regressions write real JPEG/PNG files, use OpenCV decoding and normal preprocessing, register them in SQLite, and check stored names and public search results. They cover upper/mixed/lowercase extensions, mixed batches, explicit names, and non-path input types. Only the recognition model is replaced with a small deterministic fixture; image loading, database operations, and distance calculations are real.\n",
+    "status": "ready",
+    "baseline": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
+    "head": "d9cfd2fae6f2e5b72f18f5335a863f9c70138cc8",
+    "tree": "d785b03461d0131641dc36f738fe9a24d2edfdae",
+    "validationSha": "bd4558971b140fe269162b64a1929b09b131b19f",
+    "validationRun": 43866203772,
+    "evidence": {
+      "before": "7 failed, 8 passed",
+      "after": "29 passed each Python3.10/3.12",
+      "jobs": [
+        133295278419,
+        133295278764
+      ],
+      "pylint": "10.00/10",
+      "mypy": 145
+    },
+    "dedupe": "474 historical upstream PRs and94 pre-existing fork diffs reviewed; latest upstream PRs refreshed through1752",
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/registration-path-case-20261116?expand=1&title=Preserve%20mixed-case%20image%20paths%20during%20registration&body=%23%23%20Tickets%0ASelf-contained%20registration%20identity%20fix.%0A%0A%23%23%20What%20has%20been%20done%0ARegistering%20a%20valid%20image%20such%20as%20%60Photo.JPG%60%20currently%20assigns%20a%20random%20UUID%20as%20its%20name%2C%20while%20%60Photo.jpg%60%20retains%20its%20path.%20The%20image%20loader%20and%20gallery%20discovery%20already%20accept%20these%20extensions%20without%20regard%20to%20case%2C%20so%20later%20searches%20lose%20the%20source%20path%20solely%20because%20of%20extension%20casing.%0A%0ACompare%20the%20extension%20in%20lowercase%20while%20storing%20the%20original%20path%20unchanged.%20Explicit%20image%20names%20and%20UUID%20identifiers%20for%20arrays%2C%20file%20objects%2C%20and%20base64%20data%20keep%20their%20existing%20behavior.%0A%0A%23%23%20How%20to%20test%0A%5BValidation%20run%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43866203772)%2C%20Python%203.10%20and%203.12%3A%0A-%20Original%20source%3A%207%20failures%20and%208%20passing%20controls%20in%20each%20environment.%0A-%20Patched%20source%20plus%20existing%20registration%20connection%20tests%3A%2029%20passed%20in%20each%20environment.%0A-%20Pylint%202.15.10%3A%2010.00%2F10%3B%20MyPy%201.14.1%3A%20145%20source%20files%20passed%3B%20Black%20formatting%20passed.%0A%0AThe%20regressions%20write%20real%20JPEG%2FPNG%20files%2C%20use%20OpenCV%20decoding%20and%20normal%20preprocessing%2C%20register%20them%20in%20SQLite%2C%20and%20check%20stored%20names%20and%20public%20search%20results.%20They%20cover%20upper%2Fmixed%2Flowercase%20extensions%2C%20mixed%20batches%2C%20explicit%20names%2C%20and%20non-path%20input%20types.%20Only%20the%20recognition%20model%20is%20replaced%20with%20a%20small%20deterministic%20fixture%3B%20image%20loading%2C%20database%20operations%2C%20and%20distance%20calculations%20are%20real.%0A"
   }
 }
