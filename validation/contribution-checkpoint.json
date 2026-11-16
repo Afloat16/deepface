@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-16T13:06:00Z",
+  "updated": "2026-11-16T13:07:00Z",
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 18,
+    "published_count": 19,
     "merged_count": 5,
     "prs": [
       {
@@ -393,13 +393,29 @@
         ],
         "maintainer_can_modify": false,
         "merged_at": null
+      },
+      {
+        "number": 1757,
+        "url": "https://github.com/serengil/deepface/pull/1757",
+        "title": "Keep MediaPipe installations compatible with the Solutions detector",
+        "state": "open",
+        "merged": false,
+        "merged_at": null,
+        "closed_at": null,
+        "head": "b0b89a8b3ef71619260b8f03361c247d20cddf92",
+        "head_ref": "fix/mediapipe-compatible-install-20261116",
+        "created_at": "2026-11-16T13:06:58Z",
+        "official_ci": [],
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43872136361",
+        "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
+        "maintainer_can_modify": false
       }
     ],
     "target": 20,
-    "currently_open_count": 6,
+    "currently_open_count": 7,
     "closed_unmerged_count": 7,
-    "submitted_count": 18,
-    "effective_count": 11
+    "submitted_count": 19,
+    "effective_count": 12
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -575,11 +591,7 @@
     "maintainer_can_modify": false,
     "maintainer_feedback": "it shouldn't be created, that's intentional"
   },
-  "prospective": {
-    "batch": 19,
-    "status": "ready",
-    "head": "b0b89a8b3ef71619260b8f03361c247d20cddf92"
-  },
+  "prospective": null,
   "batch15": {
     "n": 15,
     "title": "Read gallery IDs from current Pinecone SDK listing pages",
@@ -739,8 +751,10 @@
       "fork_heads": 131,
       "related_commits": 42
     },
-    "status": "ready",
+    "status": "published_open",
     "maintainer_can_modify": false,
-    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/mediapipe-compatible-install-20261116?expand=1&title=Keep%20MediaPipe%20installations%20compatible%20with%20the%20Solutions%20detector&body=%23%23%20Tickets%0A%0ANo%20linked%20issue.%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AThe%20optional%20MediaPipe%20requirement%20and%20installation%20hint%20allow%20current%20releases%20that%20no%20longer%20expose%20%60mp.solutions%60.%20Both%20the%200.10.30%20and%201.2.3%20wheels%20fail%20immediately%20when%20DeepFace%20builds%20the%20detector%2C%20before%20any%20inference%20can%20run.%0A%0AConstrain%20the%20optional%20requirement%20to%20%60mediapipe%3E%3D0.8.7.3%2C%3C0.10.30%60%2C%20and%20use%20that%20same%20command%20when%20the%20dependency%20is%20absent%20or%20its%20legacy%20Solutions%20API%20is%20unavailable.%20The%20existing%20short-range%20and%20full-range%20detector%20modes%20remain%20supported.%0A%0A%23%23%20How%20to%20test%0A%0A%5BPython%203.10%20and%203.12%20validation%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43872136361)%3A%0A%0A-%20The%20original%20implementation%20has%202%20failing%20regression%20tests%20with%204%20passing%20controls.%20Both%20actual%20incompatible%20SDK%20wheels%20reproduce%20%60AttributeError%60%3B%20the%20change%20reports%20the%20compatible%20installation%20command.%0A-%20The%20declared%20requirement%20resolves%20to%20and%20installs%200.10.21.%20Both%20native%20detector%20modes%20find%20the%20face%20in%20the%20repository's%20%60img1.jpg%60%20and%20return%20no%20faces%20for%20a%20blank%20image.%0A-%207%20unit%20tests%20pass%20on%20each%20Python%20version%2C%20including%20the%20existing%20color-order%20and%20SSD%20version%20checks.%20Black%20passes%3B%20the%20upstream%20Pylint%20and%20MyPy%20commands%20pass%20on%20Python%203.10%20(145%20source%20files).%0A"
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/mediapipe-compatible-install-20261116?expand=1&title=Keep%20MediaPipe%20installations%20compatible%20with%20the%20Solutions%20detector&body=%23%23%20Tickets%0A%0ANo%20linked%20issue.%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AThe%20optional%20MediaPipe%20requirement%20and%20installation%20hint%20allow%20current%20releases%20that%20no%20longer%20expose%20%60mp.solutions%60.%20Both%20the%200.10.30%20and%201.2.3%20wheels%20fail%20immediately%20when%20DeepFace%20builds%20the%20detector%2C%20before%20any%20inference%20can%20run.%0A%0AConstrain%20the%20optional%20requirement%20to%20%60mediapipe%3E%3D0.8.7.3%2C%3C0.10.30%60%2C%20and%20use%20that%20same%20command%20when%20the%20dependency%20is%20absent%20or%20its%20legacy%20Solutions%20API%20is%20unavailable.%20The%20existing%20short-range%20and%20full-range%20detector%20modes%20remain%20supported.%0A%0A%23%23%20How%20to%20test%0A%0A%5BPython%203.10%20and%203.12%20validation%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43872136361)%3A%0A%0A-%20The%20original%20implementation%20has%202%20failing%20regression%20tests%20with%204%20passing%20controls.%20Both%20actual%20incompatible%20SDK%20wheels%20reproduce%20%60AttributeError%60%3B%20the%20change%20reports%20the%20compatible%20installation%20command.%0A-%20The%20declared%20requirement%20resolves%20to%20and%20installs%200.10.21.%20Both%20native%20detector%20modes%20find%20the%20face%20in%20the%20repository's%20%60img1.jpg%60%20and%20return%20no%20faces%20for%20a%20blank%20image.%0A-%207%20unit%20tests%20pass%20on%20each%20Python%20version%2C%20including%20the%20existing%20color-order%20and%20SSD%20version%20checks.%20Black%20passes%3B%20the%20upstream%20Pylint%20and%20MyPy%20commands%20pass%20on%20Python%203.10%20(145%20source%20files).%0A",
+    "upstream_url": "https://github.com/serengil/deepface/pull/1757",
+    "number": 1757
   }
 }

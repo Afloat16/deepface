@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T12:57:10Z",
+  "updated": "2026-11-16T13:07:00Z",
   "repositories": [
     {
       "repository": "serengil/deepface",
@@ -471,14 +471,30 @@
           "validation_links": [
             "https://github.com/Afloat16/deepface/actions/runs/43869361080"
           ]
+        },
+        {
+          "number": 1757,
+          "url": "https://github.com/serengil/deepface/pull/1757",
+          "title": "Keep MediaPipe installations compatible with the Solutions detector",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "b0b89a8b3ef71619260b8f03361c247d20cddf92",
+          "head_ref": "fix/mediapipe-compatible-install-20261116",
+          "created_at": "2026-11-16T13:06:58Z",
+          "official_ci": [],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43872136361",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
+          "maintainer_can_modify": false
         }
       ],
       "counts": {
-        "submitted": 18,
-        "open": 6,
+        "submitted": 19,
+        "open": 7,
         "merged": 5,
         "closed_unmerged": 7,
-        "effective": 11
+        "effective": 12
       }
     },
     {
