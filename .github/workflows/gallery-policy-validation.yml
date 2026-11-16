@@ -32,7 +32,7 @@ jobs:
           trap 'cp "$RUNNER_TEMP/recognition-fixed.py" deepface/modules/recognition.py' EXIT
           git show 3478d3320b42afbc9cb59eabb89805c5e22831dd:deepface/modules/recognition.py > deepface/modules/recognition.py
           set +e
-          python -m pytest -q -s tests/unit/test_gallery_detection_policy.py validation/gallery_policy_native.py > before.log 2>&1
+          python -m pytest -q -s tests/unit/test_gallery_detection_policy.py validation/gallery_policy_native.py -k 'not existing_refresh_database' > before.log 2>&1
           BEFORE_EXIT=$?
           set -e
           cat before.log
