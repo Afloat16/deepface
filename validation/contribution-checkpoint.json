@@ -3,7 +3,7 @@
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 12,
+    "published_count": 13,
     "merged_count": 5,
     "prs": [
       {
@@ -241,12 +241,24 @@
         "merged_at": null,
         "maintainer_feedback": "prefer to keep it as simple as is",
         "feedback_url": "https://github.com/serengil/deepface/pull/1750"
+      },
+      {
+        "number": 1751,
+        "url": "https://github.com/serengil/deepface/pull/1751",
+        "title": "Keep high-dimensional embeddings usable in pgvector",
+        "state": "open",
+        "merged": false,
+        "head": "045a318e5fcb697b3bb0102e8fff42fdbf575562",
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862495314",
+        "official_ci": [],
+        "maintainer_can_modify": false,
+        "merged_at": null
       }
     ],
     "target": 20,
-    "currently_open_count": 1,
+    "currently_open_count": 2,
     "closed_unmerged_count": 6,
-    "submitted_count": 12
+    "submitted_count": 13
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -376,10 +388,15 @@
       "pgvectorExtension": "0.8.7",
       "scope": "real database; deterministic embeddings"
     },
-    "status": "ready",
+    "status": "published",
     "dedupe": "474 historical PRs,94 old fork diffs and latest upstreamPR refresh; no equivalent. Old1694 schema-scope proposal does not address dimension limits. Current master compare excludes pgvector.py.",
     "head": "045a318e5fcb697b3bb0102e8fff42fdbf575562",
-    "tree": "98c19bb24c31332c1d367dc9f8406d7f8184b0ad"
+    "tree": "98c19bb24c31332c1d367dc9f8406d7f8184b0ad",
+    "number": 1751,
+    "url": "https://github.com/serengil/deepface/pull/1751",
+    "state": "open",
+    "merged": false,
+    "maintainer_can_modify": false
   },
   "prospective": {
     "batch15": "Pinecone SDK10 listing page compatibility; real SDK currently rejects ListItem IDs",
@@ -388,11 +405,14 @@
   "batch15": {
     "validationSha": "cc0d709fb2a20dc4a375ebd9ed1c4f9f8d26ca09",
     "validationTree": "ee2b010a61148876e550f3e43379455795d92a59",
-    "validationBranch": "validation/20261116-pinecone-listing-pages"
+    "validationBranch": "validation/20261116-pinecone-listing-pages",
+    "run": 43862761729
   },
   "batch16": {
     "validationSha": "c2ac361ebd8e328a4d32db859992af055d87d61f",
     "validationTree": "d851528da30b2b1e1d25eae24c75c7cbdb651dbf",
-    "validationBranch": "validation/20261116-pgvector-decoder"
+    "validationBranch": "validation/20261116-pgvector-decoder",
+    "run": 43862864470,
+    "status": "validation_success"
   }
 }
