@@ -3,7 +3,7 @@
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
-    "published_count": 10,
+    "published_count": 11,
     "merged_count": 0,
     "prs": [
       {
@@ -185,6 +185,17 @@
           }
         ],
         "maintainer_can_modify": false
+      },
+      {
+        "number": 1749,
+        "url": "https://github.com/serengil/deepface/pull/1749",
+        "title": "Batch FAISS face queries and resolve shared gallery identities together",
+        "state": "open",
+        "merged": false,
+        "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
+        "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
+        "official_ci": [],
+        "maintainer_can_modify": false
       }
     ],
     "target": 20
@@ -196,7 +207,7 @@
     "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
     "validationSha": "de74c87d3ba48f5cd302bb25e35ef738318279e7",
     "validationRun": 43858024543,
-    "status": "ready",
+    "status": "published",
     "dedupe": "474 historical upstream PRs and 94 pre-existing fork branches reviewed; fresh PR/115-branch listing contains no new equivalent change",
     "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
     "tree": "ff2a940050a823ae13d475b49a295774f871a17b",
@@ -244,6 +255,11 @@
         "repetitions": 7,
         "neuralInference": false
       }
-    }
+    },
+    "url": "https://github.com/serengil/deepface/pull/1749",
+    "number": 1749,
+    "state": "open",
+    "merged": false,
+    "maintainer_can_modify": false
   }
 }
