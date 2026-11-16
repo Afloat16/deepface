@@ -194,7 +194,14 @@
         "merged": false,
         "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
-        "official_ci": [],
+        "official_ci": [
+          {
+            "id": 43859037893,
+            "status": "completed",
+            "conclusion": "success",
+            "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+          }
+        ],
         "maintainer_can_modify": false
       }
     ],
@@ -261,5 +268,44 @@
     "state": "open",
     "merged": false,
     "maintainer_can_modify": false
+  },
+  "batch12": {
+    "title": "Batch detected face embeddings during verification",
+    "branch": "perf/verify-face-batching-20261116",
+    "body": "## Tickets\nSelf-contained verification performance improvement.\n\n## What has been done\nVerification currently calls representation separately for every detected face, even though representation already supports batched inference. A group photo therefore launches the recognition model repeatedly with singleton inputs.\n\nPass the already-extracted face crops to representation together, once per input image. Keep the original face order, BGR conversion, normalization, facial-area metadata, scalar custom-distance callbacks, and empty-face behavior. Check every anti-spoofing verdict before running that image's recognition batch.\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43859782785), Python 3.10 and 3.12:\n- Original production source: 11 regression failures and 14 passing controls.\n- Patched source plus the existing threshold, angular-distance, and empty-representation suites: 93 passed in each environment.\n- Pylint 2.15.10: 10.00/10; MyPy 1.14.1: 145 source files passed; new-test formatting passed.\n\nThe new tests cover single and multiple faces, all four built-in metrics and a scalar custom metric, two normalization modes, best-match facial areas, empty extraction, precomputed embeddings, and a spoof later in the detected face list.\n\nA separate case loads the real pretrained FaceNet ONNX weights and compares eight-face results with individual representations. With two CPU inference threads and five measured repetitions, recognition/preprocessing median time changed from 103.12 to 79.35 ms on Python 3.10 / ONNX Runtime 1.23.2 and from 72.90 to 63.26 ms on Python 3.12 / ONNX Runtime 1.32.0. Model forward calls changed from eight singleton calls to one batch. The observed embeddings were identical in these runs.\n\nThe benchmark uses deterministic synthetic face crops; detection is replaced at the extraction boundary. It measures the recognition/preprocessing stage, not detection time or model accuracy, and asserts no timing threshold.\n",
+    "status": "ready",
+    "validationSha": "cc470be8ccc917d3a46c23b3ff8bdead84e8c0c6",
+    "validationRun": 43859782785,
+    "head": "d934b37bd54a0c6d8b1b4556e08ce9f6dafb56e8",
+    "tree": "caac10ca09107f7c1afbddd139269a014030594a",
+    "evidence": {
+      "baseline": "11 failed, 14 passed",
+      "after": "93 passed on each Python version",
+      "pylint": "10.00/10",
+      "mypy": "145 source files",
+      "jobs": [
+        133273255298,
+        133273255847
+      ],
+      "benchmarkMs": [
+        [
+          103.121219,
+          79.354392
+        ],
+        [
+          72.904091,
+          63.262392
+        ]
+      ],
+      "scope": "real pretrained FaceNet; synthetic crops; detector boundary fixture"
+    }
+  },
+  "batch13": {
+    "status": "validation_running",
+    "validationBranch": "validation/20261116-pinecone-client-lifetime",
+    "validationSha": "a2da06c4158774a344f9896c0cb9942139bc80b9",
+    "validationTree": "925830b85091dc0d6ba5ce3689088dc5ab5b31fa",
+    "run": 43860156563,
+    "scope": "Pinecone data and control-plane explicit connection cleanup"
   }
 }
