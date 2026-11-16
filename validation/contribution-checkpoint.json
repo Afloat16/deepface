@@ -10,7 +10,7 @@
         "number": 1739,
         "url": "https://github.com/serengil/deepface/pull/1739",
         "title": "Download GET-authorized weights when HEAD is rejected",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "00a1a3135bc078e2a8d563122311b3835ba33e5a",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43846006420",
@@ -22,7 +22,9 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null,
+        "maintainer_feedback": "Making 2 get requests is not a good pattern."
       },
       {
         "number": 1740,
@@ -40,7 +42,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1741,
@@ -58,7 +61,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1742,
@@ -76,7 +80,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1743,
@@ -94,7 +99,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1744,
@@ -112,7 +118,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1745,
@@ -130,7 +137,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1746,
@@ -148,7 +156,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1747,
@@ -166,7 +175,8 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1748,
@@ -184,13 +194,14 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null
       },
       {
         "number": 1749,
         "url": "https://github.com/serengil/deepface/pull/1749",
         "title": "Batch FAISS face queries and resolve shared gallery identities together",
-        "state": "open",
+        "state": "closed",
         "merged": false,
         "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
@@ -202,7 +213,9 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "maintainer_can_modify": false
+        "maintainer_can_modify": false,
+        "merged_at": null,
+        "maintainer_feedback": "prefer to keep it as simple as is"
       },
       {
         "number": 1750,
@@ -212,11 +225,22 @@
         "merged": false,
         "head": "d934b37bd54a0c6d8b1b4556e08ce9f6dafb56e8",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43859782785",
-        "official_ci": [],
-        "maintainer_can_modify": false
+        "official_ci": [
+          {
+            "id": 43860530814,
+            "status": "completed",
+            "conclusion": "success",
+            "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+          }
+        ],
+        "maintainer_can_modify": false,
+        "merged_at": null
       }
     ],
-    "target": 20
+    "target": 20,
+    "currently_open_count": 10,
+    "closed_unmerged_count": 2,
+    "submitted_count": 12
   },
   "batch11": {
     "branch": "perf/faiss-batched-queries-20261116",
@@ -276,9 +300,10 @@
     },
     "url": "https://github.com/serengil/deepface/pull/1749",
     "number": 1749,
-    "state": "open",
+    "state": "closed",
     "merged": false,
-    "maintainer_can_modify": false
+    "maintainer_can_modify": false,
+    "maintainer_feedback": "prefer to keep it as simple as is"
   },
   "batch12": {
     "title": "Batch detected face embeddings during verification",
@@ -317,11 +342,11 @@
     "maintainer_can_modify": false
   },
   "batch13": {
-    "status": "validation_running",
+    "status": "validation_debugging",
     "validationBranch": "validation/20261116-pinecone-client-lifetime",
-    "validationSha": "a2da06c4158774a344f9896c0cb9942139bc80b9",
-    "validationTree": "925830b85091dc0d6ba5ce3689088dc5ab5b31fa",
-    "run": 43860156563,
+    "validationSha": "cb48cc6c872443cbe9de04cd520466873b59f5c0",
+    "validationTree": "f8042620233a71e2460f3d790f041562efeb3340",
+    "run": 43860799774,
     "scope": "Pinecone data and control-plane explicit connection cleanup"
   }
 }
