@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:49:46.143Z",
+  "updated": "2026-11-16T13:59:00.224Z",
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
@@ -640,7 +640,40 @@
     "maintainer_can_modify": false,
     "maintainer_feedback": "it shouldn't be created, that's intentional"
   },
-  "prospective": null,
+  "prospective": {
+    "n": 21,
+    "title": "Keep repeated Milvus registrations idempotent",
+    "branch": "fix/milvus-registration-idempotence-20261116",
+    "head": "df5746c3bd6baf0fd347430fb7d91af926baabc1",
+    "tree": "93f393872e6ff6f75b0fa872bc34296241d116ce",
+    "baseline": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
+    "status": "ready",
+    "validation_head": "caac6d03896a6d124e3ca731700ff4ac50b75ba1",
+    "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43880551802",
+    "validation_jobs": [
+      133344963544,
+      133344964179
+    ],
+    "body": "## Tickets\n\nN/A\n\n### What has been done\n\nMilvus `insert` accepts an existing primary key as another entity. Registering the same faces repeatedly therefore adds duplicate entities despite their stable content-derived IDs. Repeating two faces four times leaves eight entities in the native database.\n\nKeep the last record for each ID within a batch and use `upsert` for the write. Re-registering a face then replaces its existing entity and image name. The returned count continues to count the supplied embeddings, including updates.\n\n### How to test\n\n```shell\npip install pymilvus==2.6.9 milvus-lite==2.5.1 'setuptools<81'\nDEEPFACE_BACKEND_ENGINE=onnx python -m pytest -q \\\n  tests/integration/test_milvus_registration_lite.py \\\n  tests/unit/test_milvus_stable_ids.py \\\n  tests/unit/test_milvus_distance.py \\\n  tests/unit/test_milvus_complete_gallery.py \\\n  tests/integration/test_milvus_distance_lite.py \\\n  tests/integration/test_milvus_complete_gallery_lite.py\n```\n\n[Python 3.10 and 3.12 validation](https://github.com/Afloat16/deepface/actions/runs/43880551802), using real PyMilvus 2.6.9 and Milvus Lite 2.5.1:\n\n- The base revision fails five native registration regressions and passes two controls.\n- The fix passes all 41 tests on each Python version, with no skips. Repeated calls and duplicates within batches leave one entity per stable ID, retain the latest image name, and preserve distinct embeddings.\n- Existing checks cover IDs across interpreter processes, exact/ANN distance agreement, and complete retrieval of a 16,385-record gallery.\n- Pylint: 10.00/10; mypy: 145 source files pass; changed tests pass Black with line length 100.\n\nThe database tests use synthetic face arrays and embeddings; no recognition model weights are needed. Milvus documents the insert/upsert distinction [here](https://milvus.io/docs/v2.6.x/insert-update-delete.md).\n",
+    "dedupe": {
+      "upstream_pr_refs": 496,
+      "fork_heads_refreshed": 137,
+      "old_fork_diffs": 94,
+      "relevant_commits": 16,
+      "latest_pr": 1758,
+      "equivalent_found": false,
+      "related": {
+        "1605": "Legacy update method used upsert; insertion never did.",
+        "1704": "Stable content IDs only; still inserts duplicate primary keys."
+      },
+      "archives": [
+        "audit/deepface_milvus_all_history.patch.gz",
+        "audit/deepface_fork_diffs.json.gz",
+        "audit/deepface_fork_heads_batch21.txt"
+      ]
+    },
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/milvus-registration-idempotence-20261116?expand=1&title=Keep%20repeated%20Milvus%20registrations%20idempotent&body=%23%23%20Tickets%0A%0AN%2FA%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AMilvus%20%60insert%60%20accepts%20an%20existing%20primary%20key%20as%20another%20entity.%20Registering%20the%20same%20faces%20repeatedly%20therefore%20adds%20duplicate%20entities%20despite%20their%20stable%20content-derived%20IDs.%20Repeating%20two%20faces%20four%20times%20leaves%20eight%20entities%20in%20the%20native%20database.%0A%0AKeep%20the%20last%20record%20for%20each%20ID%20within%20a%20batch%20and%20use%20%60upsert%60%20for%20the%20write.%20Re-registering%20a%20face%20then%20replaces%20its%20existing%20entity%20and%20image%20name.%20The%20returned%20count%20continues%20to%20count%20the%20supplied%20embeddings%2C%20including%20updates.%0A%0A%23%23%23%20How%20to%20test%0A%0A%60%60%60shell%0Apip%20install%20pymilvus%3D%3D2.6.9%20milvus-lite%3D%3D2.5.1%20'setuptools%3C81'%0ADEEPFACE_BACKEND_ENGINE%3Donnx%20python%20-m%20pytest%20-q%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_registration_lite.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_stable_ids.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_distance.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_complete_gallery.py%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_distance_lite.py%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_complete_gallery_lite.py%0A%60%60%60%0A%0A%5BPython%203.10%20and%203.12%20validation%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43880551802)%2C%20using%20real%20PyMilvus%202.6.9%20and%20Milvus%20Lite%202.5.1%3A%0A%0A-%20The%20base%20revision%20fails%20five%20native%20registration%20regressions%20and%20passes%20two%20controls.%0A-%20The%20fix%20passes%20all%2041%20tests%20on%20each%20Python%20version%2C%20with%20no%20skips.%20Repeated%20calls%20and%20duplicates%20within%20batches%20leave%20one%20entity%20per%20stable%20ID%2C%20retain%20the%20latest%20image%20name%2C%20and%20preserve%20distinct%20embeddings.%0A-%20Existing%20checks%20cover%20IDs%20across%20interpreter%20processes%2C%20exact%2FANN%20distance%20agreement%2C%20and%20complete%20retrieval%20of%20a%2016%2C385-record%20gallery.%0A-%20Pylint%3A%2010.00%2F10%3B%20mypy%3A%20145%20source%20files%20pass%3B%20changed%20tests%20pass%20Black%20with%20line%20length%20100.%0A%0AThe%20database%20tests%20use%20synthetic%20face%20arrays%20and%20embeddings%3B%20no%20recognition%20model%20weights%20are%20needed.%20Milvus%20documents%20the%20insert%2Fupsert%20distinction%20%5Bhere%5D(https%3A%2F%2Fmilvus.io%2Fdocs%2Fv2.6.x%2Finsert-update-delete.md).%0A"
+  },
   "batch15": {
     "n": 15,
     "title": "Read gallery IDs from current Pinecone SDK listing pages",
@@ -1011,5 +1044,39 @@
     "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/gallery-detection-policy-20261116?expand=1&title=Keep%20gallery%20caches%20separate%20for%20different%20detection%20policies&body=%23%23%20Tickets%0A%0AN%2FA%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AGallery%20embeddings%20depend%20on%20%60enforce_detection%60%2C%20but%20the%20cache%20filename%20does%20not%20include%20that%20policy.%20A%20cache%20built%20with%20%60False%60%20retains%20whole-image%20fallback%20embeddings%20when%20a%20later%20call%20requests%20%60True%60.%20In%20the%20reverse%20order%2C%20switching%20to%20%60False%60%20keeps%20missing-embedding%20rows%20at%20infinite%20distance%20instead%20of%20computing%20the%20permitted%20fallback.%0A%0AInclude%20the%20detection%20policy%20in%20non-%60skip%60%20cache%20names.%20Default%20and%20explicit%20%60True%60%20use%20the%20same%20cache%2C%20while%20%60detector_backend%3D%22skip%22%60%20continues%20to%20share%20its%20existing%20cache%20across%20both%20values.%20Missing-detection%20rows%20and%20their%20infinite-distance%20behavior%20remain%20intact.%20Update%20the%20existing%20refresh-disabled%20regression's%20cache%20filename.%0A%0A**Cache%20compatibility%3A**%20existing%20non-%60skip%60%20caches%20need%20a%20one-time%20rebuild%20with%20%60refresh_database%3DTrue%60%20for%20each%20policy%20used.%20Existing%20files%20are%20left%20untouched.%20%60refresh_database%3DFalse%60%20requires%20the%20corresponding%20new%20policy%20cache%20to%20exist%3B%20it%20cannot%20safely%20reuse%20a%20legacy%20cache%20whose%20detection%20policy%20is%20unknown.%0A%0A%23%23%23%20How%20to%20test%0A%0A-%20%60python%20-m%20pytest%20-q%20tests%2Funit%2Ftest_gallery_detection_policy.py%20tests%2Funit%2Ftest_find_color_consistency.py%20tests%2Funit%2Ftest_cached_gallery_query.py%60%0A-%20%5BValidation%20on%20Python%203.10%20and%203.12%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43876255050)%3A%206%20regressions%20fail%20and%202%20controls%20pass%20on%20the%20base%20revision%3B%2018%20checks%20pass%20after%20the%20fix%2C%20including%20real%20OpenCV%20detection%2C%20native%20SFace%20ONNX%20embeddings%2C%20and%20the%20existing%20refresh-disabled%20cache%20test%20using%20SFace%20in%20place%20of%20VGG%20weights.%0A-%20The%20native%20reproduction%20switches%20a%20blank%20gallery%20image%20between%20distance%20%6011.175977%60%20with%20fallback%20enabled%20and%20%60inf%60%20with%20enforcement%20enabled%2C%20in%20both%20call%20orders.%20Matching%20cached%20reads%20work%20without%20listing%20the%20gallery.%0A-%20Pylint%3A%2010.00%2F10%3B%20mypy%3A%20145%20source%20files%20pass%3B%20new%20validation%20tests%20pass%20Black%20with%20line%20length%20100.%0A",
     "upstream_url": "https://github.com/serengil/deepface/pull/1758",
     "number": 1758
+  },
+  "batch21": {
+    "n": 21,
+    "title": "Keep repeated Milvus registrations idempotent",
+    "branch": "fix/milvus-registration-idempotence-20261116",
+    "head": "df5746c3bd6baf0fd347430fb7d91af926baabc1",
+    "tree": "93f393872e6ff6f75b0fa872bc34296241d116ce",
+    "baseline": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
+    "status": "ready",
+    "validation_head": "caac6d03896a6d124e3ca731700ff4ac50b75ba1",
+    "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43880551802",
+    "validation_jobs": [
+      133344963544,
+      133344964179
+    ],
+    "body": "## Tickets\n\nN/A\n\n### What has been done\n\nMilvus `insert` accepts an existing primary key as another entity. Registering the same faces repeatedly therefore adds duplicate entities despite their stable content-derived IDs. Repeating two faces four times leaves eight entities in the native database.\n\nKeep the last record for each ID within a batch and use `upsert` for the write. Re-registering a face then replaces its existing entity and image name. The returned count continues to count the supplied embeddings, including updates.\n\n### How to test\n\n```shell\npip install pymilvus==2.6.9 milvus-lite==2.5.1 'setuptools<81'\nDEEPFACE_BACKEND_ENGINE=onnx python -m pytest -q \\\n  tests/integration/test_milvus_registration_lite.py \\\n  tests/unit/test_milvus_stable_ids.py \\\n  tests/unit/test_milvus_distance.py \\\n  tests/unit/test_milvus_complete_gallery.py \\\n  tests/integration/test_milvus_distance_lite.py \\\n  tests/integration/test_milvus_complete_gallery_lite.py\n```\n\n[Python 3.10 and 3.12 validation](https://github.com/Afloat16/deepface/actions/runs/43880551802), using real PyMilvus 2.6.9 and Milvus Lite 2.5.1:\n\n- The base revision fails five native registration regressions and passes two controls.\n- The fix passes all 41 tests on each Python version, with no skips. Repeated calls and duplicates within batches leave one entity per stable ID, retain the latest image name, and preserve distinct embeddings.\n- Existing checks cover IDs across interpreter processes, exact/ANN distance agreement, and complete retrieval of a 16,385-record gallery.\n- Pylint: 10.00/10; mypy: 145 source files pass; changed tests pass Black with line length 100.\n\nThe database tests use synthetic face arrays and embeddings; no recognition model weights are needed. Milvus documents the insert/upsert distinction [here](https://milvus.io/docs/v2.6.x/insert-update-delete.md).\n",
+    "dedupe": {
+      "upstream_pr_refs": 496,
+      "fork_heads_refreshed": 137,
+      "old_fork_diffs": 94,
+      "relevant_commits": 16,
+      "latest_pr": 1758,
+      "equivalent_found": false,
+      "related": {
+        "1605": "Legacy update method used upsert; insertion never did.",
+        "1704": "Stable content IDs only; still inserts duplicate primary keys."
+      },
+      "archives": [
+        "audit/deepface_milvus_all_history.patch.gz",
+        "audit/deepface_fork_diffs.json.gz",
+        "audit/deepface_fork_heads_batch21.txt"
+      ]
+    },
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/milvus-registration-idempotence-20261116?expand=1&title=Keep%20repeated%20Milvus%20registrations%20idempotent&body=%23%23%20Tickets%0A%0AN%2FA%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AMilvus%20%60insert%60%20accepts%20an%20existing%20primary%20key%20as%20another%20entity.%20Registering%20the%20same%20faces%20repeatedly%20therefore%20adds%20duplicate%20entities%20despite%20their%20stable%20content-derived%20IDs.%20Repeating%20two%20faces%20four%20times%20leaves%20eight%20entities%20in%20the%20native%20database.%0A%0AKeep%20the%20last%20record%20for%20each%20ID%20within%20a%20batch%20and%20use%20%60upsert%60%20for%20the%20write.%20Re-registering%20a%20face%20then%20replaces%20its%20existing%20entity%20and%20image%20name.%20The%20returned%20count%20continues%20to%20count%20the%20supplied%20embeddings%2C%20including%20updates.%0A%0A%23%23%23%20How%20to%20test%0A%0A%60%60%60shell%0Apip%20install%20pymilvus%3D%3D2.6.9%20milvus-lite%3D%3D2.5.1%20'setuptools%3C81'%0ADEEPFACE_BACKEND_ENGINE%3Donnx%20python%20-m%20pytest%20-q%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_registration_lite.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_stable_ids.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_distance.py%20%5C%0A%20%20tests%2Funit%2Ftest_milvus_complete_gallery.py%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_distance_lite.py%20%5C%0A%20%20tests%2Fintegration%2Ftest_milvus_complete_gallery_lite.py%0A%60%60%60%0A%0A%5BPython%203.10%20and%203.12%20validation%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43880551802)%2C%20using%20real%20PyMilvus%202.6.9%20and%20Milvus%20Lite%202.5.1%3A%0A%0A-%20The%20base%20revision%20fails%20five%20native%20registration%20regressions%20and%20passes%20two%20controls.%0A-%20The%20fix%20passes%20all%2041%20tests%20on%20each%20Python%20version%2C%20with%20no%20skips.%20Repeated%20calls%20and%20duplicates%20within%20batches%20leave%20one%20entity%20per%20stable%20ID%2C%20retain%20the%20latest%20image%20name%2C%20and%20preserve%20distinct%20embeddings.%0A-%20Existing%20checks%20cover%20IDs%20across%20interpreter%20processes%2C%20exact%2FANN%20distance%20agreement%2C%20and%20complete%20retrieval%20of%20a%2016%2C385-record%20gallery.%0A-%20Pylint%3A%2010.00%2F10%3B%20mypy%3A%20145%20source%20files%20pass%3B%20changed%20tests%20pass%20Black%20with%20line%20length%20100.%0A%0AThe%20database%20tests%20use%20synthetic%20face%20arrays%20and%20embeddings%3B%20no%20recognition%20model%20weights%20are%20needed.%20Milvus%20documents%20the%20insert%2Fupsert%20distinction%20%5Bhere%5D(https%3A%2F%2Fmilvus.io%2Fdocs%2Fv2.6.x%2Finsert-update-delete.md).%0A"
   }
 }
