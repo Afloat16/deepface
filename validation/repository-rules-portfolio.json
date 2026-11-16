@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:49:46.143Z",
+  "updated": "2026-11-16T14:08:41.168188+00:00",
   "repositories": [
     {
       "repository": "serengil/deepface",
@@ -456,15 +456,35 @@
           "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43876255050",
           "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
           "maintainer_can_modify": false
+        },
+        {
+          "number": 1759,
+          "url": "https://github.com/serengil/deepface/pull/1759",
+          "title": "Keep repeated Milvus registrations idempotent",
+          "state": "open",
+          "merged": false,
+          "head": "df5746c3bd6baf0fd347430fb7d91af926baabc1",
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43880551802",
+          "official_ci": [
+            {
+              "id": 43881321555,
+              "url": "https://github.com/serengil/deepface/actions/runs/43881321555",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+            }
+          ],
+          "maintainer_can_modify": false,
+          "merged_at": null
         }
       ],
       "counts": {
-        "submitted": 20,
-        "open": 8,
+        "submitted": 21,
+        "open": 9,
         "merged": 5,
         "closed_unmerged": 7,
-        "effective": 13,
-        "target": 20
+        "effective": 14
       }
     },
     {
