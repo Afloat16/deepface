@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:44:11.382Z",
+  "updated": "2026-11-16T13:49:46.143Z",
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
@@ -381,7 +381,20 @@
         "merged": false,
         "head": "1a2e94574abf26d1027b486cb956ca96f2aa7a1e",
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43878055300",
-        "official_ci": [],
+        "official_ci": [
+          {
+            "id": 43878562799,
+            "name": "Tests",
+            "status": "completed",
+            "conclusion": "success",
+            "run_number": 1362,
+            "jobs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/jobs",
+            "logs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/logs",
+            "workflow_id": 25908543,
+            "url": "https://github.com/serengil/deepface/actions/runs/43878562799",
+            "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+          }
+        ],
         "maintainer_can_modify": false,
         "merged_at": null,
         "previous_official_ci": [
@@ -394,7 +407,7 @@
             "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
           }
         ],
-        "metadata_update_pending": true
+        "metadata_update_pending": false
       },
       {
         "number": 1757,
@@ -627,13 +640,7 @@
     "maintainer_can_modify": false,
     "maintainer_feedback": "it shouldn't be created, that's intentional"
   },
-  "prospective": {
-    "kind": "existing_pr_metadata_update",
-    "number": 1756,
-    "head": "1a2e94574abf26d1027b486cb956ca96f2aa7a1e",
-    "title": "Serialize concurrent calls to shared native face detectors",
-    "body": "## Tickets\n\nN/A\n\n### What has been done\n\nCached detector instances are shared across requests, but MediaPipe graphs and OpenCV Haar classifiers keep mutable native inference state. Overlapping calls can mix detections, raise packet-timestamp errors, or corrupt the classifier's image buffers.\n\nSerialize MediaPipe `process` calls and OpenCV face/eye classification calls with a lock owned by each detector instance. Separate instances can still run concurrently, and native errors release the lock. Update existing detector fixtures to use their constructors so their inference locks are initialized.\n\n### How to test\n\n- `python -m pytest -q tests/unit/test_mediapipe_concurrent_inference.py tests/unit/test_mediapipe_color_order.py tests/unit/test_opencv_concurrent_inference.py tests/unit/test_face_crop_bounds.py tests/unit/test_ssd_concurrent_inference.py tests/unit/test_ssd_opencv_version.py`\n- [Python 3.10 and 3.12 validation](https://github.com/Afloat16/deepface/actions/runs/43878055300): 5 regressions fail and 8 controls pass on the base revision; 55 tests pass after the fix, including real MediaPipe 0.10.21 short-range and full-range graph checks.\n- Real OpenCV 4.11 validation uses six worker threads and compares every result against the same image's sequential result. After the fix, all 90 face-detection calls and 90 eye-detection calls agree on both Python versions.\n- The [separate unfixed native run](https://github.com/Afloat16/deepface/actions/runs/43877705704) recorded 55/56 incorrect face results out of 90 before its eye-detection phase terminated with a segmentation fault / invalid-pointer abort. That failed baseline run is preserved separately from the successful fixed run.\n- Pylint: 10.00/10; mypy: 145 source files pass; changed detector modules and new tests pass Black with line length 100.\n"
-  },
+  "prospective": null,
   "batch15": {
     "n": 15,
     "title": "Read gallery IDs from current Pinecone SDK listing pages",
@@ -740,7 +747,7 @@
     "title": "Serialize concurrent calls to shared native face detectors",
     "branch": "fix/mediapipe-graph-concurrency-20261116",
     "body": "## Tickets\n\nN/A\n\n### What has been done\n\nCached detector instances are shared across requests, but MediaPipe graphs and OpenCV Haar classifiers keep mutable native inference state. Overlapping calls can mix detections, raise packet-timestamp errors, or corrupt the classifier's image buffers.\n\nSerialize MediaPipe `process` calls and OpenCV face/eye classification calls with a lock owned by each detector instance. Separate instances can still run concurrently, and native errors release the lock. Update existing detector fixtures to use their constructors so their inference locks are initialized.\n\n### How to test\n\n- `python -m pytest -q tests/unit/test_mediapipe_concurrent_inference.py tests/unit/test_mediapipe_color_order.py tests/unit/test_opencv_concurrent_inference.py tests/unit/test_face_crop_bounds.py tests/unit/test_ssd_concurrent_inference.py tests/unit/test_ssd_opencv_version.py`\n- [Python 3.10 and 3.12 validation](https://github.com/Afloat16/deepface/actions/runs/43878055300): 5 regressions fail and 8 controls pass on the base revision; 55 tests pass after the fix, including real MediaPipe 0.10.21 short-range and full-range graph checks.\n- Real OpenCV 4.11 validation uses six worker threads and compares every result against the same image's sequential result. After the fix, all 90 face-detection calls and 90 eye-detection calls agree on both Python versions.\n- The [separate unfixed native run](https://github.com/Afloat16/deepface/actions/runs/43877705704) recorded 55/56 incorrect face results out of 90 before its eye-detection phase terminated with a segmentation fault / invalid-pointer abort. That failed baseline run is preserved separately from the successful fixed run.\n- Pylint: 10.00/10; mypy: 145 source files pass; changed detector modules and new tests pass Black with line length 100.\n",
-    "status": "published_open_metadata_update_pending",
+    "status": "published_open",
     "baseline": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
     "head": "1a2e94574abf26d1027b486cb956ca96f2aa7a1e",
     "tree": "0eb74e48f8edbf008152b0330e5e92be5f7be15a",
@@ -933,7 +940,22 @@
       133336212748,
       133336213464
     ],
-    "baseline_native_run": "https://github.com/Afloat16/deepface/actions/runs/43877705704"
+    "baseline_native_run": "https://github.com/Afloat16/deepface/actions/runs/43877705704",
+    "metadata_update_pending": false,
+    "official_ci": [
+      {
+        "id": 43878562799,
+        "name": "Tests",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 1362,
+        "jobs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/jobs",
+        "logs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/logs",
+        "workflow_id": 25908543,
+        "url": "https://github.com/serengil/deepface/actions/runs/43878562799",
+        "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+      }
+    ]
   },
   "batch19": {
     "batch": 19,

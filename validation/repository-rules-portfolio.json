@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:44:11.381Z",
+  "updated": "2026-11-16T13:49:46.143Z",
   "repositories": [
     {
       "repository": "serengil/deepface",
@@ -379,7 +379,20 @@
           "merged": false,
           "head": "1a2e94574abf26d1027b486cb956ca96f2aa7a1e",
           "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43878055300",
-          "official_ci": [],
+          "official_ci": [
+            {
+              "id": 43878562799,
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success",
+              "run_number": 1362,
+              "jobs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/jobs",
+              "logs_url": "https://api.github.com/repos/serengil/deepface/actions/runs/43878562799/logs",
+              "workflow_id": 25908543,
+              "url": "https://github.com/serengil/deepface/actions/runs/43878562799",
+              "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+            }
+          ],
           "maintainer_can_modify": false,
           "merged_at": null,
           "previous_official_ci": [
@@ -392,7 +405,7 @@
               "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
             }
           ],
-          "metadata_update_pending": true
+          "metadata_update_pending": false
         },
         {
           "number": 1757,
