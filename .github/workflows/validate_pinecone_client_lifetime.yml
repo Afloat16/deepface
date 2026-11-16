@@ -42,6 +42,10 @@ jobs:
         run: |
           python -m pylint deepface/ --fail-under=10
           python -m mypy deepface/
+      - name: Record legacy SDK listing and connection implementation
+        if: matrix.python == '3.10'
+        run: |
+          python -c "import inspect, pinecone; print(inspect.getsource(pinecone.Index.list)); print(inspect.getsource(pinecone.Index.close)); print(inspect.getsource(pinecone.Pinecone.Index))"
       - name: Fetch pinned baseline
         run: git fetch --depth=1 origin 835a37376331c46a0a7fcc1a497faa3d2767bacc
       - name: Measure original unclosed SDK handles
@@ -59,7 +63,7 @@ jobs:
                   Path(name).write_bytes(subprocess.check_output(["git", "show", f"835a37376331c46a0a7fcc1a497faa3d2767bacc:{name}"]))
               result = subprocess.run([sys.executable, "-m", "pytest", "-q", "-s",
                   "tests/integration/test_pinecone_client_lifetime.py",
-                  "--junitxml=baseline.xml"])
+                  "--junitxml=baseline.xml", "-o", "faulthandler_timeout=20"], timeout=90)
               report = ET.parse("baseline.xml").getroot()
               assert result.returncode == 1, result.returncode
               assert len(report.findall(".//failure")) == ${{ matrix.expected_failures }}
