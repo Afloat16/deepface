@@ -98,7 +98,6 @@ def endpoint(monkeypatch):
                 self.reply(
                     {
                         "vectors": [] if state["empty"] else [{"id": "known"}],
-                        "pagination": {},
                         "namespace": "",
                     }
                 )
