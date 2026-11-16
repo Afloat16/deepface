@@ -135,8 +135,9 @@ def endpoint(monkeypatch):
     state["indexes"] = []
     state["client_close_calls"] = 0
 
-    def index_factory(*args, **kwargs):
-        index = original_factory(*args, **kwargs)
+    def index_factory(*_args, **_kwargs):
+        # Use the fixture endpoint directly; SDK 8 caches name resolution globally.
+        index = original_factory(host=state["url"])
         original_index_close = index.close
         item = {"index": index, "close_calls": 0}
         state["indexes"].append(item)
