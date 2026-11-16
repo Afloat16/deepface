@@ -262,8 +262,8 @@ def __extract_faces_and_embeddings(
         embeddings (List[float])
         facial areas (List[dict])
     """
-    embeddings = []
-    facial_areas = []
+    embeddings: List[List[float]] = []
+    facial_areas: List[Dict[str, Any]] = []
 
     img_objs: List[Dict[str, Any]] = cast(
         List[Dict[str, Any]],
