@@ -1,6 +1,7 @@
 """Exercise Pinecone SDK connection lifetimes against a loopback HTTP server."""
 
 import json
+import socket
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -13,7 +14,6 @@ pinecone = pytest.importorskip("pinecone")
 
 from deepface.modules import datastore
 from deepface.modules.database.pinecone import PineconeClient
-
 
 CRITERIA = dict(model_name="Facenet", detector_backend="skip", aligned=True, l2_normalized=False)
 INDEX_NAME = "embeddings-facenet-skip-aligned-raw"
@@ -30,14 +30,14 @@ def endpoint(monkeypatch):
         def setup(self):
             super().setup()
             with lock:
-                state["active"].add(id(self.connection))
+                state["active"].add(self.connection)
 
         def finish(self):
             try:
                 super().finish()
             finally:
                 with lock:
-                    state["active"].discard(id(self.connection))
+                    state["active"].discard(self.connection)
 
         def log_message(self, *args):
             pass
@@ -69,6 +69,14 @@ def endpoint(monkeypatch):
                 "spec": {"serverless": {"cloud": "aws", "region": "us-east-1"}},
                 "vector_type": "dense",
                 "deletion_protection": "disabled",
+                "schema": {
+                    "fields": {
+                        "values": {"type": "dense_vector", "dimension": 128, "metric": "euclidean"}
+                    }
+                },
+                "deployment": {
+                    "deployment_type": "managed", "cloud": "aws", "region": "us-east-1"
+                },
             }
             if path == "/indexes":
                 self.reply({"indexes": [] if state["missing"] else [description]})
@@ -118,7 +126,8 @@ def endpoint(monkeypatch):
     thread.start()
     client = pinecone.Pinecone(api_key="loopback-test-key", host=state["url"])
     original_factory = client.Index
-    original_close = client.close
+    original_close = getattr(client, "close", None)
+    state["supports_close"] = original_close is not None
     state["indexes"] = []
     state["client_close_calls"] = 0
 
@@ -140,14 +149,22 @@ def endpoint(monkeypatch):
         original_close()
 
     monkeypatch.setattr(client, "Index", index_factory)
-    monkeypatch.setattr(client, "close", close_client)
+    if original_close is not None:
+        monkeypatch.setattr(client, "close", close_client)
     state["client"] = client
     try:
         yield state
     finally:
         for item in state["indexes"]:
             item["index"].close()
-        original_close()
+        if original_close is not None:
+            original_close()
+        for connection in tuple(state["active"]):
+            try:
+                connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+            connection.close()
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
@@ -206,7 +223,7 @@ def test_explicit_adapter_close_releases_control_plane(endpoint):
     adapter = PineconeClient(connection=endpoint["client"])
     assert endpoint["client"].has_index(INDEX_NAME)
     adapter.close()
-    assert endpoint["client_close_calls"] == 1
+    assert endpoint["client_close_calls"] == int(endpoint["supports_close"])
 
 
 @pytest.mark.parametrize("owned", [False, True])
@@ -230,7 +247,7 @@ def test_public_search_only_closes_owned_control_plane(endpoint, monkeypatch, ow
     )
     assert result[0][0]["img_name"] == "known.png"
     assert endpoint["indexes"][0]["close_calls"] == 1
-    assert endpoint["client_close_calls"] == int(owned)
+    assert endpoint["client_close_calls"] == int(owned and endpoint["supports_close"])
 
 
 def test_missing_identity_index_never_opens_a_data_client(endpoint):

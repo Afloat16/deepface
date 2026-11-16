@@ -275,7 +275,9 @@ class PineconeClient(Database):
 
     def close(self) -> None:
         """Close the control-plane client and release its connection pool."""
-        self.client.close()
+        close = getattr(self.client, "close", None)
+        if close is not None:
+            close()
 
     @staticmethod
     def __generate_index_name(
