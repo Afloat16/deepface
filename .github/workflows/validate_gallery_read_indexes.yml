@@ -1,0 +1,114 @@
+name: Gallery read index validation
+
+on:
+  push:
+    branches: [validation/20261116-gallery-read-indexes]
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12"]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: deepface
+          POSTGRES_PASSWORD: test-password
+          POSTGRES_DB: deepface
+        ports:
+          - 5432/tcp
+        options: >-
+          --health-cmd="pg_isready -U deepface -d deepface"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017/tcp
+        options: >-
+          --health-cmd="mongosh --quiet --eval 'db.runCommand({ping:1}).ok'"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DEEPFACE_BACKEND_ENGINE: onnx
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Configure isolated database services
+        run: |
+          echo "DEEPFACE_POSTGRES_URI=postgresql://deepface:test-password@127.0.0.1:${{ job.services.postgres.ports[5432] }}/deepface" >> "$GITHUB_ENV"
+          echo "DEEPFACE_MONGO_URI=mongodb://127.0.0.1:${{ job.services.mongo.ports[27017] }}" >> "$GITHUB_ENV"
+      - name: Install project and real database drivers
+        run: python -m pip install -e '.[api]' pytest pytest-mock 'psycopg[binary]' pymongo faiss-cpu black 'pylint==2.15.10' 'mypy==1.14.1'
+      - name: Check test formatting and diff
+        run: |
+          python -m black --check --line-length 100 tests/integration/test_gallery_read_indexes.py
+          git diff --check
+      - name: Run repository pinned Python 3.10 lint and type gates
+        if: matrix.python == '3.10'
+        run: |
+          python -m pylint deepface/ --fail-under=10
+          python -m mypy deepface/
+      - name: Fetch pinned baseline
+        run: git fetch --depth=1 origin 835a37376331c46a0a7fcc1a497faa3d2767bacc
+      - name: Measure baseline gallery query plans
+        shell: python
+        run: |
+          from pathlib import Path
+          import os
+          import subprocess
+          import sys
+          import xml.etree.ElementTree as ET
+
+          files = ["deepface/modules/database/postgres.py", "deepface/modules/database/sqlite.py", "deepface/modules/database/mongo.py"]
+          saved = {name: Path(name).read_bytes() for name in files}
+          try:
+              for name in files:
+                  Path(name).write_bytes(subprocess.check_output(["git", "show", f"835a37376331c46a0a7fcc1a497faa3d2767bacc:{name}"]))
+              os.environ["DEEPFACE_BENCHMARK_PHASE"] = "baseline"
+              result = subprocess.run([sys.executable, "-m", "pytest", "-q", "-s",
+                  "tests/integration/test_gallery_read_indexes.py",
+                  "--junitxml=baseline.xml"])
+              report = ET.parse("baseline.xml").getroot()
+              assert result.returncode == 1, result.returncode
+              assert len(report.findall(".//failure")) == 8
+              assert len(report.findall(".//testcase")) == 11
+              assert not report.findall(".//error")
+              assert not report.findall(".//skipped")
+          finally:
+              for name, contents in saved.items():
+                  Path(name).write_bytes(contents)
+      - name: Run indexed gallery regressions and SQLite compatibility
+        env:
+          DEEPFACE_BENCHMARK_PHASE: indexed
+        run: >-
+          python -m pytest -q -s
+          tests/integration/test_gallery_read_indexes.py
+          tests/unit/test_sqlite_database.py
+          --junitxml=results.xml
+      - name: Record source and dependency identities
+        if: always()
+        run: |
+          git rev-parse HEAD
+          git diff --exit-code
+          python --version
+          python -m pip freeze
+          python -c "import os, psycopg; c=psycopg.connect(os.environ['DEEPFACE_POSTGRES_URI']); print('PostgreSQL server:', c.execute('SELECT version()').fetchone()[0]); c.close()"
+          python -c "import os, pymongo; c=pymongo.MongoClient(os.environ['DEEPFACE_MONGO_URI']); print('MongoDB server:', c.server_info()['version']); c.close()"
+          python -c "import sqlite3; print('SQLite:', sqlite3.sqlite_version)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gallery-read-indexes-${{ matrix.python }}
+          path: |
+            baseline.xml
+            results.xml
