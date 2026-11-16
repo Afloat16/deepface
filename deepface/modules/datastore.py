@@ -444,17 +444,21 @@ def __search(
         embeddings_index = faiss.deserialize_index(embeddings_index_buffer)
         logger.info("Loaded embeddings index from database.")
 
-        for result in results:
-            query_vector = np.array(result["embedding"], dtype="float32").reshape(1, -1)
-            distances, indices = embeddings_index.search(query_vector, k or 20)
+        distances = np.empty((0, 0), dtype=np.float32)
+        indices = np.empty((0, 0), dtype=np.int64)
+        if results:
+            query_vectors = np.array([result["embedding"] for result in results], dtype="float32")
+            distances, indices = embeddings_index.search(query_vectors, k or 20)
+
+        for result, face_distances, face_indices in zip(results, distances, indices):
             instances = []
-            for i, index in enumerate(indices[0]):
+            for i, index in enumerate(face_indices):
                 if index == -1:
                     continue
                 distance = float(
-                    math.sqrt(distances[0][i])
+                    math.sqrt(face_distances[i])
                     if distance_metric == "euclidean"
-                    else distances[0][i] / 2
+                    else face_distances[i] / 2
                 )
                 verified = bool(distance <= threshold)
                 instance = {
