@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T13:07:00Z",
+  "updated": "2026-11-16T13:32:12.743Z",
   "repository": "serengil/deepface",
   "progress": {
     "repository": "serengil/deepface",
@@ -405,7 +405,16 @@
         "head": "b0b89a8b3ef71619260b8f03361c247d20cddf92",
         "head_ref": "fix/mediapipe-compatible-install-20261116",
         "created_at": "2026-11-16T13:06:58Z",
-        "official_ci": [],
+        "official_ci": [
+          {
+            "id": 43872716788,
+            "url": "https://github.com/serengil/deepface/actions/runs/43872716788",
+            "name": "Tests",
+            "status": "completed",
+            "conclusion": "success",
+            "scope": "upstream lint/type checks; unit execution disabled in upstream workflow"
+          }
+        ],
         "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43872136361",
         "official_ci_scope": "upstream lint/type checks; unit execution disabled in upstream workflow",
         "maintainer_can_modify": false
@@ -591,7 +600,33 @@
     "maintainer_can_modify": false,
     "maintainer_feedback": "it shouldn't be created, that's intentional"
   },
-  "prospective": null,
+  "prospective": {
+    "batch": 20,
+    "repository": "serengil/deepface",
+    "title": "Keep gallery caches separate for different detection policies",
+    "body": "## Tickets\n\nN/A\n\n### What has been done\n\nGallery embeddings depend on `enforce_detection`, but the cache filename does not include that policy. A cache built with `False` retains whole-image fallback embeddings when a later call requests `True`. In the reverse order, switching to `False` keeps missing-embedding rows at infinite distance instead of computing the permitted fallback.\n\nInclude the detection policy in non-`skip` cache names. Default and explicit `True` use the same cache, while `detector_backend=\"skip\"` continues to share its existing cache across both values. Missing-detection rows and their infinite-distance behavior remain intact. Update the existing refresh-disabled regression's cache filename.\n\n**Cache compatibility:** existing non-`skip` caches need a one-time rebuild with `refresh_database=True` for each policy used. Existing files are left untouched. `refresh_database=False` requires the corresponding new policy cache to exist; it cannot safely reuse a legacy cache whose detection policy is unknown.\n\n### How to test\n\n- `python -m pytest -q tests/unit/test_gallery_detection_policy.py tests/unit/test_find_color_consistency.py tests/unit/test_cached_gallery_query.py`\n- [Validation on Python 3.10 and 3.12](https://github.com/Afloat16/deepface/actions/runs/43876255050): 6 regressions fail and 2 controls pass on the base revision; 18 checks pass after the fix, including real OpenCV detection, native SFace ONNX embeddings, and the existing refresh-disabled cache test using SFace in place of VGG weights.\n- The native reproduction switches a blank gallery image between distance `11.175977` with fallback enabled and `inf` with enforcement enabled, in both call orders. Matching cached reads work without listing the gallery.\n- Pylint: 10.00/10; mypy: 145 source files pass; new validation tests pass Black with line length 100.\n",
+    "branch": "fix/gallery-detection-policy-20261116",
+    "head": "3298d5b638470b52818537674d40fa7132df49af",
+    "tree": "b862e892986e0b6828ae506f02fe97f2744d1dde",
+    "base": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
+    "validation_head": "69197bf4fea20e8b7fb6c4184915bdeb67e7e859",
+    "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43876255050",
+    "validation_jobs": [
+      133329982910,
+      133329982428
+    ],
+    "dedupe": {
+      "upstream_pr_heads": 496,
+      "fork_heads": 131,
+      "old_fork_diffs": 94,
+      "recognition_history_commits": 126,
+      "legacy_api_history_commits": 398,
+      "equivalent_found": false
+    },
+    "status": "ready",
+    "maintainer_can_modify": false,
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/gallery-detection-policy-20261116?expand=1&title=Keep%20gallery%20caches%20separate%20for%20different%20detection%20policies&body=%23%23%20Tickets%0A%0AN%2FA%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AGallery%20embeddings%20depend%20on%20%60enforce_detection%60%2C%20but%20the%20cache%20filename%20does%20not%20include%20that%20policy.%20A%20cache%20built%20with%20%60False%60%20retains%20whole-image%20fallback%20embeddings%20when%20a%20later%20call%20requests%20%60True%60.%20In%20the%20reverse%20order%2C%20switching%20to%20%60False%60%20keeps%20missing-embedding%20rows%20at%20infinite%20distance%20instead%20of%20computing%20the%20permitted%20fallback.%0A%0AInclude%20the%20detection%20policy%20in%20non-%60skip%60%20cache%20names.%20Default%20and%20explicit%20%60True%60%20use%20the%20same%20cache%2C%20while%20%60detector_backend%3D%22skip%22%60%20continues%20to%20share%20its%20existing%20cache%20across%20both%20values.%20Missing-detection%20rows%20and%20their%20infinite-distance%20behavior%20remain%20intact.%20Update%20the%20existing%20refresh-disabled%20regression's%20cache%20filename.%0A%0A**Cache%20compatibility%3A**%20existing%20non-%60skip%60%20caches%20need%20a%20one-time%20rebuild%20with%20%60refresh_database%3DTrue%60%20for%20each%20policy%20used.%20Existing%20files%20are%20left%20untouched.%20%60refresh_database%3DFalse%60%20requires%20the%20corresponding%20new%20policy%20cache%20to%20exist%3B%20it%20cannot%20safely%20reuse%20a%20legacy%20cache%20whose%20detection%20policy%20is%20unknown.%0A%0A%23%23%23%20How%20to%20test%0A%0A-%20%60python%20-m%20pytest%20-q%20tests%2Funit%2Ftest_gallery_detection_policy.py%20tests%2Funit%2Ftest_find_color_consistency.py%20tests%2Funit%2Ftest_cached_gallery_query.py%60%0A-%20%5BValidation%20on%20Python%203.10%20and%203.12%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43876255050)%3A%206%20regressions%20fail%20and%202%20controls%20pass%20on%20the%20base%20revision%3B%2018%20checks%20pass%20after%20the%20fix%2C%20including%20real%20OpenCV%20detection%2C%20native%20SFace%20ONNX%20embeddings%2C%20and%20the%20existing%20refresh-disabled%20cache%20test%20using%20SFace%20in%20place%20of%20VGG%20weights.%0A-%20The%20native%20reproduction%20switches%20a%20blank%20gallery%20image%20between%20distance%20%6011.175977%60%20with%20fallback%20enabled%20and%20%60inf%60%20with%20enforcement%20enabled%2C%20in%20both%20call%20orders.%20Matching%20cached%20reads%20work%20without%20listing%20the%20gallery.%0A-%20Pylint%3A%2010.00%2F10%3B%20mypy%3A%20145%20source%20files%20pass%3B%20new%20validation%20tests%20pass%20Black%20with%20line%20length%20100.%0A"
+  },
   "batch15": {
     "n": 15,
     "title": "Read gallery IDs from current Pinecone SDK listing pages",
@@ -756,5 +791,32 @@
     "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/mediapipe-compatible-install-20261116?expand=1&title=Keep%20MediaPipe%20installations%20compatible%20with%20the%20Solutions%20detector&body=%23%23%20Tickets%0A%0ANo%20linked%20issue.%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AThe%20optional%20MediaPipe%20requirement%20and%20installation%20hint%20allow%20current%20releases%20that%20no%20longer%20expose%20%60mp.solutions%60.%20Both%20the%200.10.30%20and%201.2.3%20wheels%20fail%20immediately%20when%20DeepFace%20builds%20the%20detector%2C%20before%20any%20inference%20can%20run.%0A%0AConstrain%20the%20optional%20requirement%20to%20%60mediapipe%3E%3D0.8.7.3%2C%3C0.10.30%60%2C%20and%20use%20that%20same%20command%20when%20the%20dependency%20is%20absent%20or%20its%20legacy%20Solutions%20API%20is%20unavailable.%20The%20existing%20short-range%20and%20full-range%20detector%20modes%20remain%20supported.%0A%0A%23%23%20How%20to%20test%0A%0A%5BPython%203.10%20and%203.12%20validation%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43872136361)%3A%0A%0A-%20The%20original%20implementation%20has%202%20failing%20regression%20tests%20with%204%20passing%20controls.%20Both%20actual%20incompatible%20SDK%20wheels%20reproduce%20%60AttributeError%60%3B%20the%20change%20reports%20the%20compatible%20installation%20command.%0A-%20The%20declared%20requirement%20resolves%20to%20and%20installs%200.10.21.%20Both%20native%20detector%20modes%20find%20the%20face%20in%20the%20repository's%20%60img1.jpg%60%20and%20return%20no%20faces%20for%20a%20blank%20image.%0A-%207%20unit%20tests%20pass%20on%20each%20Python%20version%2C%20including%20the%20existing%20color-order%20and%20SSD%20version%20checks.%20Black%20passes%3B%20the%20upstream%20Pylint%20and%20MyPy%20commands%20pass%20on%20Python%203.10%20(145%20source%20files).%0A",
     "upstream_url": "https://github.com/serengil/deepface/pull/1757",
     "number": 1757
+  },
+  "batch20": {
+    "batch": 20,
+    "repository": "serengil/deepface",
+    "title": "Keep gallery caches separate for different detection policies",
+    "body": "## Tickets\n\nN/A\n\n### What has been done\n\nGallery embeddings depend on `enforce_detection`, but the cache filename does not include that policy. A cache built with `False` retains whole-image fallback embeddings when a later call requests `True`. In the reverse order, switching to `False` keeps missing-embedding rows at infinite distance instead of computing the permitted fallback.\n\nInclude the detection policy in non-`skip` cache names. Default and explicit `True` use the same cache, while `detector_backend=\"skip\"` continues to share its existing cache across both values. Missing-detection rows and their infinite-distance behavior remain intact. Update the existing refresh-disabled regression's cache filename.\n\n**Cache compatibility:** existing non-`skip` caches need a one-time rebuild with `refresh_database=True` for each policy used. Existing files are left untouched. `refresh_database=False` requires the corresponding new policy cache to exist; it cannot safely reuse a legacy cache whose detection policy is unknown.\n\n### How to test\n\n- `python -m pytest -q tests/unit/test_gallery_detection_policy.py tests/unit/test_find_color_consistency.py tests/unit/test_cached_gallery_query.py`\n- [Validation on Python 3.10 and 3.12](https://github.com/Afloat16/deepface/actions/runs/43876255050): 6 regressions fail and 2 controls pass on the base revision; 18 checks pass after the fix, including real OpenCV detection, native SFace ONNX embeddings, and the existing refresh-disabled cache test using SFace in place of VGG weights.\n- The native reproduction switches a blank gallery image between distance `11.175977` with fallback enabled and `inf` with enforcement enabled, in both call orders. Matching cached reads work without listing the gallery.\n- Pylint: 10.00/10; mypy: 145 source files pass; new validation tests pass Black with line length 100.\n",
+    "branch": "fix/gallery-detection-policy-20261116",
+    "head": "3298d5b638470b52818537674d40fa7132df49af",
+    "tree": "b862e892986e0b6828ae506f02fe97f2744d1dde",
+    "base": "3478d3320b42afbc9cb59eabb89805c5e22831dd",
+    "validation_head": "69197bf4fea20e8b7fb6c4184915bdeb67e7e859",
+    "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43876255050",
+    "validation_jobs": [
+      133329982910,
+      133329982428
+    ],
+    "dedupe": {
+      "upstream_pr_heads": 496,
+      "fork_heads": 131,
+      "old_fork_diffs": 94,
+      "recognition_history_commits": 126,
+      "legacy_api_history_commits": 398,
+      "equivalent_found": false
+    },
+    "status": "ready",
+    "maintainer_can_modify": false,
+    "prefilled_url": "https://github.com/serengil/deepface/compare/master...Afloat16:fix/gallery-detection-policy-20261116?expand=1&title=Keep%20gallery%20caches%20separate%20for%20different%20detection%20policies&body=%23%23%20Tickets%0A%0AN%2FA%0A%0A%23%23%23%20What%20has%20been%20done%0A%0AGallery%20embeddings%20depend%20on%20%60enforce_detection%60%2C%20but%20the%20cache%20filename%20does%20not%20include%20that%20policy.%20A%20cache%20built%20with%20%60False%60%20retains%20whole-image%20fallback%20embeddings%20when%20a%20later%20call%20requests%20%60True%60.%20In%20the%20reverse%20order%2C%20switching%20to%20%60False%60%20keeps%20missing-embedding%20rows%20at%20infinite%20distance%20instead%20of%20computing%20the%20permitted%20fallback.%0A%0AInclude%20the%20detection%20policy%20in%20non-%60skip%60%20cache%20names.%20Default%20and%20explicit%20%60True%60%20use%20the%20same%20cache%2C%20while%20%60detector_backend%3D%22skip%22%60%20continues%20to%20share%20its%20existing%20cache%20across%20both%20values.%20Missing-detection%20rows%20and%20their%20infinite-distance%20behavior%20remain%20intact.%20Update%20the%20existing%20refresh-disabled%20regression's%20cache%20filename.%0A%0A**Cache%20compatibility%3A**%20existing%20non-%60skip%60%20caches%20need%20a%20one-time%20rebuild%20with%20%60refresh_database%3DTrue%60%20for%20each%20policy%20used.%20Existing%20files%20are%20left%20untouched.%20%60refresh_database%3DFalse%60%20requires%20the%20corresponding%20new%20policy%20cache%20to%20exist%3B%20it%20cannot%20safely%20reuse%20a%20legacy%20cache%20whose%20detection%20policy%20is%20unknown.%0A%0A%23%23%23%20How%20to%20test%0A%0A-%20%60python%20-m%20pytest%20-q%20tests%2Funit%2Ftest_gallery_detection_policy.py%20tests%2Funit%2Ftest_find_color_consistency.py%20tests%2Funit%2Ftest_cached_gallery_query.py%60%0A-%20%5BValidation%20on%20Python%203.10%20and%203.12%5D(https%3A%2F%2Fgithub.com%2FAfloat16%2Fdeepface%2Factions%2Fruns%2F43876255050)%3A%206%20regressions%20fail%20and%202%20controls%20pass%20on%20the%20base%20revision%3B%2018%20checks%20pass%20after%20the%20fix%2C%20including%20real%20OpenCV%20detection%2C%20native%20SFace%20ONNX%20embeddings%2C%20and%20the%20existing%20refresh-disabled%20cache%20test%20using%20SFace%20in%20place%20of%20VGG%20weights.%0A-%20The%20native%20reproduction%20switches%20a%20blank%20gallery%20image%20between%20distance%20%6011.175977%60%20with%20fallback%20enabled%20and%20%60inf%60%20with%20enforcement%20enabled%2C%20in%20both%20call%20orders.%20Matching%20cached%20reads%20work%20without%20listing%20the%20gallery.%0A-%20Pylint%3A%2010.00%2F10%3B%20mypy%3A%20145%20source%20files%20pass%3B%20new%20validation%20tests%20pass%20Black%20with%20line%20length%20100.%0A"
   }
 }
