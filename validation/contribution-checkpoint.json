@@ -409,10 +409,35 @@
     "run": 43862761729
   },
   "batch16": {
+    "title": "Decode embeddings returned by pgvector Python 0.5",
+    "branch": "fix/pgvector-vector-decoder-20261116",
+    "baseline": "835a37376331c46a0a7fcc1a497faa3d2767bacc",
     "validationSha": "c2ac361ebd8e328a4d32db859992af055d87d61f",
-    "validationTree": "d851528da30b2b1e1d25eae24c75c7cbdb651dbf",
-    "validationBranch": "validation/20261116-pgvector-decoder",
-    "run": 43862864470,
-    "status": "validation_success"
+    "validationRun": 43862864470,
+    "status": "ready",
+    "body": "## Tickets\nSelf-contained pgvector driver compatibility fix.\n\n## What has been done\npgvector Python 0.5 changed Psycopg's decoded `vector` value from a NumPy array to a `Vector` object. That object is not iterable, so the existing `list(value)` calls raise `TypeError: 'Vector' object is not iterable`. This breaks single-identity reads, full-gallery reads, exact searches, and identification with the current driver.\n\nUse the driver's `to_list()` method when available and retain the existing conversion for older array-returning drivers. The production change is two return-value conversions.\n\nThe driver change is recorded in [pgvector Python's 0.5.0 changelog](https://github.com/pgvector/pgvector-python/blob/master/CHANGELOG.md).\n\n## How to test\n[Validation run](https://github.com/Afloat16/deepface/actions/runs/43862864470), using real PostgreSQL 16.16, pgvector extension 0.8.7, and Psycopg 3.3.9:\n- Python 3.12 / pgvector Python 0.5.1: original source has 8 failures and 3 passing controls; patched source plus adjacent regressions has 50 passes.\n- Python 3.10 / pgvector Python 0.4.2: all 11 new cases already pass on the original source, and all 50 selected cases pass after the change.\n- Repository-pinned Pylint: 10.00/10; MyPy: 145 source files passed; test formatting passed.\n\nThe tests read actual database values through both decoder generations, verify single-row and streamed batch results, exercise public exact search and identification, and preserve missing-identity, empty-gallery, and native ANN-search behavior. Recognition is replaced at the embedding boundary; database reads, decoded values, and distance calculations are real.\n",
+    "evidence": {
+      "jobs": [
+        133283847368,
+        133283847933
+      ],
+      "legacy": {
+        "python": "3.10",
+        "pgvector": "0.4.2",
+        "before": "11 passed",
+        "after": "50 passed"
+      },
+      "current": {
+        "python": "3.12",
+        "pgvector": "0.5.1",
+        "before": "8 failed,3 passed",
+        "after": "50 passed"
+      },
+      "pylint": "10.00/10",
+      "mypy": "145 source files"
+    },
+    "dedupe": "All historical pgvector PRs and94 old fork diffs reviewed; prior1694 changes schema cache and transactions only. No decoding compatibility proposal.",
+    "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
+    "tree": "5336a52063be9d42a7de46e2c7914072b560a141"
   }
 }
