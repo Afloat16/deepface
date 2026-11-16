@@ -1,0 +1,1840 @@
+{
+  "updated": "2026-11-16",
+  "repositories": [
+    {
+      "repository": "serengil/deepface",
+      "prs": [
+        {
+          "number": 1739,
+          "url": "https://github.com/serengil/deepface/pull/1739",
+          "title": "Download GET-authorized weights when HEAD is rejected",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:43:05Z",
+          "head": "00a1a3135bc078e2a8d563122311b3835ba33e5a",
+          "head_ref": "fix/weight-get-authorization-20261116",
+          "created_at": "2026-11-16T10:15:45Z",
+          "official_ci": [
+            {
+              "id": 43847254925,
+              "url": "https://github.com/serengil/deepface/actions/runs/43847254925",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43846006420",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43846006420"
+          ]
+        },
+        {
+          "number": 1740,
+          "url": "https://github.com/serengil/deepface/pull/1740",
+          "title": "Release remote gallery connections when file searches fail",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "42233bc8c5a1dff209863fef8d985f50e83bcde1",
+          "head_ref": "fix/gallery-store-lifetime-20261116",
+          "created_at": "2026-11-16T10:19:35Z",
+          "official_ci": [
+            {
+              "id": 43847832579,
+              "url": "https://github.com/serengil/deepface/actions/runs/43847832579",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43847111561",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43847111561"
+          ]
+        },
+        {
+          "number": 1741,
+          "url": "https://github.com/serengil/deepface/pull/1741",
+          "title": "Make MySQL index replacement atomic with autocommit connections",
+          "state": "closed",
+          "merged": true,
+          "merged_at": "2026-11-16T11:54:34Z",
+          "closed_at": "2026-11-16T11:54:34Z",
+          "head": "8013b0cb57567e89095924641d19f900475e5c28",
+          "head_ref": "fix/mysql-index-transactions-20261116",
+          "created_at": "2026-11-16T10:39:20Z",
+          "official_ci": [
+            {
+              "id": 43850809298,
+              "url": "https://github.com/serengil/deepface/actions/runs/43850809298",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849280828",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43849280828"
+          ]
+        },
+        {
+          "number": 1742,
+          "url": "https://github.com/serengil/deepface/pull/1742",
+          "title": "Close owned Neo4j drivers after background relationship writes",
+          "state": "closed",
+          "merged": true,
+          "merged_at": "2026-11-16T11:55:50Z",
+          "closed_at": "2026-11-16T11:55:50Z",
+          "head": "5e31d5050a2495a44944fb4906f930c7bcf1adfd",
+          "head_ref": "fix/neo4j-search-lifetime-20261116",
+          "created_at": "2026-11-16T10:41:22Z",
+          "official_ci": [
+            {
+              "id": 43851104271,
+              "url": "https://github.com/serengil/deepface/actions/runs/43851104271",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43849822013",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43849822013"
+          ]
+        },
+        {
+          "number": 1743,
+          "url": "https://github.com/serengil/deepface/pull/1743",
+          "title": "Compute similarity-search confidence using the verification threshold",
+          "state": "closed",
+          "merged": true,
+          "merged_at": "2026-11-16T11:57:42Z",
+          "closed_at": "2026-11-16T11:57:42Z",
+          "head": "b32b56e480fcb8ac99a57cba4a67371107bfe3cb",
+          "head_ref": "fix/similarity-search-confidence-20261116",
+          "created_at": "2026-11-16T10:48:01Z",
+          "official_ci": [
+            {
+              "id": 43852073489,
+              "url": "https://github.com/serengil/deepface/actions/runs/43852073489",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851346167",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43851346167"
+          ]
+        },
+        {
+          "number": 1744,
+          "url": "https://github.com/serengil/deepface/pull/1744",
+          "title": "Scope PostgreSQL streaming reads to explicit transactions",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:58:52Z",
+          "head": "a440261ed0e45692df80e32ab9a719f1a9e5fee3",
+          "head_ref": "fix/postgres-cursor-transactions-20261116",
+          "created_at": "2026-11-16T10:52:28Z",
+          "official_ci": [
+            {
+              "id": 43852717131,
+              "url": "https://github.com/serengil/deepface/actions/runs/43852717131",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43851968687",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43851968687"
+          ]
+        },
+        {
+          "number": 1745,
+          "url": "https://github.com/serengil/deepface/pull/1745",
+          "title": "Initialize MongoDB identity counters atomically",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:59:24Z",
+          "head": "7410c21eb2c17f2ec5d2eeedea670ee6f504ad4b",
+          "head_ref": "fix/mongo-counter-initialization-20261116",
+          "created_at": "2026-11-16T11:01:57Z",
+          "official_ci": [
+            {
+              "id": 43854113386,
+              "url": "https://github.com/serengil/deepface/actions/runs/43854113386",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853485801",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43853485801"
+          ]
+        },
+        {
+          "number": 1746,
+          "url": "https://github.com/serengil/deepface/pull/1746",
+          "title": "Decode escaped database names in MySQL connection URIs",
+          "state": "closed",
+          "merged": true,
+          "merged_at": "2026-11-16T11:59:46Z",
+          "closed_at": "2026-11-16T11:59:46Z",
+          "head": "00e646f72aee4d18e692a4c91879bb1e923342a3",
+          "head_ref": "fix/mysql-uri-database-20261116",
+          "created_at": "2026-11-16T11:05:23Z",
+          "official_ci": [
+            {
+              "id": 43854636585,
+              "url": "https://github.com/serengil/deepface/actions/runs/43854636585",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43853728345",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43853728345"
+          ]
+        },
+        {
+          "number": 1747,
+          "url": "https://github.com/serengil/deepface/pull/1747",
+          "title": "Index gallery filters and MongoDB identity lookups",
+          "state": "closed",
+          "merged": true,
+          "merged_at": "2026-11-16T11:51:19Z",
+          "closed_at": "2026-11-16T11:51:19Z",
+          "head": "cad3fe3621f66aef6dcbfb9596b34d6823e92d62",
+          "head_ref": "perf/gallery-read-indexes-20261116",
+          "created_at": "2026-11-16T11:16:01Z",
+          "official_ci": [
+            {
+              "id": 43856239657,
+              "url": "https://github.com/serengil/deepface/actions/runs/43856239657",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43855316172",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43855316172"
+          ]
+        },
+        {
+          "number": 1748,
+          "url": "https://github.com/serengil/deepface/pull/1748",
+          "title": "Reserve MongoDB identity IDs once per registration batch",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:49:23Z",
+          "head": "ed69117ed180510b1dcb6850bbd53621e6b27718",
+          "head_ref": "perf/mongo-identity-blocks-20261116",
+          "created_at": "2026-11-16T11:24:07Z",
+          "official_ci": [
+            {
+              "id": 43857432885,
+              "url": "https://github.com/serengil/deepface/actions/runs/43857432885",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43856374871",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43856374871"
+          ]
+        },
+        {
+          "number": 1749,
+          "url": "https://github.com/serengil/deepface/pull/1749",
+          "title": "Batch FAISS face queries and resolve shared gallery identities together",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:46:02Z",
+          "head": "8f2fb8621d383e58f06bf2a55da9c9973d265ac8",
+          "head_ref": "perf/faiss-batched-queries-20261116",
+          "created_at": "2026-11-16T11:35:03Z",
+          "official_ci": [
+            {
+              "id": 43859037893,
+              "url": "https://github.com/serengil/deepface/actions/runs/43859037893",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43858024543",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43858024543"
+          ]
+        },
+        {
+          "number": 1750,
+          "url": "https://github.com/serengil/deepface/pull/1750",
+          "title": "Batch detected face embeddings during verification",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T11:47:50Z",
+          "head": "d934b37bd54a0c6d8b1b4556e08ce9f6dafb56e8",
+          "head_ref": "perf/verify-face-batching-20261116",
+          "created_at": "2026-11-16T11:45:17Z",
+          "official_ci": [
+            {
+              "id": 43860530814,
+              "url": "https://github.com/serengil/deepface/actions/runs/43860530814",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43859782785",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43859782785"
+          ]
+        },
+        {
+          "number": 1751,
+          "url": "https://github.com/serengil/deepface/pull/1751",
+          "title": "Keep high-dimensional embeddings usable in pgvector",
+          "state": "closed",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": "2026-11-16T12:06:36Z",
+          "head": "045a318e5fcb697b3bb0102e8fff42fdbf575562",
+          "head_ref": "fix/pgvector-dimension-limit-20261116",
+          "created_at": "2026-11-16T12:04:10Z",
+          "official_ci": [
+            {
+              "id": 43863248583,
+              "url": "https://github.com/serengil/deepface/actions/runs/43863248583",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862495314",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43862495314"
+          ]
+        },
+        {
+          "number": 1752,
+          "url": "https://github.com/serengil/deepface/pull/1752",
+          "title": "Decode embeddings returned by pgvector Python 0.5",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "8547d3b76935a15bd63e55662b997dd0e876b041",
+          "head_ref": "fix/pgvector-vector-decoder-20261116",
+          "created_at": "2026-11-16T12:20:20Z",
+          "official_ci": [
+            {
+              "id": 43865677103,
+              "url": "https://github.com/serengil/deepface/actions/runs/43865677103",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43862864470",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43862864470"
+          ]
+        },
+        {
+          "number": 1753,
+          "url": "https://github.com/serengil/deepface/pull/1753",
+          "title": "Read gallery IDs from current Pinecone SDK listing pages",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "9f4926f88b536972ecd929d582b6554c6f84b2fd",
+          "head_ref": "fix/pinecone-listing-pages-20261116",
+          "created_at": "2026-11-16T12:28:42Z",
+          "official_ci": [
+            {
+              "id": 43866943360,
+              "url": "https://github.com/serengil/deepface/actions/runs/43866943360",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866246592",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43866246592"
+          ]
+        },
+        {
+          "number": 1754,
+          "url": "https://github.com/serengil/deepface/pull/1754",
+          "title": "Preserve mixed-case image paths during registration",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "d9cfd2fae6f2e5b72f18f5335a863f9c70138cc8",
+          "head_ref": "fix/registration-path-case-20261116",
+          "created_at": "2026-11-16T12:29:17Z",
+          "official_ci": [
+            {
+              "id": 43867024997,
+              "url": "https://github.com/serengil/deepface/actions/runs/43867024997",
+              "name": "Tests",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866203772",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43866203772"
+          ]
+        },
+        {
+          "number": 1755,
+          "url": "https://github.com/serengil/deepface/pull/1755",
+          "title": "Close Pinecone request clients after database operations",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "f93ded9b3df91295441a9b8fe617b943fb0e5c29",
+          "head_ref": "fix/pinecone-client-lifetime-20261116",
+          "created_at": "2026-11-16T12:30:58Z",
+          "official_ci": [
+            {
+              "id": 43867284328,
+              "url": "https://github.com/serengil/deepface/actions/runs/43867284328",
+              "name": "Tests",
+              "status": "in_progress",
+              "conclusion": null
+            }
+          ],
+          "validation_run": "https://github.com/Afloat16/deepface/actions/runs/43866791770",
+          "official_ci_scope": "upstream lint/type checks; unit execution disabled",
+          "validation_links": [
+            "https://github.com/Afloat16/deepface/actions/runs/43866791770"
+          ]
+        }
+      ],
+      "counts": {
+        "submitted": 17,
+        "merged": 5,
+        "open": 5,
+        "closed_unmerged": 7,
+        "effective": 10
+      }
+    },
+    {
+      "repository": "Unstructured-IO/unstructured",
+      "prs": [
+        {
+          "number": 4777,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4777",
+          "title": "fix: keep exported embedding vectors independent of source elements",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "24517e9d67d46f6a7e1604cd403693e39c1a8273",
+          "head_ref": "Afloat16/isolate-serialized-embeddings-20261116",
+          "created_at": "2026-11-16T08:04:00Z",
+          "official_ci": [
+            {
+              "id": 43828307174,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828307174",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828307152,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828307152",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828307184,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828307184",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828307180,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828307180",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43827757000"
+          ]
+        },
+        {
+          "number": 4778,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4778",
+          "title": "fix: preserve code indentation and literal text in HTML exports",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "dff4dbf46f24356adac1f05e2a3150c841bcbb3f",
+          "head_ref": "Afloat16/preserve-html-code-blocks-20261116",
+          "created_at": "2026-11-16T08:04:22Z",
+          "official_ci": [
+            {
+              "id": 43828352670,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828352670",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828352664,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828352664",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828352667,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828352667",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43828352565,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43828352565",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43827757000"
+          ]
+        },
+        {
+          "number": 4779,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4779",
+          "title": "fix: keep NDJSON records on one line when indentation is requested",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "976fc61df86aabd608106e51b2a41caa1214ab77",
+          "head_ref": "Afloat16/keep-ndjson-records-on-one-line-20261116",
+          "created_at": "2026-11-16T08:14:05Z",
+          "official_ci": [
+            {
+              "id": 43829605178,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829605178",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829604931,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829604931",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829604770,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829604770",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829604838,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829604838",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43829291509"
+          ]
+        },
+        {
+          "number": 4780,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4780",
+          "title": "perf: stop text extraction after finding the requested match",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "572d64cfb877379f4ee7064c7e1dc69ad23f774a",
+          "head_ref": "Afloat16/stop-regex-scan-at-requested-match-20261116",
+          "created_at": "2026-11-16T08:14:07Z",
+          "official_ci": [
+            {
+              "id": 43829608363,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829608363",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829608585,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829608585",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829608420,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829608420",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43829608422,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43829608422",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43829291509"
+          ]
+        },
+        {
+          "number": 4781,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4781",
+          "title": "fix: keep mutable metadata independent between split text chunks",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "66edadd841c26f2f8e113d312107f1ce08d20740",
+          "head_ref": "Afloat16/isolate-split-chunk-metadata-20261116",
+          "created_at": "2026-11-16T08:30:08Z",
+          "official_ci": [
+            {
+              "id": 43831730042,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831730042",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831729815,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831729815",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831729864,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831729864",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831729795,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831729795",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43831196050"
+          ]
+        },
+        {
+          "number": 4782,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4782",
+          "title": "fix: retain coordinates when classifying text as an email address",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "4ef2221d28a0c5c20b6fc38bb79d87afe0313302",
+          "head_ref": "Afloat16/retain-email-text-coordinates-20261116",
+          "created_at": "2026-11-16T08:30:10Z",
+          "official_ci": [
+            {
+              "id": 43831733915,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831733915",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831733863,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831733863",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831733959,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831733959",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43831734001,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43831734001",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43831196050"
+          ]
+        },
+        {
+          "number": 4783,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4783",
+          "title": "fix: preserve element fields when flattening DataFrame metadata",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "056edb6d46b3f260a6c2acf2163ea8192c5c6879",
+          "head_ref": "Afloat16/preserve-dataframe-element-columns-20261116",
+          "created_at": "2026-11-16T08:41:11Z",
+          "official_ci": [
+            {
+              "id": 43833254361,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833254361",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833254658,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833254658",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833254318,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833254318",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833254457,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833254457",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43832948454"
+          ]
+        },
+        {
+          "number": 4784,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4784",
+          "title": "fix: preserve HTML image payloads from parameterized data URLs",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "420a1544c2c45d799a42c074c15b234982a18b50",
+          "head_ref": "Afloat16/parse-complete-html-image-data-urls-20261116",
+          "created_at": "2026-11-16T08:41:13Z",
+          "official_ci": [
+            {
+              "id": 43833257171,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833257171",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833257345,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833257345",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833257181,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833257181",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833257401,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833257401",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43832948454"
+          ]
+        },
+        {
+          "number": 4785,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4785",
+          "title": "fix: reject lossy metadata column collisions in Prodigy CSV export",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "27ba069901c2b9135d747fd41fdbe3ae22ef59a0",
+          "head_ref": "Afloat16/validate-prodigy-csv-column-names-20261116",
+          "created_at": "2026-11-16T08:44:59Z",
+          "official_ci": [
+            {
+              "id": 43833995938,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833995938",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833995836,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833995836",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833995880,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833995880",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43833995988,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43833995988",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43833221474"
+          ]
+        },
+        {
+          "number": 4786,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4786",
+          "title": "fix: preserve repeated quoted CSV headers without a final newline",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "7e9f39dfbf6578a3fdcadfc738df7e6ca803c289",
+          "head_ref": "Afloat16/preserve-quoted-csv-headers-at-eof-20261116",
+          "created_at": "2026-11-16T08:45:01Z",
+          "official_ci": [
+            {
+              "id": 43834040168,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834040168",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834040218,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834040218",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834040392,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834040392",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834040244,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834040244",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43833221474"
+          ]
+        },
+        {
+          "number": 4787,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4787",
+          "title": "fix: encode custom identifiers in LabelBox staging URLs",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "2adbb2d96412ce88c3073db068a691caa5dbb0ea",
+          "head_ref": "Afloat16/encode-labelbox-filename-urls-20261116",
+          "created_at": "2026-11-16T08:51:17Z",
+          "official_ci": [
+            {
+              "id": 43834652871,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834652871",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834652859,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834652859",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834652707,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834652707",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43834652632,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43834652632",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43834042923"
+          ]
+        },
+        {
+          "number": 4788,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4788",
+          "title": "perf: bound paragraph detection to its requested line sample",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "a3e8b9ad1a3d6b0f37c082581de7e31fe422e5fa",
+          "head_ref": "Afloat16/bound-paragraph-grouper-sampling-20261116",
+          "created_at": "2026-11-16T08:55:35Z",
+          "official_ci": [
+            {
+              "id": 43835248537,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43835248537",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43835248661,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43835248661",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43835248488,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43835248488",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43835248699,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43835248699",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43834484507"
+          ]
+        },
+        {
+          "number": 4789,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4789",
+          "title": "fix: retain requested headers from header-only Excel worksheets",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "418f89aba6af7bc41ae17d82349bf509ac43b98f",
+          "head_ref": "Afloat16/retain-header-only-xlsx-worksheets-20261116",
+          "created_at": "2026-11-16T09:02:00Z",
+          "official_ci": [
+            {
+              "id": 43836149100,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836149100",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836149156,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836149156",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836149468,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836149468",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836149173,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836149173",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43835732537"
+          ]
+        },
+        {
+          "number": 4790,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4790",
+          "title": "perf: skip discarded document detection in per-element language mode",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "9fdfe6ac98a13a00a9df7f9d3e873c6fe9eeed7b",
+          "head_ref": "Afloat16/skip-unused-document-language-detection-20261116",
+          "created_at": "2026-11-16T09:04:05Z",
+          "official_ci": [
+            {
+              "id": 43836455448,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836455448",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836454603,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836454603",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836454737,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836454737",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43836455299,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43836455299",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43836054403"
+          ]
+        },
+        {
+          "number": 4791,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4791",
+          "title": "fix: preserve bold and italic text inside DOCX hyperlinks",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "7b245ec61f069471316693573bbb4ffdb7193a9f",
+          "head_ref": "Afloat16/retain-docx-hyperlink-emphasis-20261116",
+          "created_at": "2026-11-16T09:09:59Z",
+          "official_ci": [
+            {
+              "id": 43837303365,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43837303365",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43837303394,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43837303394",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43837303156,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43837303156",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43837303406,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43837303406",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43836963378"
+          ]
+        },
+        {
+          "number": 4792,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4792",
+          "title": "fix: accept binary upload streams through the partition API SDK",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "a31875159cfe792a62d76503f595b57e50b03245",
+          "head_ref": "Afloat16/accept-api-binary-upload-streams-20261116",
+          "created_at": "2026-11-16T09:18:34Z",
+          "official_ci": [
+            {
+              "id": 43838577926,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43838577926",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43838577978,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43838577978",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43838577850,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43838577850",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43838577873,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43838577873",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43838198205"
+          ]
+        },
+        {
+          "number": 4793,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4793",
+          "title": "perf: release consumed native nodes during XML streaming",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "60f2cb713ae237a6c1b64f67b7e0488096e76475",
+          "head_ref": "Afloat16/release-consumed-xml-tree-nodes-20261116",
+          "created_at": "2026-11-16T09:24:15Z",
+          "official_ci": [
+            {
+              "id": 43839433156,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43839433156",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43839433182,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43839433182",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43839433233,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43839433233",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43839433236,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43839433236",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43838901589"
+          ]
+        },
+        {
+          "number": 4794,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4794",
+          "title": "fix: keep server redirect queries separate from initial request parameters",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "7f461ba5742bdf3392dba5666e79e9dfb93017f7",
+          "head_ref": "Afloat16/avoid-replaying-redirect-query-params-20261116",
+          "created_at": "2026-11-16T09:28:53Z",
+          "official_ci": [
+            {
+              "id": 43840139141,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43840139141",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43840139208,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43840139208",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43840139140,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43840139140",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43840139271,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43840139271",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43839379263"
+          ]
+        },
+        {
+          "number": 4795,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4795",
+          "title": "fix: preserve reference CSV cell text in table accuracy evaluation",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "e574b5ee10357f87e1bedc6a9206dc4f5d19d5b0",
+          "head_ref": "Afloat16/preserve-table-reference-csv-cell-text-20261116",
+          "created_at": "2026-11-16T09:48:15Z",
+          "official_ci": [
+            {
+              "id": 43843052904,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43843052904",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43843052845,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43843052845",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43843052912,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43843052912",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43843052817,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43843052817",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43840031999"
+          ]
+        },
+        {
+          "number": 4796,
+          "url": "https://github.com/Unstructured-IO/unstructured/pull/4796",
+          "title": "fix: isolate Vertex AI credentials within each embedding client",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "99920c63f0d6364ac0fa06422b925ef767d3e843",
+          "head_ref": "Afloat16/isolate-vertex-client-credentials-20261116",
+          "created_at": "2026-11-16T09:55:16Z",
+          "official_ci": [
+            {
+              "id": 43844127760,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43844127760",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43844127844,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43844127844",
+              "name": "Partition Benchmark",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43844127833,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43844127833",
+              "name": "CodeQL",
+              "status": "completed",
+              "conclusion": "action_required"
+            },
+            {
+              "id": 43844127883,
+              "url": "https://github.com/Unstructured-IO/unstructured/actions/runs/43844127883",
+              "name": "Security",
+              "status": "completed",
+              "conclusion": "action_required"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/unstructured/actions/runs/43843777142"
+          ]
+        }
+      ],
+      "counts": {
+        "submitted": 20,
+        "merged": 0,
+        "open": 20,
+        "closed_unmerged": 0,
+        "effective": 20
+      }
+    },
+    {
+      "repository": "AgriciDaniel/claude-seo",
+      "prs": [
+        {
+          "number": 488,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/488",
+          "title": "fix(page_checks): match the JSON-LD media type exactly",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "0d2a2aa74ccd22cef337bb5c620fde81e76cc08e",
+          "head_ref": "fix/20261116-jsonld-media-type",
+          "created_at": "2026-11-16T06:07:07Z",
+          "official_ci": [
+            {
+              "id": 43814611193,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43814611193",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 489,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/489",
+          "title": "fix(preload): avoid scoring empty or unreadable speculation rule sets",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "1935bd10df52a66a6a826fc1860a65c4eec7b35c",
+          "head_ref": "fix/20261116-speculation-rule-score",
+          "created_at": "2026-11-16T06:12:18Z",
+          "official_ci": [
+            {
+              "id": 43815174861,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43815174861",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 490,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/490",
+          "title": "fix(schema): reject non-JSON numeric constants in page markup",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "b7f55179187e6bf3f721458d5edc7396bc3c4641",
+          "head_ref": "fix/20261116-jsonld-nonfinite",
+          "created_at": "2026-11-16T06:13:53Z",
+          "official_ci": [
+            {
+              "id": 43815341877,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43815341877",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 491,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/491",
+          "title": "fix(sitemap): retain fractional seconds when ordering lastmod values",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "d83653725a960b75205f94ddd5ddb82368e7c2c0",
+          "head_ref": "fix/20261116-sitemap-lastmod-fractions",
+          "created_at": "2026-11-16T06:14:31Z",
+          "official_ci": [
+            {
+              "id": 43815416245,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43815416245",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 496,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/496",
+          "title": "fix(sitemap): compare internationalized hosts by their IDNA identity",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "9f46605eb94695ae969d5e949ffafb85eaaa0ee6",
+          "head_ref": "fix/20261116-sitemap-idna-identity",
+          "created_at": "2026-11-16T06:39:34Z",
+          "official_ci": [
+            {
+              "id": 43818276226,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43818276226",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43816125889",
+            "https://github.com/Afloat16/claude-seo/actions/runs/43816741801"
+          ]
+        },
+        {
+          "number": 497,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/497",
+          "title": "fix(content): retain phrase matches across text layout changes",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "ab2b4ae79da7c0f7aabda7a14c3df068dc323345",
+          "head_ref": "fix/20261116-content-phrase-layout",
+          "created_at": "2026-11-16T06:40:43Z",
+          "official_ci": [
+            {
+              "id": 43818418815,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43818418815",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43816125889",
+            "https://github.com/Afloat16/claude-seo/actions/runs/43816741801"
+          ]
+        },
+        {
+          "number": 498,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/498",
+          "title": "fix(transport): respect strict-dynamic when grading script sources",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "9340066acc8a644f3ec00623ca5b72cfa2944383",
+          "head_ref": "fix/20261116-csp-strict-dynamic",
+          "created_at": "2026-11-16T06:41:25Z",
+          "official_ci": [
+            {
+              "id": 43818500676,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43818500676",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 499,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/499",
+          "title": "fix(content): extract text from HTML input files before scoring",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "5b64e098412fc8162fcdfd194e98c61f31ab5847",
+          "head_ref": "fix/20261116-content-html-input",
+          "created_at": "2026-11-16T06:42:18Z",
+          "official_ci": [
+            {
+              "id": 43818603538,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43818603538",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 502,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/502",
+          "title": "fix(sitemap): keep index locations out of page URL totals",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "ee3268037b0d9f4a97418e819897cdcbd2ca409b",
+          "head_ref": "fix/20261116-sitemap-page-totals",
+          "created_at": "2026-11-16T06:53:28Z",
+          "official_ci": [
+            {
+              "id": 43819898498,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43819898498",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 503,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/503",
+          "title": "fix(transport): reject valued includeSubDomains directives",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "8562a8987455db08c0b7f8b773ad09dfdb5f413d",
+          "head_ref": "fix/20261116-hsts-valueless-directive",
+          "created_at": "2026-11-16T06:55:12Z",
+          "official_ci": [
+            {
+              "id": 43820102226,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43820102226",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 504,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/504",
+          "title": "fix(schema): preserve Course list eligibility",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "ed152f7344de0477fec9a938b59fb7caf11b018c",
+          "head_ref": "fix/20261116-course-list-eligibility",
+          "created_at": "2026-11-16T07:00:00Z",
+          "official_ci": [
+            {
+              "id": 43820667834,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43820667834",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 505,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/505",
+          "title": "fix(agentic): keep robots groups across non-rule records",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "2d6506046bc489aa374d2b6688f563fdaa06e22e",
+          "head_ref": "fix/20261116-robots-group-records",
+          "created_at": "2026-11-16T07:06:40Z",
+          "official_ci": [
+            {
+              "id": 43822433560,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43822433560",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 506,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/506",
+          "title": "fix(matomo): fetch page views from the Actions metrics",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "f95f181b2b81708e2da573741121fb646ec67e99",
+          "head_ref": "fix/20261116-matomo-pageview-metrics",
+          "created_at": "2026-11-16T07:18:47Z",
+          "official_ci": [
+            {
+              "id": 43823248413,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43823248413",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 507,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/507",
+          "title": "fix(pagespeed): report Lighthouse runtime failures",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "18e27060c14fc96f8b708f4ba7f7c2b35fc8e968",
+          "head_ref": "fix/20261116-psi-runtime-failures",
+          "created_at": "2026-11-16T07:19:27Z",
+          "official_ci": [
+            {
+              "id": 43823026861,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43823026861",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 508,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/508",
+          "title": "fix(agentic): keep unavailable missing-page probes inconclusive",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "087e01c8c63d81971d72e5ffd25079b001fdf0d4",
+          "head_ref": "fix/20261116-unknown-path-status",
+          "created_at": "2026-11-16T07:20:27Z",
+          "official_ci": [
+            {
+              "id": 43823150580,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43823150580",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 509,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/509",
+          "title": "fix(drift): ignore independent JSON-LD block ordering",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "6235a18b5380c1ce431966ecfcf86ce7493fd1a6",
+          "head_ref": "fix/20261116-drift-schema-block-order",
+          "created_at": "2026-11-16T07:21:00Z",
+          "official_ci": [
+            {
+              "id": 43823222870,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43823222870",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": []
+        },
+        {
+          "number": 510,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/510",
+          "title": "fix(agentic): verify Markdown delivery response representations",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "17008868791a164e2ac9e70d3f48c4a4882a71ee",
+          "head_ref": "fix/20261116-markdown-representations",
+          "created_at": "2026-11-16T07:36:01Z",
+          "official_ci": [
+            {
+              "id": 43824999153,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43824999153",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43823686345"
+          ]
+        },
+        {
+          "number": 511,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/511",
+          "title": "fix(content): recognize named Markdown footnote citations",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "af9e404a4786de4512a0967f860580e49db5eb0b",
+          "head_ref": "fix/20261116-named-footnote-citations",
+          "created_at": "2026-11-16T07:44:58Z",
+          "official_ci": [
+            {
+              "id": 43825989491,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43825989491",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43824699459",
+            "https://github.com/Afloat16/claude-seo/actions/runs/43826132849"
+          ]
+        },
+        {
+          "number": 512,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/512",
+          "title": "fix(ucp): align profile registry validation with the specification",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "d9c636396495013d73362e9648796ea3ea91ed63",
+          "head_ref": "fix/20261116-ucp-profile-registries",
+          "created_at": "2026-11-16T07:49:54Z",
+          "official_ci": [
+            {
+              "id": 43826572180,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43826572180",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43824699459",
+            "https://github.com/Afloat16/claude-seo/actions/runs/43826132849"
+          ]
+        },
+        {
+          "number": 513,
+          "url": "https://github.com/AgriciDaniel/claude-seo/pull/513",
+          "title": "fix(ucp): validate protocol and component version dates",
+          "state": "open",
+          "merged": false,
+          "merged_at": null,
+          "closed_at": null,
+          "head": "1022204b644c6fb73ec994338d8cb89ddd7bb814",
+          "head_ref": "fix/20261116-ucp-version-dates",
+          "created_at": "2026-11-16T07:51:48Z",
+          "official_ci": [
+            {
+              "id": 43826801623,
+              "url": "https://github.com/AgriciDaniel/claude-seo/actions/runs/43826801623",
+              "name": "CI",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ],
+          "validation_links": [
+            "https://github.com/Afloat16/claude-seo/actions/runs/43824699459",
+            "https://github.com/Afloat16/claude-seo/actions/runs/43826132849"
+          ]
+        }
+      ],
+      "counts": {
+        "submitted": 20,
+        "merged": 0,
+        "open": 20,
+        "closed_unmerged": 0,
+        "effective": 20
+      }
+    }
+  ]
+}
