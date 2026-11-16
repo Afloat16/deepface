@@ -105,7 +105,9 @@ def test_concurrent_reader_only_observes_complete_index_versions(mysql_client):
     thread = Thread(target=publish, daemon=True)
     thread.start()
     observed = []
-    complete_versions = {(len(value), sha256(value).hexdigest()) for value in (old_index, new_index)}
+    complete_versions = {
+        (len(value), sha256(value).hexdigest()) for value in (old_index, new_index)
+    }
     deadline = monotonic() + 15
     try:
         while not finished.is_set() and monotonic() < deadline:
