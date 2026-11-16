@@ -1,0 +1,19 @@
+name: Native Milvus registration probe
+on:
+  push:
+    branches: [validation/milvus-registration-probe-20261116]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the real SDK and native database
+        run: python -m pip install pymilvus==2.6.9 milvus-lite==2.5.1 'setuptools<81'
+      - name: Observe repeated writes and identity lookups
+        run: python validation/milvus_registration_probe.py
