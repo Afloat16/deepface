@@ -45,7 +45,7 @@ jobs:
       - name: Record legacy SDK listing and connection implementation
         if: matrix.python == '3.10'
         run: |
-          python -c "import inspect, pinecone; print(inspect.getsource(pinecone.Index.list)); print(inspect.getsource(pinecone.Index.close)); print(inspect.getsource(pinecone.Pinecone.Index))"
+          python -c "import inspect, pinecone; cls = type(pinecone.Pinecone(api_key='fixture', host='http://127.0.0.1:1').Index(host='http://127.0.0.1:1')); print(inspect.getsource(cls.list)); print(inspect.getsource(cls.close)); print(inspect.getsource(pinecone.Pinecone.Index))"
       - name: Fetch pinned baseline
         run: git fetch --depth=1 origin 835a37376331c46a0a7fcc1a497faa3d2767bacc
       - name: Reproduce native SDK listing failures
